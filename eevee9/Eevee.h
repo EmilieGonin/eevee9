@@ -27,7 +27,7 @@ public:
 	~Eevee();
 	void evolve();
 	bool canEvolve();
-	void addStone(std::string);
+	void addLoot(int);
 	bool escape();
 	sf::Sprite getSprite();
 	void update();

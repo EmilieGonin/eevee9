@@ -28,14 +28,14 @@ bool Eevee::canEvolve() {
 	}
 }
 
-void Eevee::addStone(std::string stone) {
-	if (stone == "fire") {
+void Eevee::addLoot(int loot) {
+	if (loot == 1) {
 		this->firestone++;
 	}
-	else if (stone == "water") {
+	else if (loot == 2) {
 		this->waterstone++;
 	}
-	else if (stone == "thunder") {
+	else if (loot == 3) {
 		this->thunderstone++;
 	}
 }
