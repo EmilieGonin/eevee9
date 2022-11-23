@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "Eevee.h"
+#include <iostream>
 
 int main()
 {
@@ -7,7 +9,7 @@ int main()
     window.setFramerateLimit(60);
 
     sf::Texture texture;
-    if (!texture.loadFromFile("eevee.png"))
+    if (!texture.loadFromFile("img/eevee.png"))
     {
         // error...
     }
@@ -24,6 +26,8 @@ int main()
     int iter = 0;
     int count = 0;
 
+    Eevee player(texture);
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -34,7 +38,7 @@ int main()
         }
 
         window.clear();
-        window.draw(sprite2);
+        window.draw(player.getSprite());
         window.display();
     }
 
