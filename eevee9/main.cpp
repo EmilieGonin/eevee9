@@ -14,18 +14,6 @@ int main()
         // error...
     }
 
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(69, 27, 20, 20));
-
-    sf::Sprite sprite2;
-    sprite2.setTexture(texture);
-    sprite2.setTextureRect(sf::IntRect(96, 27, 20, 20));
-    sprite2.scale(10, 10);
-
-    int iter = 0;
-    int count = 0;
-
     Eevee player = Eevee(texture);
 
     while (window.isOpen())
