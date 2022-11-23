@@ -130,11 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Project 5\Project 5\eeveelution.cpp" />
+    <ClCompile Include="..\..\Project 5\Project 5\Enemy.cpp" />
     <ClCompile Include="Eevee.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Project 5\Project 5\eeveelution.h" />
+    <ClInclude Include="..\..\Project 5\Project 5\Enemy.h" />
     <ClInclude Include="Eevee.h" />
     <ClInclude Include="Entity.h" />
   </ItemGroup>
