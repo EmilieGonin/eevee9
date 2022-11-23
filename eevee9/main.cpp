@@ -9,7 +9,7 @@ int main()
     window.setFramerateLimit(60);
 
     sf::Texture texture;
-    if (!texture.loadFromFile("img/eevee.png"))
+    if (!texture.loadFromFile("img/moving.png"))
     {
         // error...
     }
@@ -26,7 +26,7 @@ int main()
     int iter = 0;
     int count = 0;
 
-    Eevee player(texture);
+    Eevee player = Eevee(texture);
 
     while (window.isOpen())
     {
@@ -38,6 +38,7 @@ int main()
         }
 
         window.clear();
+        player.update();
         window.draw(player.getSprite());
         window.display();
     }

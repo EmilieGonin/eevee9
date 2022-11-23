@@ -23,7 +23,7 @@ protected:
 	//int y;
 public:
 	Eevee();
-	Eevee(sf::Texture);
+	Eevee(sf::Texture &);
 	~Eevee();
 	void evolve();
 	bool canEvolve();

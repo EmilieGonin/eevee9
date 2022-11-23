@@ -59,9 +59,9 @@ void Eevee::update()
     std::cout << this->count;
     if (this->count % 20 == 0)
     {
-        this->iter = (this->iter + 1) % 4;
+        this->iter = (this->iter + 1) % 3;
         std::cout << "oui";
-        this->sprite.setTextureRect(sf::IntRect(this->iter * 132.5,132.5 * this->orientation,132.5,132.5));
+        this->sprite.setTextureRect(sf::IntRect(this->iter * 136.3,126.5 * this->orientation,136.3,126.5));
         this->count = 0;
     }
     this->count++;
