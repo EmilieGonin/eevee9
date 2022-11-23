@@ -22,10 +22,6 @@ protected:
 	int firestone;
 	int waterstone;
 	int thunderstone;
-
-	//Coordonates
-	//int x;
-	//int y;
 public:
 	Eevee(sf::Texture &);
 	~Eevee();
