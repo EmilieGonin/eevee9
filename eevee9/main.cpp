@@ -7,7 +7,7 @@ int main()
     window.setFramerateLimit(60);
 
     sf::Texture texture;
-    if (!texture.loadFromFile("eevee.png"))
+    if (!texture.loadFromFile("img/eevee.png"))
     {
         // error...
     }
