@@ -5,9 +5,6 @@ protected:
 	int hp;
 	int dodgerate;
 
-	//Stones
-	int firestone;
-	int waterstone;
-	int thunderstone;
+	//Add texture and sprite
 };
 

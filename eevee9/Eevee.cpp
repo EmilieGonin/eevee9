@@ -1,7 +1,6 @@
 #include "Eevee.h"
 #include <iostream>
 
-Eevee::Eevee() {};
 Eevee::Eevee(sf::Texture &texture) {
 	this->hp = 55;
 	this->catchrate = 6;

@@ -18,11 +18,15 @@ protected:
 	int iter = 0;
 	sf::Sprite sprite;
 
+	//Stones
+	int firestone;
+	int waterstone;
+	int thunderstone;
+
 	//Coordonates
 	//int x;
 	//int y;
 public:
-	Eevee();
 	Eevee(sf::Texture &);
 	~Eevee();
 	void evolve();
