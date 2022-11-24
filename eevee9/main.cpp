@@ -1,46 +1,40 @@
+
+
+#include "Utils.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Eevee.h"
+#include "Game.h"
 #include <iostream>
 
+
+//void checkPosition() {
+//
+//}
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Epic 9");
-    window.setFramerateLimit(60);
+    
+    Game game;
 
     sf::Texture texture;
-    if (!texture.loadFromFile("img/moving.png"))
+    if (!texture.loadFromFile("img/trainer.png"))
     {
         // error...
     }
 
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(69, 27, 20, 20));
-
-    sf::Sprite sprite2;
-    sprite2.setTexture(texture);
-    sprite2.setTextureRect(sf::IntRect(96, 27, 20, 20));
-    sprite2.scale(10, 10);
-
-    int iter = 0;
-    int count = 0;
-
     Eevee player = Eevee(texture);
 
-    while (window.isOpen())
+    
+    while (game.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
 
-        window.clear();
+        game.clear();
+        player.setOrientation(game.update(player.getOrientation()));
         player.update();
-        window.draw(player.getSprite());
-        window.display();
+        player.move();
+        game.draw(player.getSprite());
+        
+        game.display();
     }
 
     return 0;

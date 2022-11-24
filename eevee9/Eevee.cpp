@@ -50,20 +50,34 @@ bool Eevee::escape() {
 
 sf::Sprite Eevee::getSprite()
 {
-
-    return sprite;
+    return this-> sprite;
 }
 
 void Eevee::update()
 {
-    std::cout << this->count;
     if (this->count % 20 == 0)
     {
         this->iter = (this->iter + 1) % 4;
-        std::cout << "oui";
+      
         this->sprite.setTextureRect(sf::IntRect(this->iter * 132.5,132.5 * this->orientation,132.5,132.5));
         this->count = 0;
     }
     this->count++;
 }
 
+
+void Eevee::setOrientation(int orientation)
+{
+	std::cout << this->orientation;
+	this->orientation = orientation;
+}
+
+int Eevee::getOrientation()
+{
+	return this->orientation;
+}
+
+void Eevee::move()
+{
+	this->sprite.move(this->changeX, this->changeY);
+}

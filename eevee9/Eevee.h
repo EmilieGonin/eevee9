@@ -1,13 +1,11 @@
 #pragma once
 #include "Entity.h"
+#include "Utils.h"
 #include <string>
 #include <SFML/Graphics.hpp>
 
 
-const int DOWN = 0;
-const int LEFT = 1;
-const int RIGHT = 2;
-const int UP = 3;
+
 
 class Eevee : public Entity
 {
@@ -19,8 +17,9 @@ protected:
 	sf::Sprite sprite;
 
 	//Coordonates
-	//int x;
-	//int y;
+	int changeX = 0.f;
+	int changeY = 0.f;
+
 public:
 	Eevee();
 	Eevee(sf::Texture &);
@@ -31,6 +30,9 @@ public:
 	bool escape();
 	sf::Sprite getSprite();
 	void update();
+	void setOrientation(int orientation);
+	int getOrientation();
+	void move();
 };
 
 
