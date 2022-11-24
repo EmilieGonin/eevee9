@@ -8,7 +8,7 @@ Game::Game() : window(sf::VideoMode(800, 600), "Epic 9")
 
 Game::~Game() {};
 
-void Game::draw(sf::Sprite objectToDraw) { this->window.draw(objectToDraw); };
+void Game::draw(Entity& entity) { this->window.draw(entity.getSprite()); };
 
 int Game::update(int orientation) {
     int newOrientation = orientation;

@@ -1,13 +1,14 @@
 #pragma once
 #include "Entity.h"
-#include "Utils.h"
+
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "AnimatedEntity.h"
 
 
 
 
-class Eevee : public Entity
+class Eevee : public AnimatedEntity
 {
 protected:
 	int catchrate;
@@ -33,10 +34,8 @@ public:
 	void addLoot(int);
 	bool escape();
 	sf::Sprite getSprite();
-	void update();
-	void setOrientation(int orientation);
-	int getOrientation();
-	void move();
+
+
 };
 
 

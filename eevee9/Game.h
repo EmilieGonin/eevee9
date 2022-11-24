@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Utils.h"
+#include "Entity.h"
+
 class Game
 {
 	protected:
@@ -11,10 +13,10 @@ class Game
 
 		Game();
 		~Game();
-		void draw(sf::Sprite objectToDraw);
+		void draw(Entity &);
 		void clear();
 		void display();
-		int update(int actualOrientation);
+		int update(int);
 		bool isOpen();
 
 };
