@@ -1,5 +1,4 @@
 #include "Eevee.h"
-
 #include <iostream>
 
 Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Eevee.h"
 #include "Enemy.h"
 
@@ -11,6 +12,7 @@ protected:
 	bool _turn; //true = Eevee, false = Enemy
 	Eevee* _eevee;
 	Enemy* _enemy;
+
 public:
 	Battle(Eevee*, Enemy*);
 	~Battle();

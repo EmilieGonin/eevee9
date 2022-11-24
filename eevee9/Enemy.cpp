@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(){
-
+Enemy::Enemy() : AnimatedEntity(texture) {
+	this->sprite.scale(1, 1);
 }
 Enemy::~Enemy() {}

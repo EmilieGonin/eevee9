@@ -57,7 +57,7 @@ void Battle::attack() {
 	}
 
 	if (this->_turn) {
-		if (this->random() > dodgerate) {
+		if (this->random(100) > dodgerate) {
 			//
 		}
 		else {
@@ -69,7 +69,7 @@ void Battle::attack() {
 	}
 }
 
-int Battle::random(int range = 100) {
+int Battle::random(int range ) {
 	srand(time(NULL));
 	int random = rand() % range;
 	return random;

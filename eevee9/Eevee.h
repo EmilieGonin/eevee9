@@ -1,12 +1,9 @@
 #pragma once
-#include "Entity.h"
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Entity.h"
 #include "AnimatedEntity.h"
-
-
-
 
 class Eevee : public AnimatedEntity
 {
@@ -34,8 +31,6 @@ public:
 	void addLoot(int);
 	bool escape();
 	sf::Sprite getSprite();
-
-
 };
 
 

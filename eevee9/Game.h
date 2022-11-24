@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Utils.h"
@@ -6,18 +7,16 @@
 
 class Game
 {
-	protected:
-			
-		sf::RenderWindow window;
-	public:
+protected:
+	sf::RenderWindow window;
 
-		Game();
-		~Game();
-		void draw(Entity &);
-		void clear();
-		void display();
-		int update(int);
-		bool isOpen();
-
+public:
+	Game();
+	~Game();
+	void draw(Entity &);
+	void clear();
+	void display();
+	int update(int);
+	bool isOpen();
 };
 

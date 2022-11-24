@@ -3,7 +3,6 @@
 Game::Game() : window(sf::VideoMode(800, 600), "Epic 9")
 {
 	this->window.setFramerateLimit(60);
-	
 }
 
 Game::~Game() {};
@@ -15,8 +14,6 @@ int Game::update(int orientation) {
     sf::Event event;
     while (window.pollEvent(event))
     {
-
-        
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -41,14 +38,6 @@ int Game::update(int orientation) {
             }
 
             break;
-        
-
-
-      
-       
-            
-           
-        
         }
     };
     return newOrientation;

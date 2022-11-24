@@ -12,7 +12,6 @@ sf::Sprite& Entity::getSprite(void)
     return this->sprite;
 }
 
-
 void Entity::setOrientation(int orientation) 
 {
     this->orientation = orientation;
