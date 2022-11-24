@@ -1,6 +1,6 @@
 
 
-#include "Utils.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Eevee.h"
@@ -31,7 +31,6 @@ int main()
         game.clear();
         player.setOrientation(game.update(player.getOrientation()));
         player.update();
-        player.move();
         game.draw(player.getSprite());
         
         game.display();
