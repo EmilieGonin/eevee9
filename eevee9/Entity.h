@@ -6,5 +6,7 @@ protected:
 	int dodgerate;
 
 	//Add texture and sprite
+public:
+	int getDodgerate();
 };
 

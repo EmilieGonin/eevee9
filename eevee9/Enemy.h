@@ -1,6 +1,6 @@
 #pragma once
 
-class Enemy {
+class Enemy : public Entity {
 private:
 	
 public:
