@@ -29,17 +29,14 @@ int Game::update(int orientation) {
                 else if (event.key.code == sf::Keyboard::D) {
                     newOrientation = RIGHT;
                     this->keypressed = sf::Keyboard::D;
-
                 }
                 else if (event.key.code == sf::Keyboard::S) {
                     newOrientation = DOWN;
                     this->keypressed = sf::Keyboard::S;
-
                 }
                 else if (event.key.code == sf::Keyboard::Q) {
                     newOrientation = LEFT;
                     this->keypressed = sf::Keyboard::Q;
-
                 }
             }
             break;
