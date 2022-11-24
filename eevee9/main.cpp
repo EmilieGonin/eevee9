@@ -31,7 +31,7 @@ int main()
         game.clear();
         player.setOrientation(game.update(player.getOrientation()));
         player.update();
-        game.draw(player.getSprite());
+        game.draw(player);
         
         game.display();
     }

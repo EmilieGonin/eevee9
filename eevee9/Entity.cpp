@@ -8,7 +8,7 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
     this->orientation = DOWN;
 }
 
-sf::Sprite Entity::getSprite(void)
+sf::Sprite& Entity::getSprite(void)
 {
     return this->sprite;
 }

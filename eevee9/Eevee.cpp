@@ -8,7 +8,7 @@ Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 	this->firestone = 0;
 	this->waterstone = 0;
 	this->thunderstone = 0;
-
+	this->sprite.scale(1, 1);
 	
 };
 

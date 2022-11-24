@@ -18,7 +18,8 @@ public:
 
     Entity(const sf::Texture& texture);
 
-    sf::Sprite getSprite(void);
+    sf::Sprite& getSprite(void);
+    
     void setOrientation(int);
     int getOrientation();
    
