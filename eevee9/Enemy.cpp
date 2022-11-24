@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-enemy::enemy(){
+Enemy::Enemy(){
 
 }
-enemy::~enemy() {}
+Enemy::~Enemy() {}

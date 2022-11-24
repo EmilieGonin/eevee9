@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include <SFML/Graphics.hpp>
 #include "Utils.h"
 
@@ -22,7 +20,7 @@ public:
     
     void setOrientation(int);
     int getOrientation();
-   
+    int getDodgerate();
 };
 
 

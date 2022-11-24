@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-
 Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
 {
     this->dodgerate = 0;
@@ -22,4 +21,8 @@ void Entity::setOrientation(int orientation)
 int Entity::getOrientation() 
 {
     return this->orientation;
+}
+
+int Entity::getDodgerate() {
+	return  this->dodgerate;
 }
