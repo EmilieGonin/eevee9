@@ -1,11 +1,11 @@
 #pragma once
 
-class enemy {
+class Enemy {
 private:
 	
 public:
-	enemy();
-	~enemy();
+	Enemy();
+	~Enemy();
 	bool pokeball;
 	bool attack;
 };
