@@ -9,6 +9,7 @@ class Game
 {
 protected:
 	sf::RenderWindow window;
+	int keypressed;
 
 public:
 	Game();
