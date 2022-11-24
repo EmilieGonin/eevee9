@@ -1,11 +1,9 @@
 #pragma once
+#include "AnimatedEntity.h"
 
-class Enemy : public Entity {
-private:
-	
+class Enemy : public AnimatedEntity
+{
 public:
 	Enemy();
 	~Enemy();
-	bool pokeball;
-	bool attack;
 };
