@@ -43,6 +43,7 @@ int Game::update(int orientation) {
         case sf::Event::KeyReleased:
             if (event.key.code == this->keypressed)
             this->keypressed = NULL;
+          
         }
     };
     return newOrientation;
@@ -52,4 +53,13 @@ void Game::display() { this->window.display(); };
 
 bool Game::isOpen() {
     return this->window.isOpen();
+}
+
+bool Game::isMoving() {
+    if (this->keypressed) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }

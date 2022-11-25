@@ -9,14 +9,10 @@ class Eevee : public AnimatedEntity
 {
 protected:
 	int catchrate;
-	int orientation = DOWN;
+	int orientation;
 	int count = 0;
 	int iter = 0;
 	sf::Sprite sprite;
-  
-	//Coordonates
-	int changeX = 0.f;
-	int changeY = 0.f;
   
 	//Stones
 	int firestone;
@@ -31,6 +27,7 @@ public:
 	void addLoot(int);
 	bool escape();
 	sf::Sprite getSprite();
+	void move();
 };
 
 

@@ -24,6 +24,9 @@ int main()
         game.clear();
         player.setOrientation(game.update(player.getOrientation()));
         player.update();
+        if (game.isMoving()) {
+            player.move();
+        }
         game.draw(player);
         game.display();
     }
