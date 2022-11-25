@@ -6,6 +6,7 @@
 class Battle
 {
 protected:
+	bool _fighting;
 	bool _win;
 	bool _loose;
 	int _choice;
@@ -19,7 +20,8 @@ public:
 	void loot(); // Choose a random loot on a scale of 0 to 6, 0-3 = nothing
 	void battle();
 	void turn();
-	void attack();
+	void attack(bool);
+	void pokeball();
 	int random(int);
 };
 
