@@ -19,5 +19,6 @@ public:
 	void display();
 	int update(int);
 	bool isOpen();
+	bool isMoving();
 };
 

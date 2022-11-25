@@ -1,6 +1,7 @@
 #include "Eevee.h"
 #include <iostream>
 
+
 Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 	this->hp = 55;
 	this->catchrate = 6;
@@ -8,6 +9,7 @@ Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 	this->waterstone = 0;
 	this->thunderstone = 0;
 	this->sprite.scale(1, 1);
+	this->orientation = DOWN;
 	
 };
 
@@ -44,6 +46,16 @@ bool Eevee::escape() {
 	return true;
 }
 
+void Eevee::move() {
+	int changeX;
+	int changeY;
+	
+	if (this->orientation == DOWN) {
+		changeY = -1;
+	}
+
+	
+}
 
 sf::Sprite Eevee::getSprite()
 {
