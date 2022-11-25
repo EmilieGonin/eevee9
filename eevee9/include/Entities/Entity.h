@@ -6,6 +6,7 @@
 class Entity
 {
 protected:
+    std::string name;
     int dodgerate;
     int hp;
     int orientation;
@@ -20,6 +21,7 @@ public:
     void setOrientation(int);
     int getOrientation();
     int getDodgerate();
+    std::string getName();
 };
 
 

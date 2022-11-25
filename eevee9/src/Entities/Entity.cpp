@@ -30,3 +30,7 @@ int Entity::getOrientation()
 int Entity::getDodgerate() {
 	return  this->dodgerate;
 }
+
+std::string Entity::getName() {
+    return this->name;
+}
