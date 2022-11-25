@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "AnimatedEntity.h"
@@ -26,7 +25,6 @@ public:
 	bool canEvolve();
 	void addLoot(int);
 	bool escape();
-	sf::Sprite getSprite();
 	void move();
 };
 

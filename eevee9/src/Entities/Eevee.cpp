@@ -57,9 +57,3 @@ void Eevee::move() {
 	
 }
 
-sf::Sprite Eevee::getSprite()
-{
-    return this-> sprite;
-}
-
-
