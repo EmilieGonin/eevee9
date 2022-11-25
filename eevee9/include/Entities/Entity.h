@@ -8,6 +8,7 @@ class Entity
 protected:
     std::string name;
     int dodgerate;
+    int speed;
     int hp;
     int orientation;
     sf::Sprite sprite;
@@ -21,6 +22,7 @@ public:
     void setOrientation(int);
     int getOrientation();
     int getDodgerate();
+    int getSpeed();
     std::string getName();
 };
 

@@ -31,6 +31,10 @@ int Entity::getDodgerate() {
 	return  this->dodgerate;
 }
 
+int Entity::getSpeed() {
+    return this->speed;
+}
+
 std::string Entity::getName() {
     return this->name;
 }
