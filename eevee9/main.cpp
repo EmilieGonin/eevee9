@@ -27,13 +27,18 @@ int main()
     {
         game.clear();
         player.setOrientation(game.update(player.getOrientation()));
-        player.update();
+        if (game.getKeyPressed()) {
+            player.update();
+        }
+        else {
+            player.resetAnimation();
+        }
         if (game.isMoving()) {
             player.move();
         }
+
         game.draw(player);
         game.display();
     }
-
     return 0;
 }

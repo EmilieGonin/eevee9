@@ -11,4 +11,5 @@ protected:
 public:
     AnimatedEntity(const sf::Texture&);
     void update(void);
+    void resetAnimation(void);
 };
