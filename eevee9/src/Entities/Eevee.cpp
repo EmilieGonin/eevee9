@@ -47,19 +47,27 @@ bool Eevee::escape() {
 }
 
 void Eevee::move() {
-	int changeX;
-	int changeY;
-	
+
+	int changeX = 0;
+	int changeY = 0;
+
 	if (this->orientation == DOWN) {
+		changeY = 1;
+	}
+	else if (this->orientation == UP) {
 		changeY = -1;
 	}
+	else if (this->orientation == RIGHT) {
+		changeX = 1;
+	}
+	else if (this->orientation == LEFT) {
+		changeX = -1;
+	}
 
-	
+	this->sprite.move(changeX * PAS, changeY * PAS);
+
 }
 
-sf::Sprite Eevee::getSprite()
-{
-    return this-> sprite;
-}
+
 
 
