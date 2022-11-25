@@ -20,5 +20,6 @@ public:
 	int update(int);
 	bool isOpen();
 	bool isMoving();
+	int getKeyPressed();
 };
 

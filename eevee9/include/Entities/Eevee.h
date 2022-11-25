@@ -9,10 +9,8 @@ class Eevee : public AnimatedEntity
 {
 protected:
 	int catchrate;
-	int orientation;
 	int count = 0;
 	int iter = 0;
-	sf::Sprite sprite;
   
 	//Stones
 	int firestone;
@@ -26,7 +24,6 @@ public:
 	bool canEvolve();
 	void addLoot(int);
 	bool escape();
-	sf::Sprite getSprite();
 	void move();
 };
 
