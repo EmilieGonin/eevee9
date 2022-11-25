@@ -4,7 +4,9 @@
 
 class Enemy : public AnimatedEntity
 {
+protected:
+	sf::Sprite sprite;
 public:
-	Enemy();
+	Enemy(sf::Texture&);
 	~Enemy();
 };

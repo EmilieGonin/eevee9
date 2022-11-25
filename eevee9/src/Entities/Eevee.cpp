@@ -3,6 +3,7 @@
 
 
 Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
+	this->name = "Eevee"; // le joueur peut modifier ?
 	this->hp = 55;
 	this->catchrate = 6;
 	this->firestone = 0;
@@ -65,9 +66,4 @@ void Eevee::move() {
 	}
 
 	this->sprite.move(changeX * PAS, changeY * PAS);
-
 }
-
-
-
-

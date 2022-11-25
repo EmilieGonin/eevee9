@@ -7,7 +7,12 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
     this->orientation = DOWN;
 }
 
-sf::Sprite& Entity::getSprite(void)
+//sf::Sprite& Entity::getSprite(void)
+//{
+//    return this->sprite;
+//}
+
+sf::Sprite Entity::getSprite()
 {
     return this->sprite;
 }
@@ -24,4 +29,8 @@ int Entity::getOrientation()
 
 int Entity::getDodgerate() {
 	return  this->dodgerate;
+}
+
+std::string Entity::getName() {
+    return this->name;
 }
