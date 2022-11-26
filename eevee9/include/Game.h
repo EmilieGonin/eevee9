@@ -5,11 +5,13 @@
 #include "Utils.h"
 #include "Entity.h"
 
+
 class Game
 {
 protected:
-	sf::RenderWindow window;
+	
 	int keypressed;
+	sf::RenderWindow *window;
 
 public:
 	Game();
@@ -20,6 +22,8 @@ public:
 	int update(int);
 	bool isOpen();
 	bool isMoving();
+
 	int getKeyPressed();
+
 };
 

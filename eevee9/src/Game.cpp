@@ -1,24 +1,29 @@
 #include "Game.h"
+#include <iostream>
 
-Game::Game() : window(sf::VideoMode(800, 600), "Epic 9")
+Game::Game()
 {
-	this->window.setFramerateLimit(60);
+    window = new sf::RenderWindow();
+    window->create(sf::VideoMode(992, 672), "Menu SFML", sf::Style::Titlebar | sf::Style::Close);
+    std::cout << "je me crée";
+
     this->keypressed = NULL;
 }
 
 Game::~Game() {};
 
-void Game::draw(Entity& entity) { this->window.draw(entity.getSprite()); };
+
+void Game::draw(Entity& entity) { window->draw(entity.getSprite()); };
 
 int Game::update(int orientation) {
     int newOrientation = orientation;
     sf::Event event;
-    while (window.pollEvent(event))
+    while (window->pollEvent(event))
     {
         switch (event.type)
         {
         case sf::Event::Closed:
-            this->window.close();
+            window->close();
             break;
         case sf::Event::KeyPressed:
             if (!this->keypressed) {
@@ -50,11 +55,11 @@ int Game::update(int orientation) {
 }
 
 
-void Game::clear() { this->window.clear(); };
-void Game::display() { this->window.display(); };
+void Game::clear() { window->clear(); };
+void Game::display() { window->display(); };
 
 bool Game::isOpen() {
-    return this->window.isOpen();
+    return window->isOpen();
 }
 
 bool Game::isMoving() {

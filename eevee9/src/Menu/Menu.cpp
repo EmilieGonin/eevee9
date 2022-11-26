@@ -1,0 +1,118 @@
+#include "Menu.h"
+
+Menu::Menu() {
+
+    winclose = new sf::RectangleShape();
+    font = new sf::Font();
+    image = new sf::Texture();
+    bg = new sf::Sprite();
+
+    set_values();
+}
+
+Menu::~Menu() {
+
+    delete winclose;
+    delete font;
+    delete image;
+    delete bg;
+}
+
+void Menu::set_values() {
+
+
+    pos = 0;
+    pressed = theselect = false;
+    font->loadFromFile("./src/Menu/Hansip.otf");
+    image->loadFromFile("./img/titleScreen.png");
+
+    bg->setTexture(*image);
+    bg->setScale(1, 1);
+
+    options = { "Play", "Options", "Quit" };
+    texts.resize(3);
+    coords = { {490,290},{463,400},{490,515} };
+    sizes = { 36,36,36 };
+
+    for (std::size_t i{}; i < texts.size(); ++i) {
+        texts[i].setFont(*font);
+        texts[i].setString(options[i]);
+        texts[i].setCharacterSize(sizes[i]);
+        texts[i].setOutlineColor(sf::Color::Black);
+        texts[i].setPosition(coords[i]);
+    }
+    texts[1].setOutlineThickness(10);
+    pos = 1;
+
+    winclose->setSize(sf::Vector2f(34.5, 39));
+    winclose->setPosition(1767, 58.5);
+    winclose->setFillColor(sf::Color::Transparent);
+
+}
+
+void Menu::loop_events() {
+    sf::Event event;
+
+    while (this->window->pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+            this->window->close();
+        }
+
+      
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !pressed) {
+            if (pos < 2) {
+                ++pos;
+                pressed = true;
+                texts[pos].setOutlineThickness(10);
+                texts[pos - 1].setOutlineThickness(0);
+                pressed = false;
+                theselect = false;
+            }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !pressed) {
+            if (pos > 0) {
+                --pos;
+                pressed = true;
+                texts[pos].setOutlineThickness(10);
+                texts[pos + 1].setOutlineThickness(0);
+                pressed = false;
+                theselect = false;
+            }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !theselect) {
+            theselect = true;
+            if (pos == 0) {
+                this->play = true;
+            }
+
+            if (pos == 2) {
+                
+                this->play = false;
+            }
+            std::cout << options[pos] << '\n';
+        }
+
+    }
+}
+
+    void Menu::draw_all() {
+        this->window->clear();
+        this->window->draw(*bg);
+        for (auto t : texts) {
+            this->window->draw(t);
+        }
+        this->window->display();
+    }
+
+    void Menu::run_menu() {
+        while (this->window->isOpen()) {
+            loop_events();
+            draw_all();
+        }
+    }
+
+    bool Menu::getPlay() {
+        return this->play;
+    }
