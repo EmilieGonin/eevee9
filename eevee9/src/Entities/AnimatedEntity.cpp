@@ -17,7 +17,6 @@ void AnimatedEntity::update(void)
     this->count++;
 }
 void AnimatedEntity::resetAnimation(void) {
-    spriteData eevee;
     this->frame = 0;
     this->sprite.setTextureRect(sf::IntRect(this->frame * this->xSize, this->y + this->ySize * this->orientation, this->xSize, this->ySize));
     this->count = 0;

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <iostream>
+#include <random>
 #include "Utils.h"
 
 class Entity

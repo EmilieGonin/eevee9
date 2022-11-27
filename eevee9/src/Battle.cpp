@@ -1,6 +1,4 @@
 #include "Battle.h"
-#include <random>
-#include <iostream>
 
 Battle::Battle(Eevee* eevee, Enemy* enemy) {
 	this->_eevee = eevee;

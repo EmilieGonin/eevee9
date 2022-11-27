@@ -6,11 +6,3 @@
 #define UP  3
 
 #define PAS 2
-
-struct spriteData {
-	float x = 132.5;
-	float y = 132.5;
-	float x_size = 132.5;
-	float y_size = 132.5;
-	int nbFrames = 4;
-};

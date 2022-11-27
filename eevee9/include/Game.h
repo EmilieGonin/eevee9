@@ -1,8 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include "Utils.h"
 #include "Entity.h"
 
 class Game

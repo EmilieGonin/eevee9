@@ -1,11 +1,6 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include "Eevee.h"
-#include "Enemy.h"
-#include "Battle.h"
 #include "Game.h"
+#include "Battle.h"
 #include "Database.h"
-#include <iostream>
 
 //void checkPosition() {
 //

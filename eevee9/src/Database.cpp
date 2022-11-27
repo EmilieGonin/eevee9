@@ -1,5 +1,4 @@
 #include "Database.h"
-#include <iostream>
 
 void SQL(sqlite3* db, const char* sql) {
 	char* error;
