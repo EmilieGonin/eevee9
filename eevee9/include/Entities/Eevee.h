@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "Entity.h"
 #include "AnimatedEntity.h"
 
 class Eevee : public AnimatedEntity
