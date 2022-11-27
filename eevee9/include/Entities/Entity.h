@@ -24,11 +24,15 @@ protected:
     int ySize;
 
 public:
-
     Entity(const sf::Texture& texture);
-    //sf::Sprite& getSprite(void);
-    sf::Sprite getSprite();
+
+    //Setters
+    void subHP(int);
     void setOrientation(int);
+
+    //Getters
+    sf::Sprite getSprite();
+    int getHP();
     int getOrientation();
     int getDodgerate();
     int getSpeed();

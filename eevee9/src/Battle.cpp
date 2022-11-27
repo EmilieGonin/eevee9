@@ -27,6 +27,14 @@ void Battle::loot() {
 
 void Battle::battle() {
 	while (this->_fighting) {
+		this->_win = this->_enemy->getHP() <= 0;
+		this->_loose = this->_eevee->getHP() <= 0;
+		this->_fighting = !this->_win && !this->_loose;
+
+		if (!this->_fighting) {
+			break;
+		}
+
 		this->_choice = 0;
 		this->_enemy_choice = 0;
 		this->turn();
@@ -141,6 +149,12 @@ void Battle::attack(bool eevee) {
 		std::cout << "Attack success !" << std::endl;
 		//Attack succeed
 		//if special attack, bonus to dmg + different animation
+		if (eevee) {
+			this->_enemy->subHP(10); //temp dmg
+		}
+		else {
+			this->_eevee->subHP(10);
+		}
 	}
 	else {
 		std::cout << "Attack dodged" << std::endl;
