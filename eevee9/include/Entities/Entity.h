@@ -14,6 +14,12 @@ protected:
     sf::Sprite sprite;
     const sf::Texture& texture;
 
+    //Sprite coordinates and sizes
+    int spriteFrames;
+    int y; //Determine which set of texture used
+    int xSize;
+    int ySize;
+
 public:
 
     Entity(const sf::Texture& texture);

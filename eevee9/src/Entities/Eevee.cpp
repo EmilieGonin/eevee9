@@ -26,7 +26,7 @@ Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 Eevee::~Eevee() {};
 
 void Eevee::evolve() {
-	//
+	//Change this->y;
 }
 
 bool Eevee::canEvolve() {
