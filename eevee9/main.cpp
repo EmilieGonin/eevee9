@@ -21,7 +21,7 @@ int main()
 
     Eevee player(texture);
     Enemy enemy(texture);
-    //Battle battle(&player, &enemy);
+    Battle battle(&player, &enemy);
 
     while (game.isOpen())
     {

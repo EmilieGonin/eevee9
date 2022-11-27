@@ -102,8 +102,8 @@ void Battle::turn() {
 		this->attack(eevee);
 		this->attack(!eevee);
 	}
-	else if (this->_enemy_choice != 3 || this->_choice == 2) {
-		if (this->_choice == 2) {
+	else if (this->_enemy_choice != 3 || this->_choice == 1) {
+		if (this->_choice == 1) {
 			this->attack(true);
 		}
 		else {
