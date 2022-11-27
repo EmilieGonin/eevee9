@@ -3,16 +3,24 @@
 
 
 Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
+	//Entity datas
 	this->name = "Eevee"; // le joueur peut modifier ?
 	this->hp = 55;
 	this->speed = 55;
+	this->sprite.scale(1, 1);
+	this->orientation = DOWN;
+
+	//Eevee datas
 	this->catchrate = 6;
+
+	//Evolution
+	this->eeveelution = 0;
+	this->evolved = false;
+
+	//Stones
 	this->firestone = 0;
 	this->waterstone = 0;
 	this->thunderstone = 0;
-	this->sprite.scale(1, 1);
-	this->orientation = DOWN;
-	
 };
 
 Eevee::~Eevee() {};

@@ -10,6 +10,10 @@ protected:
 	int catchrate;
 	int count = 0;
 	int iter = 0;
+
+	//Evolution
+	int eeveelution; // 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
+	bool evolved;
   
 	//Stones
 	int firestone;
