@@ -24,7 +24,7 @@ public:
 	void turn();
 	void attack(bool);
 	bool pokeball();
-	bool initiative();
+	bool initiative(); // If Eevee is faster than the enemy
 	int random(int);
 };
 
