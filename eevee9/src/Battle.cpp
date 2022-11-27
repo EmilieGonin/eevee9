@@ -118,14 +118,23 @@ void Battle::attack(bool eevee) {
 	int dodgerate;
 	std::string name;
 
+	if (!this->_eevee->isEvolved() && this->_eevee->getEeveelution()) {
+		std::cout << "Eevee evolve !" << std::endl;
+		//Evolve
+	}
+
 	if (eevee) {
 		std::cout << "You attack !" << std::endl;
 		dodgerate = this->_eevee->getDodgerate();
 		name = this->_eevee->getName();
 	}
 	else {
-		std::cout << "Enemy attack !" << std::endl;
-		//std::cout << "Enemy use its special attack !" << std::endl;
+		if (this->_enemy_choice == 1) {
+			std::cout << "Enemy attack !" << std::endl;
+		}
+		else {
+			std::cout << "Enemy use its special attack !" << std::endl;
+		}
 		dodgerate = this->_enemy->getDodgerate();
 		name = this->_enemy->getName();
 	}
