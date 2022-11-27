@@ -5,8 +5,8 @@
 class AnimatedEntity : public Entity
 {
 protected:
-    int count = 0;
-    int frame = 0;
+    int count;
+    int frame;
 
 public:
     AnimatedEntity(const sf::Texture&);

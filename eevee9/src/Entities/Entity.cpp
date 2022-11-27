@@ -3,8 +3,13 @@
 Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
 {
     this->dodgerate = 0;
+    this->speed = 0;
     this->hp = 0;
     this->orientation = DOWN;
+    this->y = 0;
+    this->xSize = 132.5;
+    this->ySize = 132.5;
+    this->spriteFrames = 4;
 }
 
 //sf::Sprite& Entity::getSprite(void)
@@ -29,6 +34,10 @@ int Entity::getOrientation()
 
 int Entity::getDodgerate() {
 	return  this->dodgerate;
+}
+
+int Entity::getSpeed() {
+    return this->speed;
 }
 
 std::string Entity::getName() {

@@ -8,10 +8,17 @@ class Entity
 protected:
     std::string name;
     int dodgerate;
+    int speed;
     int hp;
     int orientation;
     sf::Sprite sprite;
     const sf::Texture& texture;
+
+    //Sprite coordinates and sizes
+    int spriteFrames;
+    int y; //Determine which set of texture used
+    int xSize;
+    int ySize;
 
 public:
 
@@ -21,6 +28,7 @@ public:
     void setOrientation(int);
     int getOrientation();
     int getDodgerate();
+    int getSpeed();
     std::string getName();
 };
 
