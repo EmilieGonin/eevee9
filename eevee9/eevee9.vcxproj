@@ -71,10 +71,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,8 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\libs\sqlite\shell.c" />
+    <ClCompile Include="..\libs\sqlite\sqlite3.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Battle.cpp" />
+    <ClCompile Include="src\Database.cpp" />
     <ClCompile Include="src\Entities\AnimatedEntity.cpp" />
     <ClCompile Include="src\Entities\Eevee.cpp" />
     <ClCompile Include="src\Entities\Enemy.cpp" />
@@ -149,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Battle.h" />
+    <ClInclude Include="include\Database.h" />
     <ClInclude Include="include\Entities\AnimatedEntity.h" />
     <ClInclude Include="include\Entities\Eevee.h" />
     <ClInclude Include="include\Entities\Enemy.h" />
