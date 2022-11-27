@@ -28,6 +28,10 @@ public:
 	void addLoot(int);
 	bool escape();
 	void move();
+
+	//Getters
+	int getEeveelution();
+	bool isEvolved();
 };
 
 

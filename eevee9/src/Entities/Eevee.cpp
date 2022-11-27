@@ -76,3 +76,13 @@ void Eevee::move() {
 
 	this->sprite.move(changeX * PAS, changeY * PAS);
 }
+
+//Getters
+
+int Eevee::getEeveelution() {
+	return this->eeveelution;
+}
+
+bool Eevee::isEvolved() {
+	return this->evolved;
+}
