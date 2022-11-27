@@ -4,7 +4,7 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
 {
     this->dodgerate = 0;
     this->speed = 0;
-    this->hp = 0;
+    this->hp = 1;
     this->orientation = DOWN;
     this->y = 0;
     this->xSize = 132.5;
@@ -12,19 +12,26 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
     this->spriteFrames = 4;
 }
 
-//sf::Sprite& Entity::getSprite(void)
-//{
-//    return this->sprite;
-//}
+//Setters
+
+void Entity::subHP(int dmg) {
+    this->hp = this->hp - dmg;
+}
+
+void Entity::setOrientation(int orientation)
+{
+    this->orientation = orientation;
+}
+
+//Getters
 
 sf::Sprite Entity::getSprite()
 {
     return this->sprite;
 }
 
-void Entity::setOrientation(int orientation) 
-{
-    this->orientation = orientation;
+int Entity::getHP() {
+    return this->hp;
 }
 
 int Entity::getOrientation() 
