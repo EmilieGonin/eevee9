@@ -26,6 +26,9 @@ Interface::Interface(Game* game) {
     this->button.setBuffer(this->buffer);
     this->button.setVolume(30);
 
+    this->bufferStart.loadFromFile("./sfx/sounds/start.wav");
+    this->startButton.setBuffer(this->bufferStart);
+    this->startButton.setVolume(30);
     //Misc
     this->pos = 0;
     this->pressed = this->theselect = this->pauseMenu = this->battleMenu = false;
@@ -106,6 +109,7 @@ void Interface::start() {
 void Interface::startOptions() {
     if (this->pos == 0) {
         this->music.stop();
+        this->startButton.play();
         this->startMenu = false;
     }
 
@@ -116,6 +120,7 @@ void Interface::startOptions() {
 }
 
 void Interface::pause() {
+    this->button.play();
     this->pauseMenu = true;
     this->image->loadFromFile("./img/PauseMenu.png");
     this->bg->setTexture(*image);
@@ -133,13 +138,16 @@ void Interface::pause() {
 
 void Interface::pauseOptions() {
     if (this->pos == 0) {
+        this->button.play();
         this->_game->setPause(false);
         this->pauseMenu = false;
     }
     else if (this->pos == 1) {
+        this->button.play();
         //sauvegarde
     }
     else if (this->pos == 2) {
+        this->button.play();
         this->window->close();
     }
 }

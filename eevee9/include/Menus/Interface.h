@@ -17,6 +17,8 @@ protected:
     sf::Music music;
     sf::SoundBuffer buffer;
     sf::Sound button;
+    sf::SoundBuffer bufferStart;
+    sf::Sound startButton;
 
     std::vector<const char*> options;
     std::vector<sf::Vector2f> coords;
