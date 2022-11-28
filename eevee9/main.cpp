@@ -24,7 +24,6 @@ int main()
         
     while (game.isOpen())
     {
-        game.clear();
         //battle.setFighting(true);
 
         //Si un combat commence, on change d'écran
@@ -54,6 +53,7 @@ int main()
             }
         }
 
+        game.clear();
         game.draw(player);
         game.display();
     }
