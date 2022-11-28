@@ -1,9 +1,9 @@
 #include "Battle.h"
 
-Battle::Battle(Eevee* eevee, Enemy* enemy) {
+Battle::Battle(Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, this) {
 	this->_eevee = eevee;
 	this->_enemy = enemy;
-	this->_fighting = true;
+	this->_fighting = false;
 	this->_win = false;
 	this->_loose = false;
 	this->_choice = 0;
@@ -39,10 +39,14 @@ void Battle::battle() {
 			return;
 		}
 
-		this->_choice = 0;
-		this->_enemy_choice = 0;
-		this->turn();
-		this->_turn++;
+		if (this->_choice != 0) {
+			this->_choice = 0;
+			this->_enemy_choice = 0;
+			this->_turn++;
+			std::cout << this->_turn << std::endl;
+		}
+
+		this->_thread.launch();
 	}
 	else if (this->_win) {
 		std::cout << "You win !!" << std::endl;
@@ -59,13 +63,13 @@ void Battle::battle() {
 void Battle::turn() {
 	std::cout << "turn : " << this->_turn << std::endl;
 
-	//Choix du joueur
+	//Attente du choix du joueur
 	if (this->_choice == 0) {
 		std::cout << "Choose an action !" << std::endl;
 		//std::cin >> this->_choice;
 		//afficher menu
 	}
-
+	
 	//La fuite passe toujours en premier
 	if (this->_choice == 2) {
 		bool escape = this->random(2);
@@ -186,6 +190,11 @@ int Battle::random(int range ) {
 	srand(time(0));
 	int random = rand() % range;
 	return random;
+}
+
+//Setters
+void Battle::setFighting(bool fighting) {
+	this->_fighting = fighting;
 }
 
 //Getters
