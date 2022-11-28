@@ -14,7 +14,6 @@ Interface::Interface(Game* game) {
     this->winclose->setFillColor(sf::Color::Transparent);
 
     //Font & Texts
-    this->texts.resize(3);
     this->sizes = { 36,36,36 };
     this->font = new sf::Font();
     font->loadFromFile("./src/Menus/Hansip.otf");
@@ -50,14 +49,14 @@ void Interface::loop_events() {
         }
       
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            if (pos < 2) {
+            if (this->pos < this->options.size() - 1) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 ++pos;
             }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            if (pos > 0) {
+            if (this->pos > 0) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 --pos;
@@ -96,7 +95,7 @@ void Interface::start() {
     //Texts
     this->options = { "Play", "Options", "Quit" };
     this->coords = { {490,290},{463,400},{490,515} };
-    setTexts();
+    setTexts(options.size());
 
     while (this->startMenu == true) {
         loop_events();
@@ -122,7 +121,7 @@ void Interface::pause() {
     //Texts
     this->options = { "Resume", "Save", "Quit" };
     this->coords = { {830,190},{830,300},{830,415} };
-    setTexts();
+    setTexts(options.size());
 
     while (this->pauseMenu == true) {
         loop_events();
@@ -151,7 +150,7 @@ void Interface::battle() {
     //Texts
     this->options = { "Attack", "Escape" };
     this->coords = { {830,190},{830,300} };
-    setTexts();
+    setTexts(options.size());
 
     while (this->battleMenu == true) {
         loop_events();
@@ -169,7 +168,8 @@ void Interface::setPauseMenu(bool pause) {
     this->pauseMenu = pause;
 }
 
-void Interface::setTexts() {
+void Interface::setTexts(int size) {
+    this->texts.resize(size);
     for (std::size_t i{}; i < this->texts.size(); ++i) {
         this->texts[i].setFont(*font);
         this->texts[i].setFillColor(sf::Color::White);
