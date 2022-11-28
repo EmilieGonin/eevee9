@@ -144,8 +144,9 @@ void Interface::pauseOptions() {
     }
 }
 
-void Interface::battle(bool choice) {
+int Interface::battle(bool choice) {
     this->battleMenu = !choice;
+    std::cout << "choice : " << choice << std::endl;
     this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
 
@@ -158,6 +159,8 @@ void Interface::battle(bool choice) {
         loop_events();
         draw_all();
     }
+
+    return this->pos;
 }
 
 void Interface::battleOptions() {

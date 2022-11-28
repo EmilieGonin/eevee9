@@ -2,11 +2,12 @@
 
 #include "Eevee.h"
 #include "Enemy.h"
+#include "Game.h"
 
 class Battle
 {
 protected:
-	bool _fighting;
+	//bool _fighting;
 	bool _win;
 	bool _loose;
 	int _choice; //1 = Attack, 2 = Escape
@@ -15,14 +16,16 @@ protected:
 	int _turn; //Number of turn
 	Eevee* _eevee;
 	Enemy* _enemy;
+	Game* _game;
 	sf::Thread _thread;
 	sf::Music music;
 
 public:
-	Battle(Eevee*, Enemy*);
+	Battle(Game*, Eevee*, Enemy*);
 	~Battle();
+	void reset();
 	void loot(); // Choose a random loot on a scale of 0 to 6, 0-3 = nothing
-	void battle();
+	bool battle();
 	void turn();
 	void attack(bool);
 	bool pokeball();
@@ -30,10 +33,9 @@ public:
 	int random(int);
 
 	//Setters
-	void setFighting(bool);
+	void setChoice(int);
 
 	//Getters
-	bool isFighting();
 	bool getChoice();
 };
 

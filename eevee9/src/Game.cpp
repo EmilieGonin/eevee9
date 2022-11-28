@@ -85,6 +85,10 @@ void Game::setPause(bool pause) {
     this->pause = pause;
 }
 
+void Game::setBattle(bool battle) {
+    this->battle = battle;
+}
+
 //Getters
 
 bool Game::getBattle() { return this->battle; }
