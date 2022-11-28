@@ -6,7 +6,6 @@ Game::Game()
     window = new sf::RenderWindow();
     window->create(sf::VideoMode(992, 672), "Menu SFML", sf::Style::Titlebar | sf::Style::Close);
     window->setFramerateLimit(60);
-    std::cout << "je me crée";
 
     this->keypressed = NULL;
 }
