@@ -26,12 +26,15 @@ int main()
     menu = nullptr;
         
     Enemy enemy(texture);
-    //player.setCoords(227, 60, 60, 79);
+    //player.setCoords(227, 60, 60, 79);00
     //Battle battle(&player, &enemy);
+    //sf::Thread thread(&Battle::battle, &battle);
         
     while (game.isOpen())
     {
         game.clear();
+        //thread.launch();
+        //battle.battle();
 
         player.setOrientation(game.update(player.getOrientation()));
         if (game.getPause() != true) {
@@ -53,7 +56,11 @@ int main()
                
         }
 
-        //player.idle();
+        /*if (battle.isFighting()) {
+            std::cout << "idle" << std::endl;
+            player.idle();
+        }*/
+
         game.draw(player);
         game.display();
     }

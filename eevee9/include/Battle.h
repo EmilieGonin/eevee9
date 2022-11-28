@@ -26,5 +26,8 @@ public:
 	bool pokeball();
 	bool initiative(); // If Eevee is faster than the enemy
 	int random(int);
+
+	//Getters
+	bool isFighting();
 };
 

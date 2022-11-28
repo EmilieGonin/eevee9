@@ -7,11 +7,11 @@ Battle::Battle(Eevee* eevee, Enemy* enemy) {
 	this->_win = false;
 	this->_loose = false;
 	this->_choice = 0;
+	this->_choosen_attack = 0;
 	this->_enemy_choice = 0;
 	this->_turn = 1;
 
-	std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
-	this->battle();
+	//this->battle();
 }
 
 Battle::~Battle() {};
@@ -27,15 +27,16 @@ void Battle::loot() {
 
 void Battle::battle() {
 	//set eevee sprite coordinates (79 frames)
-	this->_eevee->setCoords(255, 60, 60, 79);
+	std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
+	this->_eevee->setCoords(227, 60, 60, 79);
 
-	while (this->_fighting) {
+	if (this->_fighting) {
 		this->_win = this->_enemy->getHP() <= 0;
 		this->_loose = this->_eevee->getHP() <= 0;
 		this->_fighting = !this->_win && !this->_loose;
 
 		if (!this->_fighting) {
-			break;
+			return;
 		}
 
 		this->_choice = 0;
@@ -43,8 +44,7 @@ void Battle::battle() {
 		this->turn();
 		this->_turn++;
 	}
-
-	if (this->_win) {
+	else if (this->_win) {
 		std::cout << "You win !!" << std::endl;
 		this->loot();
 	}
@@ -60,9 +60,9 @@ void Battle::turn() {
 	std::cout << "turn : " << this->_turn << std::endl;
 
 	//Choix du joueur
-	while (this->_choice == 0) {
+	if (this->_choice == 0) {
 		std::cout << "Choose an action !" << std::endl;
-		std::cin >> this->_choice;
+		//std::cin >> this->_choice;
 		//afficher menu
 	}
 
@@ -186,4 +186,9 @@ int Battle::random(int range ) {
 	srand(time(0));
 	int random = rand() % range;
 	return random;
+}
+
+//Getters
+bool Battle::isFighting() {
+	return this->_fighting;
 }
