@@ -6,7 +6,7 @@ class Interface
 {
 protected:
     int pos;
-    bool pressed, theselect, startMenu, pauseMenu;
+    bool pressed, theselect, startMenu, pauseMenu, battleMenu;
 
     Game* _game;
     sf::RectangleShape* winclose;
@@ -33,12 +33,16 @@ public:
     void startOptions();
     void pause();
     void pauseOptions();
+    void battle();
+    void battleOptions();
 
     //Setters
     void setPauseMenu(bool);
     void setTexts();
 
     //Getters
+    int getPos();
     bool getStartMenu();
     bool getPauseMenu();
+    bool getBattleMenu();
 };

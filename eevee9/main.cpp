@@ -24,13 +24,13 @@ int main()
         
     while (game.isOpen())
     {
-        game.clear();
         //battle.setFighting(true);
 
         //Si un combat commence, on change d'écran
         if (battle.isFighting()) {
+            //interface.battle();
             player.idle();
-            battle.battle();
+            //battle.battle();
             //thread.launch();
             //Show menu fighting
         }
@@ -54,6 +54,7 @@ int main()
             }
         }
 
+        game.clear();
         game.draw(player);
         game.display();
     }
