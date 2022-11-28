@@ -1,6 +1,7 @@
 
 #include "PauseMenu.h"
 
+
 PauseMenu::PauseMenu(sf::RenderWindow* window, Game* game) {
 
     this->winclose = new sf::RectangleShape();
@@ -9,9 +10,9 @@ PauseMenu::PauseMenu(sf::RenderWindow* window, Game* game) {
     this->bg = new sf::Sprite();
     this->menu = true;
     this->window = window;
-    this->timer = 0;
+    this->timer = 20;
     this->game = game;
-    
+  
     set_values();
 }
 
@@ -28,21 +29,26 @@ void PauseMenu::set_values() {
 
     pos = 0;
     pressed = theselect = false;
+    this->buffer.loadFromFile("./sfx/sounds/button.wav");
+    button.setBuffer(this->buffer);
+    this->button.setVolume(5);
     font->loadFromFile("./src/Menus/Hansip.otf");
-    image->loadFromFile("./img/titleScreen.png");
+    image->loadFromFile("./img/PauseMenu.png");
 
- 
+    bg->setTexture(*image);
+    bg->setScale(1, 1);
 
-    options = { "Play", "Options", "Quit" };
+    options = { "Play", "Save", "Quit" };
     texts.resize(3);
-    coords = { {490,290},{463,400},{490,515} };
+    coords = { {830,190},{830,300},{830,415} };
     sizes = { 36,36,36 };
 
     for (std::size_t i{}; i < texts.size(); ++i) {
         texts[i].setFont(*font);
+        texts[i].setFillColor(sf::Color::White);
         texts[i].setString(options[i]);
         texts[i].setCharacterSize(sizes[i]);
-        texts[i].setOutlineColor(sf::Color::Red);
+        texts[i].setOutlineColor(sf::Color(186, 84, 0));
         texts[i].setPosition(coords[i]);
     }
     texts[1].setOutlineThickness(10);
@@ -57,8 +63,9 @@ void PauseMenu::set_values() {
 void PauseMenu::loop_events() {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !pressed && this->timer == 0 ) {
-            this->timer = 20;
+            this->timer = 10;
             if (pos < 2) {
+                this->button.play();
                 ++pos;
                 pressed = true;
                 texts[pos].setOutlineThickness(10);
@@ -69,8 +76,9 @@ void PauseMenu::loop_events() {
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !pressed && this->timer == 0) {
-            this->timer = 20;
+            this->timer = 10;
             if (pos > 0) {
+                this->button.play();
                 --pos;
                 pressed = true;
                 texts[pos].setOutlineThickness(10);
@@ -96,18 +104,23 @@ void PauseMenu::loop_events() {
             }
             std::cout << options[pos] << '\n';
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->timer == 0) {
+            this->timer = 20;
+            std::cout << this->game->getPause();
+            this->game->setPause(false);
+        }
         if (timer != 0) {
             this->timer--;
         }
         
-        std::cout << this->timer;
+   
 
     
 }
 
 void PauseMenu::draw_all() {
     
-  
+    this->window->draw(*bg);
     for (auto t : texts) {
         this->window->draw(t);
     }
@@ -125,5 +138,4 @@ void PauseMenu::run_menu() {
 bool PauseMenu::getPlay() {
     return this->menu;
 }
-
 
