@@ -26,7 +26,7 @@ int Game::update(int orientation) {
             window->close();
             break;
         case sf::Event::KeyPressed:
-            if (!this->keypressed) {
+            if (!this->keypressed && this->pause == false) {
                 if (event.key.code == sf::Keyboard::Z) {
                     newOrientation = UP;
                     this->keypressed = sf::Keyboard::Z;
@@ -87,3 +87,4 @@ sf::RenderWindow& Game::getWindow() { return *this->window; }
 void Game::setPause(bool pause) {
     this->pause = pause;
 }
+

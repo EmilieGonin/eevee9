@@ -32,7 +32,7 @@ int main()
     while (game.isOpen())
     {
         game.clear();
-
+        game.draw(player);
         player.setOrientation(game.update(player.getOrientation()));
         if (game.getPause() != true) {
             if (game.getKeyPressed()) {
@@ -54,7 +54,7 @@ int main()
         }
 
         //player.idle();
-        game.draw(player);
+        
         game.display();
     }
     

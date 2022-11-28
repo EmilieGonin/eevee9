@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Game.h"
+#include <SFML/Audio.hpp>
 
 
 class PauseMenu {
@@ -17,7 +18,9 @@ class PauseMenu {
     sf::Texture* image;
     sf::Sprite* bg;
     sf::RenderWindow* window;
-
+    sf::SoundBuffer buffer;
+    sf::Sound button;
+ 
     std::vector<const char*> options;
     std::vector<sf::Vector2f> coords;
     std::vector<sf::Text> texts;

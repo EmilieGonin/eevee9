@@ -1,11 +1,12 @@
 #include "Menu.h"
 
+
 Menu::Menu(sf::RenderWindow* window) {
 
     this->winclose = new sf::RectangleShape();
     this->font = new sf::Font();
     this->image = new sf::Texture();
-    this->bg = new sf::Sprite();
+    this->bg = new sf::Sprite();    
     this->menu = true;
     this->window = window;
 
@@ -25,6 +26,10 @@ void Menu::set_values() {
 
     pos = 0;
     pressed = theselect = false;
+    this->buffer.loadFromFile("./sfx/sounds/button.wav");
+    button.setBuffer(this->buffer);
+    this->music.openFromFile("./sfx/Music/title.wav");
+    this->music.setLoop(true);
     font->loadFromFile("./src/Menus/Hansip.otf");
     image->loadFromFile("./img/titleScreen.png");
 
@@ -62,7 +67,9 @@ void Menu::loop_events() {
 
       
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !pressed) {
+            
             if (pos < 2) {
+                this->button.play();
                 ++pos;
                 pressed = true;
                 texts[pos].setOutlineThickness(10);
@@ -74,6 +81,7 @@ void Menu::loop_events() {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !pressed) {
             if (pos > 0) {
+                this->button.play();
                 --pos;
                 pressed = true;
                 texts[pos].setOutlineThickness(10);
@@ -90,7 +98,7 @@ void Menu::loop_events() {
             }
 
             if (pos == 2) {
-                
+                this->music.play();
                 this->window->close();
             }
             std::cout << options[pos] << '\n';
@@ -109,11 +117,13 @@ void Menu::loop_events() {
     }
 
     void Menu::run_menu() {
+        this->music.play();
         while (this->menu == true) {
             
             loop_events();
             draw_all();
         }
+        this->music.play();
     }
 
     bool Menu::getPlay() {
