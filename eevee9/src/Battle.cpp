@@ -1,17 +1,17 @@
 #include "Battle.h"
 
-Battle::Battle(Eevee* eevee, Enemy* enemy) {
+Battle::Battle(Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, this) {
 	this->_eevee = eevee;
 	this->_enemy = enemy;
-	this->_fighting = true;
+	this->_fighting = false;
 	this->_win = false;
 	this->_loose = false;
 	this->_choice = 0;
+	this->_choosen_attack = 0;
 	this->_enemy_choice = 0;
 	this->_turn = 1;
 
-	std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
-	this->battle();
+	//this->battle();
 }
 
 Battle::~Battle() {};
@@ -27,24 +27,28 @@ void Battle::loot() {
 
 void Battle::battle() {
 	//set eevee sprite coordinates (79 frames)
-	this->_eevee->setCoords(255, 60, 60, 79);
+	std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
+	this->_eevee->setCoords(227, 60, 60, 79);
 
-	while (this->_fighting) {
+	if (this->_fighting) {
 		this->_win = this->_enemy->getHP() <= 0;
 		this->_loose = this->_eevee->getHP() <= 0;
 		this->_fighting = !this->_win && !this->_loose;
 
 		if (!this->_fighting) {
-			break;
+			return;
 		}
 
-		this->_choice = 0;
-		this->_enemy_choice = 0;
-		this->turn();
-		this->_turn++;
-	}
+		if (this->_choice != 0) {
+			this->_choice = 0;
+			this->_enemy_choice = 0;
+			this->_turn++;
+			std::cout << this->_turn << std::endl;
+		}
 
-	if (this->_win) {
+		this->_thread.launch();
+	}
+	else if (this->_win) {
 		std::cout << "You win !!" << std::endl;
 		this->loot();
 	}
@@ -59,13 +63,13 @@ void Battle::battle() {
 void Battle::turn() {
 	std::cout << "turn : " << this->_turn << std::endl;
 
-	//Choix du joueur
-	while (this->_choice == 0) {
+	//Attente du choix du joueur
+	if (this->_choice == 0) {
 		std::cout << "Choose an action !" << std::endl;
-		std::cin >> this->_choice;
+		//std::cin >> this->_choice;
 		//afficher menu
 	}
-
+	
 	//La fuite passe toujours en premier
 	if (this->_choice == 2) {
 		bool escape = this->random(2);
@@ -186,4 +190,14 @@ int Battle::random(int range ) {
 	srand(time(0));
 	int random = rand() % range;
 	return random;
+}
+
+//Setters
+void Battle::setFighting(bool fighting) {
+	this->_fighting = fighting;
+}
+
+//Getters
+bool Battle::isFighting() {
+	return this->_fighting;
 }

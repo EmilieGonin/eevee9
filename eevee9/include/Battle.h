@@ -15,6 +15,7 @@ protected:
 	int _turn; //Number of turn
 	Eevee* _eevee;
 	Enemy* _enemy;
+	sf::Thread _thread;
 
 public:
 	Battle(Eevee*, Enemy*);
@@ -26,5 +27,11 @@ public:
 	bool pokeball();
 	bool initiative(); // If Eevee is faster than the enemy
 	int random(int);
+
+	//Setters
+	void setFighting(bool);
+
+	//Getters
+	bool isFighting();
 };
 

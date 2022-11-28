@@ -26,37 +26,47 @@ int main()
     menu = nullptr;
         
     Enemy enemy(texture);
+    Battle battle(&player, &enemy);
+    //sf::Thread thread(&Battle::battle, &battle);
     //player.setCoords(227, 60, 60, 79);
-    //Battle battle(&player, &enemy);
         
     while (game.isOpen())
     {
         game.clear();
-        game.draw(player);
-        player.setOrientation(game.update(player.getOrientation()));
-        if (game.getPause() != true) {
-            if (game.getKeyPressed()) {
-                player.update();
+        //battle.setFighting(true);
+
+        if (battle.isFighting()) {
+            player.idle();
+            battle.battle();
+            //thread.launch();
+
+            //Show menu fighting
+        }
+        else {
+            player.setOrientation(game.update(player.getOrientation()));
+            if (game.getPause() != true) {
+                if (game.getKeyPressed()) {
+                    player.update();
+                }
+                else {
+
+                    player.resetAnimation();
+                }
+                if (game.isMoving()) {
+                    player.move();
+                }
             }
             else {
 
-                player.resetAnimation();
+                pauseMenu->menu = true;
+                pauseMenu->run_menu();
+
             }
-            if (game.isMoving()) {
-                player.move();
-            }
-        }
-        else {
-                
-            pauseMenu->menu = true;
-            pauseMenu->run_menu();
-               
         }
 
-        //player.idle();
-        
+        game.draw(player);
         game.display();
     }
-    
+
     return 0;
 }
