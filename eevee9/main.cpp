@@ -28,8 +28,9 @@ int main()
 
         //Si un combat commence, on change d'écran
         if (battle.isFighting()) {
+            //interface.battle();
             player.idle();
-            battle.battle();
+            //battle.battle();
             //thread.launch();
             //Show menu fighting
         }

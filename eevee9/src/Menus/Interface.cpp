@@ -29,7 +29,7 @@ Interface::Interface(Game* game) {
 
     //Misc
     this->pos = 0;
-    this->pressed = this->theselect = this->pauseMenu = false;
+    this->pressed = this->theselect = this->pauseMenu = this->battleMenu = false;
     this->startMenu = true;
 }
 
@@ -70,6 +70,9 @@ void Interface::loop_events() {
             }
             else if (this->pauseMenu == true) {
                 pauseOptions();
+            }
+            else if (this->battleMenu == true) {
+                battleOptions();
             }
         }
     }
@@ -140,6 +143,26 @@ void Interface::pauseOptions() {
     }
 }
 
+void Interface::battle() {
+    this->battleMenu = true;
+    this->image->loadFromFile("./img/PauseMenu.png");
+    this->bg->setTexture(*image);
+
+    //Texts
+    this->options = { "Attack", "Escape" };
+    this->coords = { {830,190},{830,300} };
+    setTexts();
+
+    while (this->battleMenu == true) {
+        loop_events();
+        draw_all();
+    }
+}
+
+void Interface::battleOptions() {
+    this->battleMenu = false;
+}
+
 //Setters
 
 void Interface::setPauseMenu(bool pause) {
@@ -159,10 +182,7 @@ void Interface::setTexts() {
 
 //Getters
 
-bool Interface::getStartMenu() {
-    return this->startMenu;
-}
-
-bool Interface::getPauseMenu() {
-    return this->pauseMenu;
-}
+int Interface::getPos() { return this->pos; }
+bool Interface::getStartMenu() { return this->startMenu; }
+bool Interface::getPauseMenu() { return this->pauseMenu; }
+bool Interface::getBattleMenu() { return this->battleMenu; }
