@@ -38,7 +38,7 @@ public:
 
     //Setters
     void setPauseMenu(bool);
-    void setTexts();
+    void setTexts(int);
 
     //Getters
     int getPos();
