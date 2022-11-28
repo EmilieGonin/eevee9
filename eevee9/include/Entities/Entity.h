@@ -29,6 +29,7 @@ public:
     //Setters
     void subHP(int);
     void setOrientation(int);
+    void setCoords(int, int, int, int);
 
     //Getters
     sf::Sprite getSprite();
