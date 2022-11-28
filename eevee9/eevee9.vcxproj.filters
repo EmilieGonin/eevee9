@@ -45,10 +45,10 @@
     <ClCompile Include="..\libs\sqlite\sqlite3.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menus\PauseMenu.cpp">
+    <ClCompile Include="src\Menus\Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menus\Menu.cpp">
+    <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,10 +77,10 @@
     <ClInclude Include="include\Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Menus\PauseMenu.h">
+    <ClInclude Include="include\Menus\Interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Menus\Menu.h">
+    <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
