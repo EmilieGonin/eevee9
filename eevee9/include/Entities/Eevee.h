@@ -28,6 +28,7 @@ public:
 	void move();
 
 	//Getters
+	int getCatchrate();
 	int getEeveelution();
 	bool isEvolved();
 };
