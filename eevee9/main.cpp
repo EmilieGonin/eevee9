@@ -32,7 +32,6 @@ int main()
     while (game.isOpen())
     {
         game.clear();
-        game.draw(player);
 
         player.setOrientation(game.update(player.getOrientation()));
         if (game.getPause() != true) {
