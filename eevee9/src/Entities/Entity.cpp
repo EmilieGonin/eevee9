@@ -7,9 +7,9 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
     this->hp = 1;
     this->orientation = DOWN;
     this->y = 0;
-    this->xSize = 132.5;
-    this->ySize = 132.5;
-    this->spriteFrames = 4;
+    this->xSize = 30;
+    this->ySize = 27;
+    this->spriteFrames = 3;
 }
 
 //Setters
@@ -23,10 +23,18 @@ void Entity::setOrientation(int orientation)
     this->orientation = orientation;
 }
 
+void Entity::setCoords(int y, int xSize, int ySize, int frames) {
+    this->spriteFrames = frames;
+    this->y = y;
+    this->xSize = xSize;
+    this->ySize = ySize;
+}
+
 //Getters
 
 sf::Sprite Entity::getSprite()
 {
+    this->sprite.setScale(2, 2);
     return this->sprite;
 }
 

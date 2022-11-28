@@ -17,7 +17,7 @@ int main()
     Game game;
 
     sf::Texture texture;
-    if (!texture.loadFromFile("img/trainer.png"))
+    if (!texture.loadFromFile("img/eevee_spritesheet.png"))
     {
         // error...
     }
@@ -30,9 +30,9 @@ int main()
     delete menu;
     menu = nullptr;
 
-
         
         Enemy enemy(texture);
+        //player.setCoords(227, 60, 60, 79);
         //Battle battle(&player, &enemy);
         
         while (game.isOpen())
@@ -60,7 +60,8 @@ int main()
                
             }
 
-            
+            //player.idle();
+            game.draw(player);
             game.display();
         }
     

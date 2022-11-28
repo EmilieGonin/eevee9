@@ -26,6 +26,9 @@ void Battle::loot() {
 }
 
 void Battle::battle() {
+	//set eevee sprite coordinates (79 frames)
+	this->_eevee->setCoords(255, 60, 60, 79);
+
 	while (this->_fighting) {
 		this->_win = this->_enemy->getHP() <= 0;
 		this->_loose = this->_eevee->getHP() <= 0;
@@ -42,11 +45,15 @@ void Battle::battle() {
 	}
 
 	if (this->_win) {
+		std::cout << "You win !!" << std::endl;
 		this->loot();
 	}
 	else if (this->_loose) {
+		std::cout << "You loose..." << std::endl;
 		//écran game over
 	}
+
+	//set eevee sprite coordinates
 }
 
 void Battle::turn() {
@@ -157,13 +164,18 @@ void Battle::attack(bool eevee) {
 		}
 	}
 	else {
-		std::cout << "Attack dodged" << std::endl;
+		std::cout << name << " has dodged the attack !" << std::endl;
 		//name has dodge the attack !
 	}
 }
 
 bool Battle::pokeball() {
-	return false;
+	if (this->random(100) <= this->_eevee->getCatchrate()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Battle::initiative() {

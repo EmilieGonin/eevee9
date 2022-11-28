@@ -78,6 +78,10 @@ void Eevee::move() {
 
 //Getters
 
+int Eevee::getCatchrate() {
+	return this->catchrate;
+}
+
 int Eevee::getEeveelution() {
 	return this->eeveelution;
 }
