@@ -61,16 +61,16 @@ void Eevee::move() {
 	int changeY = 0;
 
 	if (this->orientation == DOWN) {
-		changeY = 1;
+		changeY = 2;
 	}
 	else if (this->orientation == UP) {
-		changeY = -1;
+		changeY = -2;
 	}
 	else if (this->orientation == RIGHT) {
-		changeX = 1;
+		changeX = 2;
 	}
 	else if (this->orientation == LEFT) {
-		changeX = -1;
+		changeX = -2;
 	}
 
 	this->sprite.move(changeX * PAS, changeY * PAS);

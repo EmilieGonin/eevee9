@@ -184,7 +184,7 @@ void Interface::setTexts(int size) {
 
 void Interface::map() {
 
-    this->image->loadFromFile("./img/battle.png");
+    this->image->loadFromFile("./img/map.png");
     this->bg->setTexture(*image);
      this->window->draw(*bg);
     

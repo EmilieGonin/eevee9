@@ -8,7 +8,7 @@ AnimatedEntity::AnimatedEntity(const sf::Texture& texture) : Entity(texture)
 
 void AnimatedEntity::update(void)
 {
-    if (this->count % 15 == 0)
+    if (this->count % 5 == 0)
     {
         this->frame = (this->frame + 1) % this->spriteFrames;
         this->sprite.setTextureRect(sf::IntRect(this->frame * this->xSize, this->y + this->ySize * this->orientation, this->xSize, this->ySize));
