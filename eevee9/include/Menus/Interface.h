@@ -33,7 +33,7 @@ public:
     void startOptions();
     void pause();
     void pauseOptions();
-    void battle();
+    void battle(bool);
     void battleOptions();
 
     //Setters

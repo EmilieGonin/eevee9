@@ -144,8 +144,8 @@ void Interface::pauseOptions() {
     }
 }
 
-void Interface::battle() {
-    this->battleMenu = true;
+void Interface::battle(bool choice) {
+    this->battleMenu = !choice;
     this->image->loadFromFile("./img/PauseMenu.png");
     this->bg->setTexture(*image);
 
