@@ -71,10 +71,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Menu;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Menus;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Menu;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)libs\sqlite;$(ProjectDir)include/Menus;$(ProjectDir)include/Entities;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,7 +149,8 @@
     <ClCompile Include="src\Entities\Enemy.cpp" />
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menus\Menu.cpp" />
+    <ClCompile Include="src\Menus\PauseMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Battle.h" />
@@ -159,7 +160,8 @@
     <ClInclude Include="include\Entities\Enemy.h" />
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Menus\Menu.h" />
+    <ClInclude Include="include\Menus\PauseMenu.h" />
     <ClInclude Include="include\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

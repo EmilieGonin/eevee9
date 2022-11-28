@@ -1,6 +1,7 @@
-#include "Menu.h"
 
-Menu::Menu(sf::RenderWindow* window) {
+#include "PauseMenu.h"
+
+PauseMenu::PauseMenu(sf::RenderWindow* window, Game* game) {
 
     this->winclose = new sf::RectangleShape();
     this->font = new sf::Font();
@@ -8,11 +9,13 @@ Menu::Menu(sf::RenderWindow* window) {
     this->bg = new sf::Sprite();
     this->menu = true;
     this->window = window;
-
+    this->timer = 0;
+    this->game = game;
+    
     set_values();
 }
 
-Menu::~Menu() {
+PauseMenu::~PauseMenu() {
 
     delete winclose;
     delete font;
@@ -20,16 +23,15 @@ Menu::~Menu() {
     delete bg;
 }
 
-void Menu::set_values() {
+void PauseMenu::set_values() {
 
 
     pos = 0;
     pressed = theselect = false;
-    font->loadFromFile("./src/Menu/Hansip.otf");
+    font->loadFromFile("./src/Menus/Hansip.otf");
     image->loadFromFile("./img/titleScreen.png");
 
-    bg->setTexture(*image);
-    bg->setScale(1, 1);
+ 
 
     options = { "Play", "Options", "Quit" };
     texts.resize(3);
@@ -40,7 +42,7 @@ void Menu::set_values() {
         texts[i].setFont(*font);
         texts[i].setString(options[i]);
         texts[i].setCharacterSize(sizes[i]);
-        texts[i].setOutlineColor(sf::Color::Black);
+        texts[i].setOutlineColor(sf::Color::Red);
         texts[i].setPosition(coords[i]);
     }
     texts[1].setOutlineThickness(10);
@@ -52,16 +54,10 @@ void Menu::set_values() {
 
 }
 
-void Menu::loop_events() {
-    sf::Event event;
+void PauseMenu::loop_events() {
 
-    while (this->window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            this->window->close();
-        }
-
-      
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !pressed) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !pressed && this->timer == 0 ) {
+            this->timer = 20;
             if (pos < 2) {
                 ++pos;
                 pressed = true;
@@ -72,7 +68,8 @@ void Menu::loop_events() {
             }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !pressed) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !pressed && this->timer == 0) {
+            this->timer = 20;
             if (pos > 0) {
                 --pos;
                 pressed = true;
@@ -85,37 +82,48 @@ void Menu::loop_events() {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !theselect) {
             theselect = true;
+        
             if (pos == 0) {
-                this->menu = false;
+                this->game->setPause(false);
+            }
+            if (pos == 1 ){
+               //sauvegarde
             }
 
             if (pos == 2) {
-                
+
                 this->window->close();
             }
             std::cout << options[pos] << '\n';
         }
+        if (timer != 0) {
+            this->timer--;
+        }
+        
+        std::cout << this->timer;
 
-    }
+    
 }
 
-    void Menu::draw_all() {
-        this->window->clear();
-        this->window->draw(*bg);
-        for (auto t : texts) {
-            this->window->draw(t);
-        }
-        this->window->display();
+void PauseMenu::draw_all() {
+    
+  
+    for (auto t : texts) {
+        this->window->draw(t);
     }
+    /*this->window->display();*/
+}
 
-    void Menu::run_menu() {
-        while (this->menu == true) {
-            
-            loop_events();
-            draw_all();
-        }
-    }
+void PauseMenu::run_menu() {
+ 
 
-    bool Menu::getPlay() {
-        return this->menu;
-    }
+        loop_events();
+        draw_all();
+    
+}
+
+bool PauseMenu::getPlay() {
+    return this->menu;
+}
+
+
