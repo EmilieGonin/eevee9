@@ -149,8 +149,7 @@
     <ClCompile Include="src\Entities\Enemy.cpp" />
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Menus\Menu.cpp" />
-    <ClCompile Include="src\Menus\PauseMenu.cpp" />
+    <ClCompile Include="src\Menus\Interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Battle.h" />
@@ -160,8 +159,7 @@
     <ClInclude Include="include\Entities\Enemy.h" />
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\Menus\Menu.h" />
-    <ClInclude Include="include\Menus\PauseMenu.h" />
+    <ClInclude Include="include\Menus\Interface.h" />
     <ClInclude Include="include\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

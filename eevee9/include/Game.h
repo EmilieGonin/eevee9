@@ -22,7 +22,7 @@ public:
 	bool isMoving();
 	bool getPause();
 	void setPause(bool);
-	sf::RenderWindow& getWindow();
+	sf::RenderWindow* getWindow();
 	int getKeyPressed();
 
 };
