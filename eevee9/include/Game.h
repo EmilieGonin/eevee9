@@ -9,6 +9,7 @@ protected:
 	
 	int keypressed;
 	sf::RenderWindow *window;
+	bool pause;
 
 public:
 	Game();
@@ -19,6 +20,8 @@ public:
 	int update(int);
 	bool isOpen();
 	bool isMoving();
+	bool getPause();
+	void setPause(bool);
 	sf::RenderWindow& getWindow();
 	int getKeyPressed();
 

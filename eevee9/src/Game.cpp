@@ -6,7 +6,7 @@ Game::Game()
     window = new sf::RenderWindow();
     window->create(sf::VideoMode(992, 672), "Menu SFML", sf::Style::Titlebar | sf::Style::Close);
     window->setFramerateLimit(60);
-
+    this->pause = false;
     this->keypressed = NULL;
 }
 
@@ -43,12 +43,17 @@ int Game::update(int orientation) {
                     newOrientation = LEFT;
                     this->keypressed = sf::Keyboard::Q;
                 }
+                else if (event.key.code == sf::Keyboard::Escape) {
+                    std::cout << "run pause menu" << std::endl;
+                    this->pause = true;
+                    //runMenu();
+
+                }
             }
             break;
         case sf::Event::KeyReleased:
             if (event.key.code == this->keypressed)
                 this->keypressed = NULL;
-
         }
     };
     return newOrientation;
@@ -75,4 +80,10 @@ int Game::getKeyPressed() {
     return this->keypressed;
 }
 
+bool Game::getPause() { return this->pause; }
+
 sf::RenderWindow& Game::getWindow() { return *this->window; }
+
+void Game::setPause(bool pause) {
+    this->pause = pause;
+}
