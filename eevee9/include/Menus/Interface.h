@@ -35,6 +35,7 @@ public:
     void pauseOptions();
     void battle(bool);
     void battleOptions();
+    void map();
 
     //Setters
     void setPauseMenu(bool);

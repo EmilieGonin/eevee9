@@ -38,7 +38,7 @@ int main()
             battle.setFighting(game.getBattle());
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
-                    
+
                     player.update();
                 }
                 else {
@@ -51,11 +51,12 @@ int main()
             else {
                 interface.pause();
             }
+            
+            game.clear();
+            interface.map();
+            game.draw(player);
+            game.display();
         }
-
-        game.clear();
-        game.draw(player);
-        game.display();
     }
 
     return 0;

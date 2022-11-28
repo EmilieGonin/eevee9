@@ -4,7 +4,7 @@ Game::Game()
 {
     window = new sf::RenderWindow();
     window->create(sf::VideoMode(992, 672), "Pokemon: Eevee 9", sf::Style::Titlebar | sf::Style::Close);
-    window->setFramerateLimit(60);
+    /*window->setFramerateLimit(60);*/
     this->pause = false;
     this->battle = false;
     this->keypressed = NULL;

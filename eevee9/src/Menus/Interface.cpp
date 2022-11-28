@@ -146,7 +146,7 @@ void Interface::pauseOptions() {
 
 void Interface::battle(bool choice) {
     this->battleMenu = !choice;
-    this->image->loadFromFile("./img/PauseMenu.png");
+    this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
 
     //Texts
@@ -180,6 +180,14 @@ void Interface::setTexts(int size) {
         this->texts[i].setOutlineColor(sf::Color(186, 84, 0));
         this->texts[i].setPosition(this->coords[i]);
     }
+}
+
+void Interface::map() {
+
+    this->image->loadFromFile("./img/battle.png");
+    this->bg->setTexture(*image);
+     this->window->draw(*bg);
+    
 }
 
 //Getters
