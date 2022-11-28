@@ -1,11 +1,13 @@
 #include "Menu.h"
 
-Menu::Menu() {
+Menu::Menu(sf::RenderWindow* window) {
 
-    winclose = new sf::RectangleShape();
-    font = new sf::Font();
-    image = new sf::Texture();
-    bg = new sf::Sprite();
+    this->winclose = new sf::RectangleShape();
+    this->font = new sf::Font();
+    this->image = new sf::Texture();
+    this->bg = new sf::Sprite();
+    this->menu = true;
+    this->window = window;
 
     set_values();
 }
@@ -84,12 +86,12 @@ void Menu::loop_events() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !theselect) {
             theselect = true;
             if (pos == 0) {
-                this->play = true;
+                this->menu = false;
             }
 
             if (pos == 2) {
                 
-                this->play = false;
+                this->window->close();
             }
             std::cout << options[pos] << '\n';
         }
@@ -107,12 +109,13 @@ void Menu::loop_events() {
     }
 
     void Menu::run_menu() {
-        while (this->window->isOpen()) {
+        while (this->menu == true) {
+            
             loop_events();
             draw_all();
         }
     }
 
     bool Menu::getPlay() {
-        return this->play;
+        return this->menu;
     }

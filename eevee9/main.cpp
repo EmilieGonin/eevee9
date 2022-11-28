@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Eevee.h"
-#include "Game.h"
+
 #include "Menu.h"
 #include <iostream>
 
@@ -11,14 +11,9 @@
 //}
 int main()
 {
-
     Game game;
-    Menu* menu = new Menu();
+    Menu* menu = new Menu(&game.getWindow());
     menu->run_menu();
-    delete menu;
-    menu = nullptr;
-
-
         sf::Texture texture;
         if (!texture.loadFromFile("img/trainer.png"))
         {

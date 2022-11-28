@@ -22,7 +22,7 @@ public:
 	int update(int);
 	bool isOpen();
 	bool isMoving();
-
+	sf::RenderWindow& getWindow();
 	int getKeyPressed();
 
 };
