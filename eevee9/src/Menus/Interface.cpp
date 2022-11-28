@@ -105,10 +105,12 @@ void Interface::start() {
 
 void Interface::startOptions() {
     if (this->pos == 0) {
+        this->music.stop();
         this->startMenu = false;
     }
 
     if (this->pos == 2) {
+        this->music.stop();
         this->window->close();
     }
 }

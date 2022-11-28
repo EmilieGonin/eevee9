@@ -24,22 +24,23 @@ int main()
         
     while (game.isOpen())
     {
-        //battle.setFighting(true);
-
+        
+        
         //Si un combat commence, on change d'écran
         if (battle.isFighting()) {
-            //interface.battle();
             player.idle();
-            //battle.battle();
+            battle.battle();
+            interface.battle();
             //thread.launch();
             //Show menu fighting
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
             player.setOrientation(game.update(player.getOrientation()));
-
+            battle.setFighting(game.getBattle());
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
+                    
                     player.update();
                 }
                 else {

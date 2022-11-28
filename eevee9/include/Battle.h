@@ -16,6 +16,7 @@ protected:
 	Eevee* _eevee;
 	Enemy* _enemy;
 	sf::Thread _thread;
+	sf::Music music;
 
 public:
 	Battle(Eevee*, Enemy*);

@@ -6,6 +6,7 @@ Game::Game()
     window->create(sf::VideoMode(992, 672), "Pokemon: Eevee 9", sf::Style::Titlebar | sf::Style::Close);
     window->setFramerateLimit(60);
     this->pause = false;
+    this->battle = false;
     this->keypressed = NULL;
 }
 
@@ -65,6 +66,9 @@ int Game::update(int orientation) {
                     std::cout << "run pause menu" << std::endl;
                     this->pause = true;
                 }
+                else if (event.key.code == sf::Keyboard::B) {
+                    this->battle = true;
+                }
             }
             break;
 
@@ -84,6 +88,7 @@ void Game::setPause(bool pause) {
 
 //Getters
 
+bool Game::getBattle() { return this->battle; }
 bool Game::getPause() { return this->pause; }
 int Game::getKeyPressed() { return this->keypressed; }
 sf::RenderWindow* Game::getWindow() { return this->window; }

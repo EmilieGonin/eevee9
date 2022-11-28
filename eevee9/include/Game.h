@@ -6,7 +6,8 @@
 class Game
 {
 protected:
-	bool pause;
+	bool pause, battle;
+
 	int keypressed;
 	sf::RenderWindow *window;
 
@@ -27,6 +28,7 @@ public:
 
 	//Getters
 	bool getPause();
+	bool getBattle();
 	int getKeyPressed();
 	sf::RenderWindow* getWindow();
 
