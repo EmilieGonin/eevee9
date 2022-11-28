@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <iostream>
 
 Game::Game()
 {
@@ -12,12 +11,26 @@ Game::Game()
 
 Game::~Game() {};
 
+//Window & Sprite
 
 void Game::draw(Entity& entity) { window->draw(entity.getSprite()); };
+void Game::clear() { window->clear(); };
+void Game::display() { window->display(); };
+bool Game::isOpen() { return window->isOpen(); }
+
+bool Game::isMoving() {
+    if (this->keypressed) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 int Game::update(int orientation) {
     int newOrientation = orientation;
     sf::Event event;
+
     while (window->pollEvent(event))
     {
         switch (event.type)
@@ -25,6 +38,7 @@ int Game::update(int orientation) {
         case sf::Event::Closed:
             window->close();
             break;
+
         case sf::Event::KeyPressed:
             if (!this->keypressed && this->pause == false) {
                 if (event.key.code == sf::Keyboard::Z) {
@@ -49,6 +63,7 @@ int Game::update(int orientation) {
                 }
             }
             break;
+
         case sf::Event::KeyReleased:
             if (event.key.code == this->keypressed)
                 this->keypressed = NULL;
@@ -57,32 +72,14 @@ int Game::update(int orientation) {
     return newOrientation;
 }
 
-
-void Game::clear() { window->clear(); };
-void Game::display() { window->display(); };
-
-bool Game::isOpen() {
-    return window->isOpen();
-}
-
-bool Game::isMoving() {
-    if (this->keypressed) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-int Game::getKeyPressed() {
-    return this->keypressed;
-}
-
-bool Game::getPause() { return this->pause; }
-
-sf::RenderWindow* Game::getWindow() { return this->window; }
+//Setters
 
 void Game::setPause(bool pause) {
     this->pause = pause;
 }
 
+//Getters
+
+bool Game::getPause() { return this->pause; }
+int Game::getKeyPressed() { return this->keypressed; }
+sf::RenderWindow* Game::getWindow() { return this->window; }

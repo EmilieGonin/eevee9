@@ -6,24 +6,29 @@
 class Game
 {
 protected:
-	
+	bool pause;
 	int keypressed;
 	sf::RenderWindow *window;
-	bool pause;
 
 public:
 	Game();
 	~Game();
+
+	//Window & Sprite
 	void draw(Entity &);
 	void clear();
 	void display();
-	int update(int);
 	bool isOpen();
 	bool isMoving();
-	bool getPause();
+	int update(int);
+
+	//Setters
 	void setPause(bool);
-	sf::RenderWindow* getWindow();
+
+	//Getters
+	bool getPause();
 	int getKeyPressed();
+	sf::RenderWindow* getWindow();
 
 };
 
