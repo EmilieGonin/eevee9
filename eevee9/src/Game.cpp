@@ -46,8 +46,6 @@ int Game::update(int orientation) {
                 else if (event.key.code == sf::Keyboard::Escape) {
                     std::cout << "run pause menu" << std::endl;
                     this->pause = true;
-                    //runMenu();
-
                 }
             }
             break;
@@ -82,7 +80,7 @@ int Game::getKeyPressed() {
 
 bool Game::getPause() { return this->pause; }
 
-sf::RenderWindow& Game::getWindow() { return *this->window; }
+sf::RenderWindow* Game::getWindow() { return this->window; }
 
 void Game::setPause(bool pause) {
     this->pause = pause;

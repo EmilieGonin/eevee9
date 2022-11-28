@@ -1,6 +1,4 @@
-#include "Game.h"
-#include "Menu.h"
-#include "PauseMenu.h"
+#include "Interface.h"
 #include "Battle.h"
 #include "Database.h"
 
@@ -11,21 +9,15 @@ int main()
     sqlite3* db = getDatabase();
 
     Game game;
+    Interface interface(&game);
+    interface.start();
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("img/eevee_spritesheet.png"))
-    {
-        // error...
-    }
+    sf::Texture eeveeTexture, enemyTexture;
+    eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
+    enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
 
-    Eevee player = Eevee(texture);
-    Menu* menu = new Menu(&game.getWindow());
-    PauseMenu* pauseMenu = new PauseMenu(&game.getWindow(), &game);
-    menu->run_menu();
-    delete menu;
-    menu = nullptr;
-        
-    Enemy enemy(texture);
+    Eevee player(eeveeTexture);
+    Enemy enemy(enemyTexture);
     Battle battle(&player, &enemy);
     //sf::Thread thread(&Battle::battle, &battle);
     //player.setCoords(227, 60, 60, 79);
@@ -35,21 +27,22 @@ int main()
         game.clear();
         //battle.setFighting(true);
 
+        //Si un combat commence, on change d'écran
         if (battle.isFighting()) {
             player.idle();
             battle.battle();
             //thread.launch();
-
             //Show menu fighting
         }
+        //Sinon, on vérifie les mouvements du joueur + la pause
         else {
             player.setOrientation(game.update(player.getOrientation()));
+
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
                     player.update();
                 }
                 else {
-
                     player.resetAnimation();
                 }
                 if (game.isMoving()) {
@@ -57,10 +50,7 @@ int main()
                 }
             }
             else {
-
-                pauseMenu->menu = true;
-                pauseMenu->run_menu();
-
+                interface.pause();
             }
         }
 
