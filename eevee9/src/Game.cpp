@@ -41,21 +41,25 @@ int Game::update(int orientation) {
 
         case sf::Event::KeyPressed:
             if (!this->keypressed && this->pause == false) {
-                if (event.key.code == sf::Keyboard::Z) {
+                if (event.key.code == sf::Keyboard::Z ||
+                    event.key.code == sf::Keyboard::Up) {
                     newOrientation = UP;
-                    this->keypressed = sf::Keyboard::Z;
+                    this->keypressed = event.key.code;
                 }
-                else if (event.key.code == sf::Keyboard::D) {
+                else if (event.key.code == sf::Keyboard::D ||
+                    event.key.code == sf::Keyboard::Right) {
                     newOrientation = RIGHT;
-                    this->keypressed = sf::Keyboard::D;
+                    this->keypressed = event.key.code;
                 }
-                else if (event.key.code == sf::Keyboard::S) {
+                else if (event.key.code == sf::Keyboard::S ||
+                    event.key.code == sf::Keyboard::Down) {
                     newOrientation = DOWN;
-                    this->keypressed = sf::Keyboard::S;
+                    this->keypressed = event.key.code;
                 }
-                else if (event.key.code == sf::Keyboard::Q) {
+                else if (event.key.code == sf::Keyboard::Q ||
+                    event.key.code == sf::Keyboard::Left) {
                     newOrientation = LEFT;
-                    this->keypressed = sf::Keyboard::Q;
+                    this->keypressed = event.key.code;
                 }
                 else if (event.key.code == sf::Keyboard::Escape) {
                     std::cout << "run pause menu" << std::endl;
