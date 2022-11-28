@@ -1,9 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include "Eevee.h"
-
+#include "Game.h"
 #include "Menu.h"
-#include <iostream>
+#include "Battle.h"
+#include "Database.h"
 
 //void checkPosition() {
 //
@@ -11,6 +9,10 @@
 //}
 int main()
 {
+    //Chargement de la base de données
+    std::cout << "Loading database...\n";
+    sqlite3* db = getDatabase();
+
     Game game;
     Menu* menu = new Menu(&game.getWindow());
     menu->run_menu();
@@ -21,7 +23,9 @@ int main()
         }
 
         Eevee player = Eevee(texture);
-
+        Enemy enemy(texture);
+        //Battle battle(&player, &enemy);
+        
         while (game.isOpen())
         {
             game.clear();

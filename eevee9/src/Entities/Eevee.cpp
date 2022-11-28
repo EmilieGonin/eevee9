@@ -1,22 +1,31 @@
 #include "Eevee.h"
-#include <iostream>
 
 
 Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
+	//Entity datas
+	this->name = "Eevee"; // le joueur peut modifier ?
 	this->hp = 55;
+	this->speed = 55;
+	this->sprite.scale(1, 1);
+	this->orientation = DOWN;
+
+	//Eevee datas
 	this->catchrate = 6;
+
+	//Evolution
+	this->eeveelution = 0;
+	this->evolved = false;
+
+	//Stones
 	this->firestone = 0;
 	this->waterstone = 0;
 	this->thunderstone = 0;
-	this->sprite.scale(1, 1);
-	this->orientation = DOWN;
-	
 };
 
 Eevee::~Eevee() {};
 
 void Eevee::evolve() {
-	//
+	//Change this->y;
 }
 
 bool Eevee::canEvolve() {
@@ -65,9 +74,14 @@ void Eevee::move() {
 	}
 
 	this->sprite.move(changeX * PAS, changeY * PAS);
-
 }
 
+//Getters
 
+int Eevee::getEeveelution() {
+	return this->eeveelution;
+}
 
-
+bool Eevee::isEvolved() {
+	return this->evolved;
+}
