@@ -33,5 +33,6 @@ public:
 
 	//Getters
 	bool isFighting();
+	bool getChoice();
 };
 

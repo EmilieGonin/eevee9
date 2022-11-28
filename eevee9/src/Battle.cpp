@@ -201,3 +201,7 @@ void Battle::setFighting(bool fighting) {
 bool Battle::isFighting() {
 	return this->_fighting;
 }
+
+bool Battle::getChoice() {
+	return this->_choice;
+}
