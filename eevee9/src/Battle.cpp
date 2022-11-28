@@ -42,9 +42,11 @@ void Battle::battle() {
 	}
 
 	if (this->_win) {
+		std::cout << "You win !!" << std::endl;
 		this->loot();
 	}
 	else if (this->_loose) {
+		std::cout << "You loose..." << std::endl;
 		//écran game over
 	}
 }
@@ -157,7 +159,7 @@ void Battle::attack(bool eevee) {
 		}
 	}
 	else {
-		std::cout << "Attack dodged" << std::endl;
+		std::cout << name << " has dodged the attack !" << std::endl;
 		//name has dodge the attack !
 	}
 }
@@ -167,8 +169,8 @@ bool Battle::pokeball() {
 		return true;
 	}
 	else {
-	return false;
-}
+		return false;
+	}
 }
 
 bool Battle::initiative() {
