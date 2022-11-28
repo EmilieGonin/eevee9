@@ -36,9 +36,6 @@
     <ClCompile Include="src\Entities\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="..\libs\sqlite\sqlite3.c">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menus\PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menus\Menu.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,10 +74,13 @@
     <ClInclude Include="include\Entities\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Menu\Menu.h">
+    <ClInclude Include="include\Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Database.h">
+    <ClInclude Include="include\Menus\PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menus\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

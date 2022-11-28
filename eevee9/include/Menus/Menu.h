@@ -7,7 +7,7 @@
 class Menu{
     int pos;
     bool pressed, theselect;
-    bool menu;
+    
 
     sf::RectangleShape* winclose;
     sf::Font* font;
@@ -26,6 +26,7 @@ protected:
     void draw_all();
 
 public:
+    bool menu;
     Menu(sf::RenderWindow*);
     ~Menu();
     void run_menu();

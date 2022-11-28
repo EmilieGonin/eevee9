@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Menu.h"
+#include "PauseMenu.h"
 #include "Battle.h"
 #include "Database.h"
 
@@ -14,33 +15,52 @@ int main()
     sqlite3* db = getDatabase();
 
     Game game;
-    Menu* menu = new Menu(&game.getWindow());
-    menu->run_menu();
-        sf::Texture texture;
-        if (!texture.loadFromFile("img/trainer.png"))
-        {
-            // error...
-        }
 
-        Eevee player = Eevee(texture);
+    sf::Texture texture;
+    if (!texture.loadFromFile("img/trainer.png"))
+    {
+        // error...
+    }
+
+
+    Eevee player = Eevee(texture);
+    Menu* menu = new Menu(&game.getWindow());
+    PauseMenu* pauseMenu = new PauseMenu(&game.getWindow(), &game);
+    menu->run_menu();
+    delete menu;
+    menu = nullptr;
+
+
+        
         Enemy enemy(texture);
         //Battle battle(&player, &enemy);
         
         while (game.isOpen())
         {
             game.clear();
+            game.draw(player);
+
             player.setOrientation(game.update(player.getOrientation()));
-            if (game.getKeyPressed()) {
-                player.update();
+            if (game.getPause() != true) {
+                if (game.getKeyPressed()) {
+                    player.update();
+                }
+                else {
+
+                    player.resetAnimation();
+                }
+                if (game.isMoving()) {
+                    player.move();
+                }
             }
             else {
-                player.resetAnimation();
-            }
-            if (game.isMoving()) {
-                player.move();
+                
+                pauseMenu->menu = true;
+                pauseMenu->run_menu();
+               
             }
 
-            game.draw(player);
+            
             game.display();
         }
     
