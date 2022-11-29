@@ -30,7 +30,14 @@ int main()
             player.idle();
             game.setBattle(battle.battle());
             if (!battle.getChoice()) {
-                battle.setChoice(interface.battle(battle.getChoice()));
+                game.clear();
+                battle.setChoice(interface.battle() + 1);
+                game.draw(player);
+                game.display();
+            }
+            if (!game.getBattle()) {
+                player.setCoords(0, 30, 27, 3);
+                battle.reset();
             }
             //thread.launch();
             //Show menu fighting

@@ -30,7 +30,7 @@ sqlite3* getDatabase() {
 
 	SQL(db, sql);
 
-	std::cout << "----------\n";
+	std::cout << "----------" << std::endl;
 
 	return db;
 }

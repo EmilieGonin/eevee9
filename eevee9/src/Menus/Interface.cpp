@@ -42,28 +42,32 @@ Interface::~Interface() {
 void Interface::loop_events() {
     sf::Event event;
     texts[this->pos].setOutlineThickness(10);
+    this->pressed = false;
+    //std::cout << "pos : " << this->pos << std::endl;
 
     if (this->window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             this->window->close();
         }
       
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
             if (this->pos < this->options.size() - 1) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 ++pos;
             }
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
             if (this->pos > 0) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 --pos;
             }
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
             std::cout << options[this->pos] << std::endl;
+            this->pressed = true;
+
             if (this->startMenu == true) {
                 startOptions();
             }
@@ -144,11 +148,11 @@ void Interface::pauseOptions() {
     }
 }
 
-int Interface::battle(bool choice) {
-    this->battleMenu = !choice;
-    std::cout << "choice : " << choice << std::endl;
-    this->image->loadFromFile("./img/battle.png");
-    this->bg->setTexture(*image);
+int Interface::battle() {
+    this->battleMenu = true;
+    //std::cout << "choice : " << choice << std::endl;
+    //this->image->loadFromFile("./img/battle.png");
+    //this->bg->setTexture(*image);
 
     //Texts
     this->options = { "Attack", "Escape" };
@@ -160,7 +164,9 @@ int Interface::battle(bool choice) {
         draw_all();
     }
 
-    return this->pos;
+    int choice = pos;
+    //this->pos = 0;
+    return choice;
 }
 
 void Interface::battleOptions() {
