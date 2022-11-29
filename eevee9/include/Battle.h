@@ -4,8 +4,6 @@
 #include "Enemy.h"
 #include "Game.h"
 
-
-
 class Battle
 {
 protected:

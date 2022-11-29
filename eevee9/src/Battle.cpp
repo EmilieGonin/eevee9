@@ -139,7 +139,7 @@ void Battle::turn() {
 
 //
 void Battle::attack(bool eevee) {
-	std::cout << "Attack function" << std::endl;
+	//std::cout << "Attack function" << std::endl;
 	int dodgerate;
 	std::string name;
 

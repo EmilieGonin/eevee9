@@ -34,9 +34,8 @@ int main()
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-            //game.draw(player);
-            //game.display();
-            player.spritePosition(2, 300);
+            interface.stopMusic();
+            player.spritePosition(2, 300); //Déplace Eevee au bon endroit
             player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
             music.stop();
             game.setBattle(battle.battle()); //Conditions de win/loose

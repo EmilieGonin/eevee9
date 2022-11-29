@@ -26,10 +26,10 @@ Interface::Interface(Game* game, Eevee* eevee) {
     this->buffer.loadFromFile("./sfx/sounds/button.wav");
     this->button.setBuffer(this->buffer);
     this->button.setVolume(30);
-
     this->bufferStart.loadFromFile("./sfx/sounds/start.wav");
     this->startButton.setBuffer(this->bufferStart);
     this->startButton.setVolume(30);
+
     //Misc
     this->pos = 0;
     this->pressed = this->theselect = this->pauseMenu = this->battleMenu = false;
@@ -214,12 +214,6 @@ void Interface::map() {
     this->bg->setTexture(*image);
      this->window->draw(*bg);
     
-}
-void Interface::battleSheet() {
-
-    this->image->loadFromFile("./img/battle.png");
-    this->bg->setTexture(*image);
-    this->window->draw(*bg);
 }
 
 void Interface::draw(sf::RectangleShape rectangle)
