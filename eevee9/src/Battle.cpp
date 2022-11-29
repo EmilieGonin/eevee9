@@ -68,20 +68,6 @@ bool Battle::battle() {
 	//set eevee sprite coordinates
 }
 
-//void Battle::choice() {
-//	std::cout << "turn in turn function : " << this->_turn << std::endl;
-//
-//	//Attente du choix du joueur
-//	if (this->_choice == 0) {
-//		std::cout << "Choose an action !" << std::endl;
-//		//std::cin >> this->_choice;
-//		//afficher menu
-//	}
-//	else {
-//		//
-//	}
-//}
-
 void Battle::turn() {
 	std::cout << "choice is not false (battle function) : " << this->_choice << std::endl;
 	//La fuite passe toujours en premier
