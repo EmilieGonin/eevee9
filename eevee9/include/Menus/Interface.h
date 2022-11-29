@@ -40,7 +40,6 @@ public:
     int battle();
     void battleOptions();
     void map();
-    void draw(sf::RectangleShape);
 
     //Setters
     void stopMusic();

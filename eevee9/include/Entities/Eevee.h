@@ -25,7 +25,7 @@ public:
 	bool canEvolve();
 	void addLoot(int);
 	bool escape();
-	void move();
+	void move(bool);
 
 	//Getters
 	int getCatchrate();

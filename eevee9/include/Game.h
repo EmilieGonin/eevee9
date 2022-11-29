@@ -17,6 +17,7 @@ public:
 
 	//Window & Sprite
 	void draw(Entity &);
+	void drawtile(sf::RectangleShape &);
 	void clear();
 	void display();
 	bool isOpen();

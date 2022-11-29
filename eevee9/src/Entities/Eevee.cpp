@@ -55,23 +55,29 @@ bool Eevee::escape() {
 	return true;
 }
 
-void Eevee::move() {
+void Eevee::move(bool collision) {
 
 	int changeX = 0;
 	int changeY = 0;
 
 	if (this->orientation == DOWN) {
-		changeY = 2;
+		if (!collision) { changeY = 2; }
+		else (changeY = -2);
 	}
 	else if (this->orientation == UP) {
-		changeY = -2;
+		if (!collision) { changeY = -2; }
+		else (changeY = 2);
 	}
 	else if (this->orientation == RIGHT) {
-		changeX = 2;
+		if (!collision) { changeX = 2; }
+		else (changeX = -2);
 	}
 	else if (this->orientation == LEFT) {
-		changeX = -2;
+		if (!collision) { changeX = -2; }
+		else (changeX = 2);
 	}
+
+	std::cout << this->orientation << std::endl;
 
 	this->sprite.move(changeX * PAS, changeY * PAS);
 }

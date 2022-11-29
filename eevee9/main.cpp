@@ -1,7 +1,7 @@
 #include "Interface.h"
 #include "Battle.h"
 #include "Database.h"
-#include "Tile.h"
+#include "collision.h"
 
 /*Todo list
 - Mettre un délai au lancement du combat avant l'apparition de l'écran ?
@@ -18,12 +18,18 @@ int main()
     sqlite3* db = getDatabase();
 
     Game game;
+
+    Interface interface(&game);
+    interface.start();
     
-    sf::RectangleShape rectangle(sf::Vector2f(992, 90));
+    sf::RectangleShape wall(sf::Vector2f(992, 75));
+    wall.setPosition(0, 0);
+    wall.setFillColor(sf::Color::Red);
+    collision rectangleTile(wall);
+    
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
-    rectangle.setFillColor(sf::Color::Green);
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
@@ -63,7 +69,7 @@ int main()
                     player.resetAnimation();
                 }
                 if (game.isMoving()) {
-                    player.move();
+                    player.move(rectangleTile.getcollision(&player));
                 }
             }
             else {
@@ -72,7 +78,7 @@ int main()
             
             game.clear();
             interface.map();
-            interface.draw(rectangle);
+            game.drawtile(rectangleTile.gettile());
             game.draw(player);
             game.display();
         }
