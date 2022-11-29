@@ -142,7 +142,6 @@
     <ClCompile Include="..\libs\sqlite\shell.c" />
     <ClCompile Include="..\libs\sqlite\sqlite3.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="src\Battle.cpp" />
     <ClCompile Include="src\Database.cpp" />
     <ClCompile Include="src\Entities\AnimatedEntity.cpp" />
@@ -151,9 +150,9 @@
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Menus\Interface.cpp" />
+    <ClCompile Include="src\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="include\Battle.h" />
     <ClInclude Include="include\Database.h" />
     <ClInclude Include="include\Entities\AnimatedEntity.h" />
@@ -162,6 +161,7 @@
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Menus\Interface.h" />
+    <ClInclude Include="include\Test.h" />
     <ClInclude Include="include\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

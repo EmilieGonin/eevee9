@@ -1,7 +1,7 @@
 #include "Interface.h"
 #include "Battle.h"
 #include "Database.h"
-#include "Tile.h"
+#include "Test.h"
 
 int main()
 {
@@ -12,11 +12,16 @@ int main()
     Game game;
     Interface interface(&game);
     interface.start();
-    sf::RectangleShape rectangle(sf::Vector2f(992, 90));
+    //sf::RectangleShape rectangle(sf::Vector2f(992, 90));
+    sf::RectangleShape grass(sf::Vector2f(635, 75));
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
-    rectangle.setFillColor(sf::Color::Green);
+    //rectangle.setFillColor(sf::Color::Green);
+    //rectangle.setPosition(0, 0);
+    grass.setPosition(290, 100);
+    grass.setFillColor(sf::Color::Yellow);
+    Test rectangleTile(992, 90, true);
     sf::Music music;
     music.openFromFile("./sfx/Music/route.wav");
     music.setLoop(true);
@@ -69,7 +74,9 @@ int main()
                     player.resetAnimation();
                 }
                 if (game.isMoving()) {
-                    player.move();
+                    if (!rectangleTile.collision(&player)) {
+                        player.move();
+                    }
                 }
             }
             else {
@@ -78,7 +85,8 @@ int main()
             
             game.clear();
             interface.map();
-            interface.draw(rectangle);
+            interface.draw(grass);
+            //interface.draw(rectangle);
             game.draw(player);
             game.display();
         }

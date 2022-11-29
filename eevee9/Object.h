@@ -1,7 +1,7 @@
 #pragma once
+#include "Eevee.h"
 
-
-class collision {
+class Object {
 public:
 	bool wall;
 	bool tp;
@@ -12,6 +12,8 @@ public:
 	void collideRight();
 	void collideUp();
 	void collideDown();
+
+	void collision(Eevee*);
 };
 
 
