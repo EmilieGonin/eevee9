@@ -45,15 +45,13 @@ Interface::~Interface() {
 void Interface::loop_events() {
     sf::Event event;
     texts[this->pos].setOutlineThickness(10);
-    this->pressed = false;
     //std::cout << "pos : " << this->pos << std::endl;
 
     if (this->window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             this->window->close();
         }
-      
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
             if (this->pos < this->options.size() - 1) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
@@ -68,8 +66,7 @@ void Interface::loop_events() {
             }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
-            std::cout << options[this->pos] << std::endl;
-            this->pressed = true;
+            std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
 
             if (this->startMenu == true) {
                 startOptions();
@@ -80,6 +77,11 @@ void Interface::loop_events() {
             else if (this->battleMenu == true) {
                 battleOptions();
             }
+
+            while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                this->pressed = true;
+            }
+            this->pressed = false;
         }
     }
 }
