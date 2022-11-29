@@ -1,7 +1,7 @@
 #include "Interface.h"
 #include "Battle.h"
 #include "Database.h"
-#include "collision.h"
+#include "Collision.h"
 
 /*Todo list
 - Mettre un délai au lancement du combat avant l'apparition de l'écran ?
@@ -20,13 +20,10 @@ int main()
 
     Game game;
 
-    Interface interface(&game);
-    interface.start();
-    
     sf::RectangleShape wall(sf::Vector2f(992, 75));
     wall.setPosition(0, 0);
     wall.setFillColor(sf::Color::Red);
-    collision rectangleTile(wall);
+    Collision rectangleTile(wall);
     
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");

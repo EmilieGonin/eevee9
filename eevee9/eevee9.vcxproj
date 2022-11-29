@@ -150,7 +150,7 @@
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Menus\Interface.cpp" />
-    <ClCompile Include="src\collision.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Battle.h" />
@@ -161,7 +161,7 @@
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Menus\Interface.h" />
-    <ClInclude Include="include\collision.h" />
+    <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -200,12 +200,6 @@ void Interface::map() {
     this->window->draw(*bg);
 }
 
-void Interface::draw(sf::RectangleShape rectangle)
-{
-    this->window->draw(rectangle);
-
-}
-
 void Interface::battleOptions() {
     this->battleMenu = false;
 }

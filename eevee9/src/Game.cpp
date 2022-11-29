@@ -13,7 +13,7 @@ Game::~Game() {};
 
 //Window & Sprite
 
-void Game::draw(Entity& entity) { window->draw(entity.getSprite()); };
+void Game::draw(Entity& entity) { window->draw(entity.getSprite(2,2)); };
 void Game::drawtile(sf::RectangleShape& rectangle) { window->draw(rectangle); };
 void Game::clear() { window->clear(); };
 void Game::display() { window->display(); };

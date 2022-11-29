@@ -1,6 +1,6 @@
-#include "collision.h"
+#include "Collision.h"
 
-collision::collision(sf::RectangleShape &rectangle) : tile(rectangle) {
+Collision::Collision(sf::RectangleShape &rectangle) : tile(rectangle) {
 
 	this->wall = true;
 	this->grass = true;
@@ -13,16 +13,16 @@ collision::collision(sf::RectangleShape &rectangle) : tile(rectangle) {
 	//std::cout << this->tile->getPosition().x << std::endl;
 }
 
-sf::RectangleShape& collision::gettile() { return this->tile; };
+sf::RectangleShape& Collision::gettile() { return this->tile; };
 
-sf::RectangleShape collision::tileGet () {
+sf::RectangleShape Collision::tileGet () {
 	return this->tile;
 }
 
-bool collision::getcollision(Eevee* player) {
+bool Collision::getcollision(Eevee* player) {
 	//std::cout << this->tile << std::endl;
 	sf::FloatRect bounds = this->tile.getGlobalBounds();
-	sf::Sprite sprite = player->getSprite();
+	sf::Sprite sprite = player->getSprite(2,2);
 	sf::FloatRect Eeveebounds = sprite.getGlobalBounds();
 	if (this->wall) {
 		//std::cout << "this is a wall" << std::endl;

@@ -4,7 +4,7 @@
 
 
 
-class collision {
+class Collision {
 public:
 	bool wall;
 	bool tp;
@@ -16,7 +16,7 @@ public:
 	sf::RectangleShape tileGet();
 	sf::RectangleShape& gettile();
 
-	collision(sf::RectangleShape &);
+	Collision(sf::RectangleShape &);
 
 	void collideLeft();
 	void collideRight();
