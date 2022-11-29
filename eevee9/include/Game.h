@@ -25,6 +25,7 @@ public:
 
 	//Setters
 	void setPause(bool);
+	void setBattle(bool);
 
 	//Getters
 	bool getPause();
