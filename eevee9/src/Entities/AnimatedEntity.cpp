@@ -23,7 +23,7 @@ void AnimatedEntity::resetAnimation(void) {
 }
 
 void AnimatedEntity::idle(void) {
-    std::cout << "idle" << std::endl;
+    //std::cout << "idle" << std::endl;
     if (this->count % 200 == 0)
     {
         this->frame = (this->frame + 1) % this->spriteFrames;
