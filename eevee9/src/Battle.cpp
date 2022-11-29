@@ -38,6 +38,7 @@ void Battle::end() {
 	}
 
 	this->_eevee->setCoords(0, 30, 27, 3);
+	this->_enemy->reset();
 	this->reset();
 }
 
@@ -54,6 +55,11 @@ bool Battle::battle() {
 	//Music
 	if (this->music.getStatus() != 2) {
 		this->music.play();
+	}
+
+	//On récupère les données de l'ennemi si elles n'existent pas
+	if (!this->_enemy->getY()) {
+		this->_enemy->set();
 	}
 
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;

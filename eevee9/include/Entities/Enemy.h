@@ -10,4 +10,7 @@ protected:
 public:
 	Enemy(sf::Texture&);
 	~Enemy();
+
+	void reset();
+	void set();
 };
