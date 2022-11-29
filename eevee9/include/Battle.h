@@ -3,6 +3,8 @@
 #include "Eevee.h"
 #include "Enemy.h"
 
+
+
 class Battle
 {
 protected:
@@ -17,6 +19,8 @@ protected:
 	Enemy* _enemy;
 	sf::Thread _thread;
 	sf::Music music;
+	std::string musicTab[4] = { "./sfx/Music/battle.wav" , "./sfx/Music/battle2.wav" , "./sfx/Music/battle3.wav" , "./sfx/Music/battle4.wav" };
+
 
 public:
 	Battle(Eevee*, Enemy*);

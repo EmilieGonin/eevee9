@@ -11,11 +11,9 @@ Battle::Battle(Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, this) {
 	this->_enemy_choice = 0;
 	this->_turn = 1;
 
+	
 
-	this->music.openFromFile("./sfx/Music/battle.wav");
-	this->music.setLoop(true);
-	this->music.setVolume(10);
-
+	
 	//this->battle();
 }
 
@@ -31,6 +29,12 @@ void Battle::loot() {
 }
 
 void Battle::battle() {
+	srand(time(0));
+	this->music.openFromFile(musicTab[rand() % 4]);
+	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
+	this->music.setLoop(true);
+	this->music.setVolume(10);
+
 	this->music.play();
 	//set eevee sprite coordinates (79 frames)
 	std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
