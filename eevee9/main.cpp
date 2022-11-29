@@ -15,18 +15,24 @@ int main()
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
+    sf::Music music;
+    music.openFromFile("./sfx/Music/route.wav");
+    music.setLoop(true);
+    music.setVolume(15);
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
     Battle battle(&game, &player, &enemy);
     //sf::Thread thread(&Battle::battle, &battle);
     //player.setCoords(227, 60, 60, 79);
-        
+
+    music.play();
     while (game.isOpen())
     {
         //Si un combat commence, on change d'écran
         //std::cout << "game fighting : " << game.getBattle() << std::endl;
         if (game.getBattle()) {
+            music.stop();
             player.idle();
             game.setBattle(battle.battle());
             if (!battle.getChoice()) {

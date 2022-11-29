@@ -6,10 +6,6 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, 
 	this->_game = game;
 	//this->_fighting = false;
 	this->reset();
-
-	this->music.openFromFile("./sfx/Music/battle.wav");
-	this->music.setLoop(true);
-	this->music.setVolume(10);
 }
 
 Battle::~Battle() {};
@@ -33,6 +29,11 @@ void Battle::loot() {
 }
 
 bool Battle::battle() {
+	srand(time(0));
+	this->music.openFromFile(musicTab[rand() % 4]);
+	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
+	this->music.setLoop(true);
+	this->music.setVolume(10);
 	this->music.play();
 	//set eevee sprite coordinates (79 frames)
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
@@ -61,7 +62,7 @@ bool Battle::battle() {
 				}
 			}
 
-			//Sélection de l'ennemi
+			//SÃ©lection de l'ennemi
 			std::cout << "Calculating ennemy's choice..." << std::endl;
 
 			//Au premier tour, on ne pourra pas se faire attraper
@@ -90,7 +91,7 @@ bool Battle::battle() {
 				}
 			}
 
-			//S'il reste une action d'attaque à effectuer, on lance l'attaque
+			//S'il reste une action d'attaque Ã  effectuer, on lance l'attaque
 			if (this->_enemy_choice != 3 && this->_choice != 2) {
 				//Si les deux doivent attaquer, on calcule l'initiative
 				std::cout << "Calculating eevee's speed..." << std::endl;
@@ -125,7 +126,7 @@ bool Battle::battle() {
 	else if (this->_loose) {
 		std::cout << "You loose..." << std::endl;
 		return 0;
-		//écran game over
+		//Ã©cran game over
 	}
 
 	//set eevee sprite coordinates
