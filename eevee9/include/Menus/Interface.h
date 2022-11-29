@@ -38,6 +38,7 @@ public:
     void battle(bool);
     void battleOptions();
     void map();
+    void draw(sf::RectangleShape);
 
     //Setters
     void setPauseMenu(bool);
