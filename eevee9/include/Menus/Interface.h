@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game.h"
+#include "Eevee.h";
 
 class Interface
 {
@@ -9,6 +10,7 @@ protected:
     bool pressed, theselect, startMenu, pauseMenu, battleMenu;
 
     Game* _game;
+    Eevee* eevee;
     sf::RectangleShape* winclose;
     sf::Font* font;
     sf::Texture* image;
@@ -29,7 +31,7 @@ protected:
     void draw_all();
 
 public:
-    Interface(Game*);
+    Interface(Game*, Eevee*);
     ~Interface();
     void start();
     void startOptions();
@@ -38,6 +40,7 @@ public:
     int battle();
     void battleOptions();
     void map();
+    void battleSheet();
 
     //Setters
     void setPauseMenu(bool);
