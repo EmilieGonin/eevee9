@@ -53,36 +53,37 @@ void Interface::loop_events() {
             this->window->close();
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
-        if (this->pos < this->options.size() - 1) {
-            this->button.play();
-            texts[this->pos].setOutlineThickness(0);
-            ++pos;
+            if (this->pos < this->options.size() - 1) {
+                this->button.play();
+                texts[this->pos].setOutlineThickness(0);
+                ++pos;
+            }
         }
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
-        if (this->pos > 0) {
-            this->button.play();
-            texts[this->pos].setOutlineThickness(0);
-            --pos;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
+            if (this->pos > 0) {
+                this->button.play();
+                texts[this->pos].setOutlineThickness(0);
+                --pos;
+            }
         }
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
-        std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
+            std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
 
-        if (this->startMenu == true) {
-            startOptions();
-        }
-        else if (this->pauseMenu == true) {
-            pauseOptions();
-        }
-        else if (this->battleMenu == true) {
-            battleOptions();
-        }
+            if (this->startMenu == true) {
+                startOptions();
+            }
+            else if (this->pauseMenu == true) {
+                pauseOptions();
+            }
+            else if (this->battleMenu == true) {
+                battleOptions();
+            }
 
-        while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-            this->pressed = true;
+            while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                this->pressed = true;
+            }
+            this->pressed = false;
         }
-        this->pressed = false;
     }
 }
 
