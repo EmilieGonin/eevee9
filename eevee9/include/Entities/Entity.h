@@ -32,6 +32,7 @@ public:
     void subHP(int);
     void setOrientation(int);
     void setCoords(int, int, int, int);
+    void spritePosition(float x, float y);
 
     //Getters
     sf::Sprite getSprite();

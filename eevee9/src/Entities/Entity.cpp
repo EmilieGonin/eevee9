@@ -34,6 +34,11 @@ void Entity::setCoords(int y, int xSize, int ySize, int frames) {
     this->ySize = ySize;
 }
 
+void Entity::spritePosition(float x, float y) {
+    this->sprite.setPosition(x, y);
+
+}
+
 //Getters
 
 sf::Sprite Entity::getSprite()
