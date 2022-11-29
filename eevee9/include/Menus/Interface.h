@@ -43,6 +43,7 @@ public:
     void draw(sf::RectangleShape);
 
     //Setters
+    void stopMusic();
     void setPauseMenu(bool);
     void setTexts(int);
 
