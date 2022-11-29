@@ -14,6 +14,10 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
 
 //Setters
 
+void Entity::setHP(int hp) {
+    this->hp = hp;
+}
+
 void Entity::subHP(int dmg) {
     this->hp = this->hp - dmg;
 }

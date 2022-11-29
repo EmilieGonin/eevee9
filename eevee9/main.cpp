@@ -29,40 +29,27 @@ int main()
 
     player.spritePosition(850, 510);
     //sf::Thread thread(&Battle::battle, &battle);
-    //player.setCoords(227, 60, 60, 79);
 
     music.play();
     while (game.isOpen())
     {
-        //Si un combat commence, on change d'écran
-        //std::cout << "game fighting : " << game.getBattle() << std::endl;
-        if (game.getBattle()) {
-
+        if (game.getBattle()) { //Si un combat est en cours
+            //game.draw(player);
+            //game.display();
+            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
+            player.idle(); //Lancement de l'animation idle
             music.stop();
-            player.idle();
-            game.setBattle(battle.battle());
-            if (!battle.getChoice()) {
-                
-          
-                /*interface.battleSheet();*/
-                
-                battle.setChoice(interface.battle() + 1);
-                std::cout << "je suis la ";
+            game.setBattle(battle.battle()); //Conditions de win/loose
+
+            //Si le combat est toujours en cours, on sélectionne un choix
+            if (game.getBattle() && !battle.getChoice()) {
+                std::cout << "NO CHOICE SELECTED" << std::endl;
+                std::cout << "----------" << std::endl << std::endl;
+                //Récupération du choix + affichage du background
                 game.draw(player);
-         
-                battle.turn();
-                
-
+                battle.setChoice(interface.battle() + 1);
+                battle.turn(); //Tour de jeu suivant le choix
             }
-            if (!game.getBattle()) {
-                player.setCoords(0, 30, 27, 3);
-                battle.reset();
-            }
-
-    
-   
-            //thread.launch();
-            //Show menu fighting
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
