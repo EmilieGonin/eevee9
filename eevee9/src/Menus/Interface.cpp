@@ -45,28 +45,29 @@ Interface::~Interface() {
 void Interface::loop_events() {
     sf::Event event;
     texts[this->pos].setOutlineThickness(10);
+    //std::cout << "pos : " << this->pos << std::endl;
 
     if (this->window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             this->window->close();
         }
-      
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
             if (this->pos < this->options.size() - 1) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 ++pos;
             }
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
             if (this->pos > 0) {
                 this->button.play();
                 texts[this->pos].setOutlineThickness(0);
                 --pos;
             }
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-            std::cout << options[this->pos] << std::endl;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
+            std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
+
             if (this->startMenu == true) {
                 startOptions();
             }
@@ -76,6 +77,11 @@ void Interface::loop_events() {
             else if (this->battleMenu == true) {
                 battleOptions();
             }
+
+            while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                this->pressed = true;
+            }
+            this->pressed = false;
         }
     }
 }
@@ -152,10 +158,11 @@ void Interface::pauseOptions() {
     }
 }
 
-void Interface::battle(bool choice) {
-    this->battleMenu = !choice;
-    this->image->loadFromFile("./img/battle.png");
-    this->bg->setTexture(*image);
+int Interface::battle() {
+    this->battleMenu = true;
+    //std::cout << "choice : " << choice << std::endl;
+    //this->image->loadFromFile("./img/battle.png");
+    //this->bg->setTexture(*image);
 
     //Texts
     this->options = { "Attack", "Escape" };
@@ -166,6 +173,10 @@ void Interface::battle(bool choice) {
         loop_events();
         draw_all();
     }
+
+    int choice = pos;
+    //this->pos = 0;
+    return choice;
 }
 
 void Interface::battleOptions() {

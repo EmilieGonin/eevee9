@@ -24,7 +24,7 @@ int main()
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
-    Battle battle(&player, &enemy);
+    Battle battle(&game, &player, &enemy);
     player.spritePosition(850, 510);
     //sf::Thread thread(&Battle::battle, &battle);
     //player.setCoords(227, 60, 60, 79);
@@ -33,18 +33,33 @@ int main()
     while (game.isOpen())
     {
         //Si un combat commence, on change d'écran
-        if (battle.isFighting()) {
+        //std::cout << "game fighting : " << game.getBattle() << std::endl;
+        if (game.getBattle()) {
+            std::cout << "BATTLE IS TRUE" << std::endl;
+            std::cout << "----------" << std::endl << std::endl;
             music.stop();
             player.idle();
-            battle.battle();
-            interface.battle(battle.getChoice());
+            game.setBattle(battle.battle());
+            if (!battle.getChoice()) {
+                std::cout << "NO CHOICE SELECTED" << std::endl;
+                std::cout << "----------" << std::endl << std::endl;
+                battle.setChoice(interface.battle() + 1);
+                battle.turn();
+                game.draw(player);
+                game.display();
+            }
+            if (!game.getBattle()) {
+                std::cout << "BATTLE ENDED" << std::endl;
+                std::cout << "----------" << std::endl << std::endl;
+                player.setCoords(0, 30, 27, 3);
+                battle.reset();
+            }
             //thread.launch();
             //Show menu fighting
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
             player.setOrientation(game.update(player.getOrientation()));
-            battle.setFighting(game.getBattle());
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
 

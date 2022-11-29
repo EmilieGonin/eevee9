@@ -67,6 +67,8 @@ int Game::update(int orientation) {
                 }
                 else if (event.key.code == sf::Keyboard::B) {
                     this->battle = true;
+                    std::cout << "Battle START" << std::endl;
+                    std::cout << "----------" << std::endl;
                 }
             }
             break;
@@ -83,6 +85,10 @@ int Game::update(int orientation) {
 
 void Game::setPause(bool pause) {
     this->pause = pause;
+}
+
+void Game::setBattle(bool battle) {
+    this->battle = battle;
 }
 
 //Getters
