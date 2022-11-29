@@ -15,9 +15,7 @@ Collision::Collision(sf::RectangleShape &rectangle) : tile(rectangle) {
 
 sf::RectangleShape& Collision::gettile() { return this->tile; };
 
-sf::RectangleShape Collision::tileGet () {
-	return this->tile;
-}
+sf::RectangleShape Collision::tileGet() { return this->tile; };
 
 bool Collision::getcollision(Eevee* player) {
 	//std::cout << this->tile << std::endl;
