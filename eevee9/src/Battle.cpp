@@ -4,24 +4,42 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, 
 	this->_eevee = eevee;
 	this->_enemy = enemy;
 	this->_game = game;
-	//this->_fighting = false;
+	this->music.openFromFile(musicTab[this->random(4)]);
+	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
+	this->music.setLoop(true);
+	this->music.setVolume(10);
 	this->reset();
 }
 
 Battle::~Battle() {};
 
 void Battle::reset() {
-	this->_win = false;
-	this->_loose = false;
-	this->_choice = 0;
-	this->_choosen_attack = 0;
-	this->_enemy_choice = 0;
+	this->_win = this->_loose = this->_escape = false;
+	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
+
+	this->_enemy->setHP(1); //temp
+}
+
+void Battle::end() {
+	std::cout << "BATTLE ENDED" << std::endl;
+	std::cout << "----------" << std::endl << std::endl;
+	if (this->_win) {
+		std::cout << "You win !!" << std::endl;
+		this->loot();
+	}
+	else if (this->_loose) {
+		std::cout << "You loose..." << std::endl;
+		//écran game over
+	}
+
+	this->_eevee->setCoords(0, 30, 27, 3);
+	this->reset();
 }
 
 void Battle::loot() {
 	int loot = this->random(6);
-	std::cout << "Getting loot : " << loot;
+	std::cout << "Getting loot : " << loot << std::endl;
 
 	if (loot > 3) {
 		this->_eevee->addLoot(loot);
@@ -29,54 +47,36 @@ void Battle::loot() {
 }
 
 bool Battle::battle() {
-	srand(time(0));
-	this->music.openFromFile(musicTab[rand() % 4]);
-	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
-	this->music.setLoop(true);
-	this->music.setVolume(10);
-	this->music.play();
-	//set eevee sprite coordinates (79 frames)
+	//Music
+	//std::cout << this->music.getStatus() << std::endl;
+	if (this->music.getStatus() != 2) {
+		this->music.play();
+	}
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
-	std::cout << "getBattle in battle.battle() : " << this->_game->getBattle() << std::endl;
 
-	if (this->_game->getBattle()) {
-		std::cout << "choice in battle function : " << this->_choice << std::endl;
-		this->_eevee->setCoords(227, 60, 60, 79);
-		this->_win = this->_enemy->getHP() <= 0;
-		this->_loose = this->_eevee->getHP() <= 0;
-		this->_game->setBattle(!this->_win && !this->_loose);
-
-		if (!this->_game->getBattle()) {
-			return 0;
-		}
-		else {
-			return 1;
-		}
-		//this->_thread.launch();
-	}
-	else if (this->_win) {
-		std::cout << "You win !!" << std::endl;
-		this->loot();
+	//On vérifie les conditions de win
+	this->_win = this->_enemy->getHP() <= 0;
+	this->_loose = this->_eevee->getHP() <= 0;
+	this->_game->setBattle(!this->_win && !this->_loose && !this->_escape);
+	if (!this->_game->getBattle()) {
+		this->end();
 		return 0;
 	}
-	else if (this->_loose) {
-		std::cout << "You loose..." << std::endl;
-		return 0;
-		//écran game over
+	else {
+		return 1;
 	}
-
-	//set eevee sprite coordinates
 }
 
 void Battle::turn() {
-	std::cout << "choice is not false (battle function) : " << this->_choice << std::endl;
+	std::cout << "BATTLE TURN : " << this->_turn << std::endl;
+	std::cout << "[Turn fonction] Choice : " << this->_choice << std::endl;
 	//La fuite passe toujours en premier
 	if (this->_choice == 2) {
 		bool escape = this->random(2);
 
 		if (escape) {
 			std::cout << "You got away safely !" << std::endl;
-			this->_game->setBattle(false);
+			this->_escape = true;
 			return;
 		}
 		else {
@@ -105,7 +105,7 @@ void Battle::turn() {
 		std::cout << "Enemy trow a pokeball !" << std::endl;
 		if (this->pokeball()) {
 			std::cout << "You've been caught..." << std::endl;
-			this->_loose;
+			this->_loose = true;
 			return;
 		}
 		else {
@@ -119,7 +119,9 @@ void Battle::turn() {
 		std::cout << "Calculating eevee's speed..." << std::endl;
 		bool eevee = this->initiative();
 		this->attack(eevee);
-		this->attack(!eevee);
+		if (this->battle()) {
+			this->attack(!eevee);
+		}
 	}
 	else if (this->_enemy_choice != 3 || this->_choice == 1) {
 		if (this->_choice == 1) {
@@ -133,7 +135,6 @@ void Battle::turn() {
 	this->_choice = 0;
 	this->_enemy_choice = 0;
 	this->_turn++;
-	std::cout << "turn in battle function : " << this->_turn << std::endl;
 }
 
 //

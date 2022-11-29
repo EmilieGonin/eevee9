@@ -28,6 +28,7 @@ public:
     Entity(const sf::Texture& texture);
 
     //Setters
+    void setHP(int);
     void subHP(int);
     void setOrientation(int);
     void setCoords(int, int, int, int);

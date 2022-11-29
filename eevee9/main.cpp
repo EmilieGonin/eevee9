@@ -24,35 +24,27 @@ int main()
     Enemy enemy(enemyTexture);
     Battle battle(&game, &player, &enemy);
     //sf::Thread thread(&Battle::battle, &battle);
-    //player.setCoords(227, 60, 60, 79);
 
     music.play();
     while (game.isOpen())
     {
-        //Si un combat commence, on change d'écran
-        //std::cout << "game fighting : " << game.getBattle() << std::endl;
-        if (game.getBattle()) {
-            std::cout << "BATTLE IS TRUE" << std::endl;
-            std::cout << "----------" << std::endl << std::endl;
+        if (game.getBattle()) { //Si un combat est en cours
+            //game.draw(player);
+            //game.display();
+            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
+            player.idle(); //Lancement de l'animation idle
             music.stop();
-            player.idle();
-            game.setBattle(battle.battle());
-            if (!battle.getChoice()) {
+            game.setBattle(battle.battle()); //Conditions de win/loose
+
+            //Si le combat est toujours en cours, on sélectionne un choix
+            if (game.getBattle() && !battle.getChoice()) {
                 std::cout << "NO CHOICE SELECTED" << std::endl;
                 std::cout << "----------" << std::endl << std::endl;
-                battle.setChoice(interface.battle() + 1);
-                battle.turn();
+                //Récupération du choix + affichage du background
                 game.draw(player);
-                game.display();
+                battle.setChoice(interface.battle() + 1);
+                battle.turn(); //Tour de jeu suivant le choix
             }
-            if (!game.getBattle()) {
-                std::cout << "BATTLE ENDED" << std::endl;
-                std::cout << "----------" << std::endl << std::endl;
-                player.setCoords(0, 30, 27, 3);
-                battle.reset();
-            }
-            //thread.launch();
-            //Show menu fighting
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
