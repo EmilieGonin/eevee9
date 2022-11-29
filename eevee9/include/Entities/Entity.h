@@ -6,6 +6,7 @@
 #include <iostream>
 #include <random>
 #include "Utils.h"
+#include "Database.h"
 
 class Entity
 {
@@ -41,6 +42,7 @@ public:
     int getDodgerate();
     int getSpeed();
     std::string getName();
+    int getY();
 };
 
 

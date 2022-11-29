@@ -16,6 +16,7 @@ int main()
     //Chargement de la base de données
     std::cout << "Loading database...\n";
     sqlite3* db = getDatabase();
+    createEnemies(db);
 
     Game game;
     

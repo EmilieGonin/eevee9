@@ -12,6 +12,24 @@ void SQL(sqlite3* db, const char* sql) {
 	}
 }
 
+void createEnemies(sqlite3* db) {
+	//Création des données des ennemis
+	std::vector<std::string> pokemon;
+	pokemon.push_back("Name, 50, 50, 50");
+	pokemon.push_back("Name2, 50, 50, 50");
+	pokemon.push_back("Name3, 50, 50, 50");
+	pokemon.push_back("Name4, 50, 50, 50");
+
+	//Récupération des ennemis
+	for (size_t i = 0; i < pokemon.size(); i++)
+	{
+		std::string sql = std::string(
+			"INSERT INTO ENTITIES(NAME, HP, SPEED, FRAMES)"\
+			"VALUES(" + pokemon[i] + ");");
+		SQL(db, sql.c_str());
+	}
+}
+
 sqlite3* getDatabase() {
 	sqlite3* db;
 	const char* sql;
@@ -26,7 +44,11 @@ sqlite3* getDatabase() {
 
 	std::cout << "Loading tables..." << std::endl;
 
-	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100));";
+	/* ----Tables----
+	* - Entities : Eevee [ID 0] + Enemies
+	* [Name (100)], [HP int], [Speed int], [Frames int]
+	*/
+	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, SPEED INT, FRAMES INT);";
 
 	SQL(db, sql);
 
