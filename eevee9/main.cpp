@@ -1,6 +1,7 @@
 #include "Interface.h"
 #include "Battle.h"
 #include "Database.h"
+#include "Tile.h"
 
 int main()
 {
@@ -9,10 +10,12 @@ int main()
     sqlite3* db = getDatabase();
 
     Game game;
- 
+    
+    sf::RectangleShape rectangle(sf::Vector2f(992, 90));
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
+    rectangle.setFillColor(sf::Color::Green);
     sf::Music music;
     music.openFromFile("./sfx/Music/route.wav");
     music.setLoop(true);
@@ -24,6 +27,7 @@ int main()
     Interface interface(&game, &player);
     interface.start();
 
+    player.spritePosition(850, 510);
     //sf::Thread thread(&Battle::battle, &battle);
     //player.setCoords(227, 60, 60, 79);
 
@@ -81,6 +85,7 @@ int main()
             
             game.clear();
             interface.map();
+            interface.draw(rectangle);
             game.draw(player);
             game.display();
         }
