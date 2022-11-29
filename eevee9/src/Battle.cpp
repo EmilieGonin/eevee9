@@ -33,6 +33,10 @@ void Battle::end() {
 		//écran game over
 	}
 
+	if (this->music.getStatus() == 2) {
+		this->music.stop();
+	}
+
 	this->_eevee->setCoords(0, 30, 27, 3);
 	this->reset();
 }
@@ -48,10 +52,10 @@ void Battle::loot() {
 
 bool Battle::battle() {
 	//Music
-	//std::cout << this->music.getStatus() << std::endl;
 	if (this->music.getStatus() != 2) {
 		this->music.play();
 	}
+
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
 
 	//On vérifie les conditions de win
@@ -139,7 +143,7 @@ void Battle::turn() {
 
 //
 void Battle::attack(bool eevee) {
-	std::cout << "Attack function" << std::endl;
+	//std::cout << "Attack function" << std::endl;
 	int dodgerate;
 	std::string name;
 

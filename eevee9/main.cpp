@@ -3,6 +3,14 @@
 #include "Database.h"
 #include "Tile.h"
 
+/*Todo list
+- Mettre un délai au lancement du combat avant l'apparition de l'écran ?
+- Déplacer correctement le menu de combat
+- Afficher PV et nom des Pokémon lors du combat
+- Relier inventaire Eevee au menu pause
+- Save position eevee sur la map et remettre eevee au bon endroit
+*/
+
 int main()
 {
     //Chargement de la base de données
@@ -16,10 +24,6 @@ int main()
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
     rectangle.setFillColor(sf::Color::Green);
-    sf::Music music;
-    music.openFromFile("./sfx/Music/route.wav");
-    music.setLoop(true);
-    music.setVolume(15);
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
@@ -30,15 +34,12 @@ int main()
     player.spritePosition(850, 510);
     //sf::Thread thread(&Battle::battle, &battle);
 
-    music.play();
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-            //game.draw(player);
-            //game.display();
-            player.spritePosition(2, 300);
+            interface.stopMusic();
+            player.spritePosition(2, 300); //Déplace Eevee au bon endroit
             player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
-            music.stop();
             game.setBattle(battle.battle()); //Conditions de win/loose
 
             //Si le combat est toujours en cours, on sélectionne un choix
