@@ -2,7 +2,9 @@
 #include "Eevee.h"
 #include <SFML/Graphics.hpp>
 
-class Test {
+
+
+class collision {
 public:
 	bool wall;
 	bool tp;
@@ -10,16 +12,19 @@ public:
 	bool item;
 	float x;
 	float y;
-	sf::RectangleShape* tile;
+	sf::RectangleShape &tile;
+	sf::RectangleShape tileGet();
+	sf::RectangleShape& gettile();
 
-	Test(float, float, bool);
+	collision(sf::RectangleShape &);
 
 	void collideLeft();
 	void collideRight();
 	void collideUp();
 	void collideDown();
 
-	bool collision(Eevee*);
+	bool getcollision(Eevee*);
+	
 };
 
 
