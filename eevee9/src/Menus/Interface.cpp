@@ -209,6 +209,11 @@ void Interface::map() {
     
 }
 
+void Interface::draw(sf::RectangleShape rectangle)
+{
+    this->window->draw(rectangle);
+
+}
 //Getters
 
 int Interface::getPos() { return this->pos; }
