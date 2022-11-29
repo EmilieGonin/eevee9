@@ -1,6 +1,6 @@
 #include "Battle.h"
 
-Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy) : _thread(&Battle::turn, this) {
+Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy) {
 	this->_eevee = eevee;
 	this->_enemy = enemy;
 	this->_game = game;

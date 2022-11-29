@@ -17,7 +17,6 @@ protected:
 	Eevee* _eevee;
 	Enemy* _enemy;
 	Game* _game;
-	sf::Thread _thread;
 	sf::Music music;
 	std::string musicTab[4] = { "./sfx/Music/battle.wav" , "./sfx/Music/battle2.wav" , "./sfx/Music/battle3.wav" , "./sfx/Music/battle4.wav" };
 

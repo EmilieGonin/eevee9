@@ -32,7 +32,6 @@ int main()
     interface.start();
 
     player.spritePosition(850, 510);
-    //sf::Thread thread(&Battle::battle, &battle);
 
     while (game.isOpen())
     {
