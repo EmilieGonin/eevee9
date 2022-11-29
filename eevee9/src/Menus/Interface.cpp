@@ -1,8 +1,9 @@
 #include "Interface.h"
 
-Interface::Interface(Game* game) {
+Interface::Interface(Game* game, Eevee* eevee) {
     //Game & Window
     this->_game = game;
+    this->eevee = eevee;
     this->window = this->_game->getWindow();
 
     //Images & Shapes
@@ -19,16 +20,15 @@ Interface::Interface(Game* game) {
     font->loadFromFile("./src/Menus/Hansip.otf");
 
     //Sounds & Music
-    this->music.openFromFile("./sfx/Music/title.wav");
     this->music.setLoop(true);
     this->music.setVolume(10);
     this->buffer.loadFromFile("./sfx/sounds/button.wav");
     this->button.setBuffer(this->buffer);
     this->button.setVolume(30);
-
     this->bufferStart.loadFromFile("./sfx/sounds/start.wav");
     this->startButton.setBuffer(this->bufferStart);
     this->startButton.setVolume(30);
+
     //Misc
     this->pos = 0;
     this->pressed = this->theselect = this->pauseMenu = this->battleMenu = false;
@@ -88,6 +88,11 @@ void Interface::loop_events() {
 
 void Interface::draw_all() {
     this->window->draw(*bg);
+    if(this->battleMenu == true)
+    {
+        this->window->draw(this->eevee->getSprite(8, 8));
+    }
+
     for (auto t : texts) {
         this->window->draw(t);
     }
@@ -95,6 +100,7 @@ void Interface::draw_all() {
 }
 
 void Interface::start() {
+    this->music.openFromFile("./sfx/Music/title.wav");
     this->music.play();
 
     //Background
@@ -110,17 +116,17 @@ void Interface::start() {
         loop_events();
         draw_all();
     }
+
+    this->music.stop();
 }
 
 void Interface::startOptions() {
     if (this->pos == 0) {
-        this->music.stop();
         this->startButton.play();
         this->startMenu = false;
     }
 
     if (this->pos == 2) {
-        this->music.stop();
         this->window->close();
     }
 }
@@ -160,16 +166,17 @@ void Interface::pauseOptions() {
 
 int Interface::battle() {
     this->battleMenu = true;
-    //std::cout << "choice : " << choice << std::endl;
-    //this->image->loadFromFile("./img/battle.png");
-    //this->bg->setTexture(*image);
+    this->image->loadFromFile("./img/battle.png");
+    this->bg->setTexture(*image);
 
     //Texts
     this->options = { "Attack", "Escape" };
     this->coords = { {830,190},{830,300} };
     setTexts(options.size());
 
-    while (this->battleMenu == true) {
+    while(this->battleMenu ==true)
+    {
+        this->eevee->idle(); //Lancement de l'animation idle
         loop_events();
         draw_all();
     }
@@ -179,11 +186,37 @@ int Interface::battle() {
     return choice;
 }
 
+void Interface::map() {
+    if (!this->battleMenu && this->music.getStatus() != 2) {
+        this->music.openFromFile("./sfx/Music/route.wav");
+        this->music.play();
+    }
+    else if (this->battleMenu) {
+        this->music.stop();
+    }
+
+    this->image->loadFromFile("./img/map.png");
+    this->bg->setTexture(*image);
+    this->window->draw(*bg);
+}
+
+void Interface::draw(sf::RectangleShape rectangle)
+{
+    this->window->draw(rectangle);
+
+}
+
 void Interface::battleOptions() {
     this->battleMenu = false;
 }
 
 //Setters
+
+void Interface::stopMusic() {
+    if (this->music.getStatus() == 2) {
+        this->music.stop();
+    }
+}
 
 void Interface::setPauseMenu(bool pause) {
     this->pauseMenu = pause;
@@ -199,14 +232,6 @@ void Interface::setTexts(int size) {
         this->texts[i].setOutlineColor(sf::Color(186, 84, 0));
         this->texts[i].setPosition(this->coords[i]);
     }
-}
-
-void Interface::map() {
-
-    this->image->loadFromFile("./img/map.png");
-    this->bg->setTexture(*image);
-     this->window->draw(*bg);
-    
 }
 
 //Getters

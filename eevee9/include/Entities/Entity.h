@@ -28,13 +28,14 @@ public:
     Entity(const sf::Texture& texture);
 
     //Setters
+    void setHP(int);
     void subHP(int);
     void setOrientation(int);
     void setCoords(int, int, int, int);
     void spritePosition(float x, float y);
 
     //Getters
-    sf::Sprite getSprite();
+    sf::Sprite getSprite(float, float);
     int getHP();
     int getOrientation();
     int getDodgerate();

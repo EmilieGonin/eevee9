@@ -3,6 +3,14 @@
 #include "Database.h"
 #include "collision.h"
 
+/*Todo list
+- Mettre un délai au lancement du combat avant l'apparition de l'écran ?
+- Déplacer correctement le menu de combat
+- Afficher PV et nom des Pokémon lors du combat
+- Relier inventaire Eevee au menu pause
+- Save position eevee sur la map et remettre eevee au bon endroit
+*/
+
 int main()
 {
     //Chargement de la base de données
@@ -10,55 +18,44 @@ int main()
     sqlite3* db = getDatabase();
 
     Game game;
+
     Interface interface(&game);
     interface.start();
-    //collision rectangleTile(635, 75, 290, 100, true);
+    
     sf::RectangleShape wall(sf::Vector2f(992, 75));
+    wall.setPosition(0, 0);
+    wall.setFillColor(sf::Color::Red);
     collision rectangleTile(wall);
+    
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
-    wall.setPosition(0, 0);
-    wall.setFillColor(sf::Color::Red);
-    sf::Music music;
-    music.openFromFile("./sfx/Music/route.wav");
-    music.setLoop(true);
-    music.setVolume(15);
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
     Battle battle(&game, &player, &enemy);
-    player.spritePosition(850, 510);
-    //sf::Thread thread(&Battle::battle, &battle);
-    //player.setCoords(227, 60, 60, 79);
+    Interface interface(&game, &player);
+    interface.start();
 
-    music.play();
+    player.spritePosition(850, 510);
+
     while (game.isOpen())
     {
-        //Si un combat commence, on change d'écran
-        //std::cout << "game fighting : " << game.getBattle() << std::endl;
-        if (game.getBattle()) {
-            std::cout << "BATTLE IS TRUE" << std::endl;
-            std::cout << "----------" << std::endl << std::endl;
-            music.stop();
-            player.idle();
-            game.setBattle(battle.battle());
-            if (!battle.getChoice()) {
+        if (game.getBattle()) { //Si un combat est en cours
+            interface.stopMusic();
+            player.spritePosition(2, 300); //Déplace Eevee au bon endroit
+            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
+            game.setBattle(battle.battle()); //Conditions de win/loose
+
+            //Si le combat est toujours en cours, on sélectionne un choix
+            if (game.getBattle() && !battle.getChoice()) {
                 std::cout << "NO CHOICE SELECTED" << std::endl;
                 std::cout << "----------" << std::endl << std::endl;
-                battle.setChoice(interface.battle() + 1);
-                battle.turn();
+                //Récupération du choix + affichage du background
                 game.draw(player);
-                game.display();
+                battle.setChoice(interface.battle() + 1);
+                battle.turn(); //Tour de jeu suivant le choix
             }
-            if (!game.getBattle()) {
-                std::cout << "BATTLE ENDED" << std::endl;
-                std::cout << "----------" << std::endl << std::endl;
-                player.setCoords(0, 30, 27, 3);
-                battle.reset();
-            }
-            //thread.launch();
-            //Show menu fighting
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
