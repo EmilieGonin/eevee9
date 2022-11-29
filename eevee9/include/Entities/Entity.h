@@ -35,7 +35,7 @@ public:
     void spritePosition(float x, float y);
 
     //Getters
-    sf::Sprite getSprite();
+    sf::Sprite getSprite(float, float);
     int getHP();
     int getOrientation();
     int getDodgerate();

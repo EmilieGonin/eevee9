@@ -41,9 +41,9 @@ void Entity::spritePosition(float x, float y) {
 
 //Getters
 
-sf::Sprite Entity::getSprite()
+sf::Sprite Entity::getSprite(float x, float y)
 {
-    this->sprite.setScale(2, 2);
+    this->sprite.setScale(x, y);
     return this->sprite;
 }
 

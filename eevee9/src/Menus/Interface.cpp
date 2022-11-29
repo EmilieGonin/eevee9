@@ -91,7 +91,7 @@ void Interface::draw_all() {
     this->window->draw(*bg);
     if(this->battleMenu == true)
     {
-        this->window->draw(this->eevee->getSprite());
+        this->window->draw(this->eevee->getSprite(8, 8));
     }
 
     for (auto t : texts) {
@@ -176,6 +176,7 @@ int Interface::battle() {
 
     while(this->battleMenu ==true)
     {
+        this->eevee->idle(); //Lancement de l'animation idle
         loop_events();
         draw_all();
     }
