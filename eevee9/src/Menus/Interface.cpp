@@ -1,8 +1,9 @@
 #include "Interface.h"
 
-Interface::Interface(Game* game) {
+Interface::Interface(Game* game, Eevee* eevee) {
     //Game & Window
     this->_game = game;
+    this->eevee = eevee;
     this->window = this->_game->getWindow();
 
     //Images & Shapes
@@ -52,42 +53,46 @@ void Interface::loop_events() {
             this->window->close();
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
-            if (this->pos < this->options.size() - 1) {
-                this->button.play();
-                texts[this->pos].setOutlineThickness(0);
-                ++pos;
-            }
+        if (this->pos < this->options.size() - 1) {
+            this->button.play();
+            texts[this->pos].setOutlineThickness(0);
+            ++pos;
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
-            if (this->pos > 0) {
-                this->button.play();
-                texts[this->pos].setOutlineThickness(0);
-                --pos;
-            }
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
+        if (this->pos > 0) {
+            this->button.play();
+            texts[this->pos].setOutlineThickness(0);
+            --pos;
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
-            std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
+        std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
 
-            if (this->startMenu == true) {
-                startOptions();
-            }
-            else if (this->pauseMenu == true) {
-                pauseOptions();
-            }
-            else if (this->battleMenu == true) {
-                battleOptions();
-            }
-
-            while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                this->pressed = true;
-            }
-            this->pressed = false;
+        if (this->startMenu == true) {
+            startOptions();
         }
+        else if (this->pauseMenu == true) {
+            pauseOptions();
+        }
+        else if (this->battleMenu == true) {
+            battleOptions();
+        }
+
+        while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+            this->pressed = true;
+        }
+        this->pressed = false;
     }
 }
 
 void Interface::draw_all() {
     this->window->draw(*bg);
+    if(this->battleMenu == true)
+    {
+        this->window->draw(this->eevee->getSprite());
+    }
+
     for (auto t : texts) {
         this->window->draw(t);
     }
@@ -160,16 +165,16 @@ void Interface::pauseOptions() {
 
 int Interface::battle() {
     this->battleMenu = true;
-    //std::cout << "choice : " << choice << std::endl;
-    //this->image->loadFromFile("./img/battle.png");
-    //this->bg->setTexture(*image);
+    this->image->loadFromFile("./img/battle.png");
+    this->bg->setTexture(*image);
 
     //Texts
     this->options = { "Attack", "Escape" };
     this->coords = { {830,190},{830,300} };
     setTexts(options.size());
 
-    while (this->battleMenu == true) {
+    while(this->battleMenu ==true)
+    {
         loop_events();
         draw_all();
     }
@@ -207,6 +212,12 @@ void Interface::map() {
     this->bg->setTexture(*image);
      this->window->draw(*bg);
     
+}
+void Interface::battleSheet() {
+
+    this->image->loadFromFile("./img/battle.png");
+    this->bg->setTexture(*image);
+    this->window->draw(*bg);
 }
 
 void Interface::draw(sf::RectangleShape rectangle)
