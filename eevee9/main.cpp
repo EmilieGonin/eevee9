@@ -32,16 +32,22 @@ int main()
         //Si un combat commence, on change d'écran
         //std::cout << "game fighting : " << game.getBattle() << std::endl;
         if (game.getBattle()) {
+            std::cout << "BATTLE IS TRUE" << std::endl;
+            std::cout << "----------" << std::endl << std::endl;
             music.stop();
             player.idle();
             game.setBattle(battle.battle());
             if (!battle.getChoice()) {
-                game.clear();
+                std::cout << "NO CHOICE SELECTED" << std::endl;
+                std::cout << "----------" << std::endl << std::endl;
                 battle.setChoice(interface.battle() + 1);
+                battle.turn();
                 game.draw(player);
                 game.display();
             }
             if (!game.getBattle()) {
+                std::cout << "BATTLE ENDED" << std::endl;
+                std::cout << "----------" << std::endl << std::endl;
                 player.setCoords(0, 30, 27, 3);
                 battle.reset();
             }

@@ -46,76 +46,12 @@ bool Battle::battle() {
 		this->_loose = this->_eevee->getHP() <= 0;
 		this->_game->setBattle(!this->_win && !this->_loose);
 
-		if (this->_choice != 0) {
-			std::cout << "choice is not false (battle function) : " << this->_choice << std::endl;
-			//La fuite passe toujours en premier
-			if (this->_choice == 2) {
-				bool escape = this->random(2);
-
-				if (escape) {
-					std::cout << "You got away safely !" << std::endl;
-					this->_game->setBattle(false);
-					return 0;
-				}
-				else {
-					std::cout << "You couldn't get away !" << std::endl;
-				}
-			}
-
-			//Sélection de l'ennemi
-			std::cout << "Calculating ennemy's choice..." << std::endl;
-
-			//Au premier tour, on ne pourra pas se faire attraper
-			if (this->_turn == 1) {
-				this->_enemy_choice = this->random(2) + 1;
-			}
-			else {
-				this->_enemy_choice = this->random(3) + 1;
-			}
-
-			//Debug only
-			std::cout << "----------" << std::endl;
-			std::cout << "Enemy choose " << this->_enemy_choice << std::endl;
-			std::cout << "----------" << std::endl;
-
-			//L'ennemi lancera toujours sa Pokeball avant notre attaque
-			if (this->_enemy_choice == 3) {
-				std::cout << "Enemy trow a pokeball !" << std::endl;
-				if (this->pokeball()) {
-					std::cout << "You've been caught..." << std::endl;
-					this->_loose;
-					return 0;
-				}
-				else {
-					std::cout << "You escaped the pokeball !" << std::endl;
-				}
-			}
-
-			//S'il reste une action d'attaque à effectuer, on lance l'attaque
-			if (this->_enemy_choice != 3 && this->_choice != 2) {
-				//Si les deux doivent attaquer, on calcule l'initiative
-				std::cout << "Calculating eevee's speed..." << std::endl;
-				bool eevee = this->initiative();
-				this->attack(eevee);
-				this->attack(!eevee);
-			}
-			else if (this->_enemy_choice != 3 || this->_choice == 1) {
-				if (this->_choice == 1) {
-					this->attack(true);
-				}
-				else {
-					this->attack(false);
-				}
-			}
-
-			this->_choice = 0;
-			this->_enemy_choice = 0;
-			this->_turn++;
-			std::cout << "turn in battle function : " << this->_turn << std::endl;
+		if (!this->_game->getBattle()) {
+			return 0;
 		}
-
-		this->turn();
-		return 1;
+		else {
+			return 1;
+		}
 		//this->_thread.launch();
 	}
 	else if (this->_win) {
@@ -132,18 +68,86 @@ bool Battle::battle() {
 	//set eevee sprite coordinates
 }
 
-void Battle::turn() {
-	std::cout << "turn in turn function : " << this->_turn << std::endl;
+//void Battle::choice() {
+//	std::cout << "turn in turn function : " << this->_turn << std::endl;
+//
+//	//Attente du choix du joueur
+//	if (this->_choice == 0) {
+//		std::cout << "Choose an action !" << std::endl;
+//		//std::cin >> this->_choice;
+//		//afficher menu
+//	}
+//	else {
+//		//
+//	}
+//}
 
-	//Attente du choix du joueur
-	if (this->_choice == 0) {
-		std::cout << "Choose an action !" << std::endl;
-		//std::cin >> this->_choice;
-		//afficher menu
+void Battle::turn() {
+	std::cout << "choice is not false (battle function) : " << this->_choice << std::endl;
+	//La fuite passe toujours en premier
+	if (this->_choice == 2) {
+		bool escape = this->random(2);
+
+		if (escape) {
+			std::cout << "You got away safely !" << std::endl;
+			this->_game->setBattle(false);
+			return;
+		}
+		else {
+			std::cout << "You couldn't get away !" << std::endl;
+		}
+	}
+
+	//Sélection de l'ennemi
+	std::cout << "Calculating ennemy's choice..." << std::endl;
+
+	//Au premier tour, on ne pourra pas se faire attraper
+	if (this->_turn == 1) {
+		this->_enemy_choice = this->random(2) + 1;
 	}
 	else {
-		//
+		this->_enemy_choice = this->random(3) + 1;
 	}
+
+	//Debug only
+	std::cout << "----------" << std::endl;
+	std::cout << "Enemy choose " << this->_enemy_choice << std::endl;
+	std::cout << "----------" << std::endl;
+
+	//L'ennemi lancera toujours sa Pokeball avant notre attaque
+	if (this->_enemy_choice == 3) {
+		std::cout << "Enemy trow a pokeball !" << std::endl;
+		if (this->pokeball()) {
+			std::cout << "You've been caught..." << std::endl;
+			this->_loose;
+			return;
+		}
+		else {
+			std::cout << "You escaped the pokeball !" << std::endl;
+		}
+	}
+
+	//S'il reste une action d'attaque à effectuer, on lance l'attaque
+	if (this->_enemy_choice != 3 && this->_choice != 2) {
+		//Si les deux doivent attaquer, on calcule l'initiative
+		std::cout << "Calculating eevee's speed..." << std::endl;
+		bool eevee = this->initiative();
+		this->attack(eevee);
+		this->attack(!eevee);
+	}
+	else if (this->_enemy_choice != 3 || this->_choice == 1) {
+		if (this->_choice == 1) {
+			this->attack(true);
+		}
+		else {
+			this->attack(false);
+		}
+	}
+
+	this->_choice = 0;
+	this->_enemy_choice = 0;
+	this->_turn++;
+	std::cout << "turn in battle function : " << this->_turn << std::endl;
 }
 
 //
