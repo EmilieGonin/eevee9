@@ -27,33 +27,36 @@ int main()
     
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
-    enemyTexture.loadFromFile("img/eevee_spritesheet.png"); //temp
+    enemyTexture.loadFromFile("img/ponchiot.png"); //temp
 
     Eevee player(eeveeTexture);
     Enemy enemy(enemyTexture);
-    Battle battle(&game, &player, &enemy);
-    Interface interface(&game, &player);
+    Interface interface(&game, &player, &enemy);
+    Battle battle(&game, &player, &enemy, &interface);
+    
     interface.start();
 
     player.spritePosition(850, 510);
+    enemy.spritePosition(50, 500); //Déplace Eevee au bon endroit
+    enemy.setCoords(0, 96, 96, 64);
 
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-            interface.stopMusic();
-            player.spritePosition(2, 300); //Déplace Eevee au bon endroit
-            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
-            game.setBattle(battle.battle()); //Conditions de win/loose
 
+            interface.stopMusic();
+            player.spritePosition(2, 200); //Déplace Eevee au bon endroit
+            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
+            //Sprite de combat pour Eevee
+            game.setBattle(battle.battle()); //Conditions de win/loose
             //Si le combat est toujours en cours, on sélectionne un choix
             if (game.getBattle() && !battle.getChoice()) {
                 std::cout << "NO CHOICE SELECTED" << std::endl;
                 std::cout << "----------" << std::endl << std::endl;
                 //Récupération du choix + affichage du background
-                game.draw(player);
                 battle.setChoice(interface.battle() + 1);
-                battle.turn(); //Tour de jeu suivant le choix
-            }
+                battle.turn(); //Tour de jeu suivant le choix          
+            }            
         }
         //Sinon, on vérifie les mouvements du joueur + la pause
         else {
@@ -77,7 +80,7 @@ int main()
             game.clear();
             interface.map();
             game.drawtile(rectangleTile.gettile());
-            game.draw(player);
+            game.draw(player);            
             game.display();
         }
     }

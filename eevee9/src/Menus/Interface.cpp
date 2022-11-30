@@ -1,9 +1,10 @@
 #include "Interface.h"
 
-Interface::Interface(Game* game, Eevee* eevee) {
+Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Game & Window
     this->_game = game;
     this->eevee = eevee;
+    this->enemy = enemy;
     this->window = this->_game->getWindow();
 
     //Images & Shapes
@@ -31,7 +32,8 @@ Interface::Interface(Game* game, Eevee* eevee) {
 
     //Misc
     this->pos = 0;
-    this->pressed = this->theselect = this->pauseMenu = this->battleMenu = false;
+    this->pressed = this->theselect = this->pauseMenu = this->battleMenu = this->display = this->state =  false;
+    
     this->startMenu = true;
 }
 
@@ -74,10 +76,19 @@ void Interface::loop_events() {
             else if (this->pauseMenu == true) {
                 pauseOptions();
             }
-            else if (this->battleMenu == true) {
-                battleOptions();
-            }
+            else if (this->display == true) {
 
+                this->button.play();
+                beginningOptions();
+
+            }
+            else if (this->battleMenu == true) {
+                this->button.play();
+                battleOptions();
+                this->choice = pos;
+
+            }
+        
             while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 this->pressed = true;
             }
@@ -88,15 +99,65 @@ void Interface::loop_events() {
 
 void Interface::draw_all() {
     this->window->draw(*bg);
+
     if(this->battleMenu == true)
     {
-        this->window->draw(this->eevee->getSprite(8, 8));
+        for (auto t : texts) {
+            t.setCharacterSize(24);
+            t.setFillColor(sf::Color::Black);
+         
+            t.setOutlineColor(sf::Color::White);
+            this->window->draw(t);
+        }
+        this->eevee->idle();
+        this->enemy->idle();
+        this->window->draw(this->eevee->getSprite(7, 7));
+        this->window->draw(this->enemy->getSprite(7, 7));
     }
+    else {
+        for (auto t : texts) {
+            
+            this->window->draw(t);
+        }
+    }
+    
+    this->window->display();
+}
+void Interface::drawComment(std::string comment, bool win) {
+
+
+    if (win) {
+
+        if (this->music.getStatus() != 2) {
+            this->music.openFromFile("./sfx/Music/victory.wav");
+            this->music.play();
+        }
+    }
+    this->window->draw(*bg);
+    
+
+    sf::Text text;
+    text.setFont(*font);
+    text.setString(comment);
+    text.setFillColor(sf::Color::Black);
+    text.setCharacterSize(24);
+    text.setPosition(50, 600);
+
+    this->window->draw(text);
+    this->eevee->idle();
+    this->enemy->idle();
+    this->window->draw(this->eevee->getSprite(7, 7));
+    this->window->draw(this->enemy->getSprite(7, 7));
+
+    
+
+   
 
     for (auto t : texts) {
         this->window->draw(t);
     }
     this->window->display();
+    
 }
 
 void Interface::start() {
@@ -165,25 +226,58 @@ void Interface::pauseOptions() {
 }
 
 int Interface::battle() {
-    this->battleMenu = true;
-    this->image->loadFromFile("./img/battle.png");
+
+    this->state = true;
+    std::cout << "coucou";
+    this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
 
+
+    this->options = { "" };
+    this->coords = { {0,0} };
+    setTexts(options.size());
+
+    this->battleMenu = true;
+        
+    std::cout << "je passe ici" << std::endl;
     //Texts
     this->options = { "Attack", "Escape" };
-    this->coords = { {830,190},{830,300} };
+    this->coords = { {800,525},{800,575} };
     setTexts(options.size());
 
     while(this->battleMenu ==true)
     {
-        this->eevee->idle(); //Lancement de l'animation idle
+
         loop_events();
         draw_all();
+
+
     }
 
-    int choice = pos;
-    //this->pos = 0;
-    return choice;
+    
+
+  
+    return this->choice;
+}
+
+void Interface::displayComment(std::string comment, bool win) {
+    this->display = true;
+    this->image->loadFromFile("./img/battle.png");
+    this->bg->setTexture(*image);
+
+
+    this->options = { "" };
+    this->coords = { {0,0} };
+    setTexts(options.size());
+    while (this->display == true)
+    {
+        pos = 0;
+        loop_events();
+        drawComment(comment, win);
+    }
+    if (win) {
+        this->music.stop();
+    }
 }
 
 void Interface::map() {
@@ -202,6 +296,16 @@ void Interface::map() {
 
 void Interface::battleOptions() {
     this->battleMenu = false;
+}
+
+void Interface::beginningOptions() {
+    std::cout << "je passe ici" << std::endl;
+    this->display = false;
+}
+
+void Interface::stateOptions() {
+    std::cout << "je passe ici" << std::endl;
+    this->state = false;
 }
 
 //Setters
