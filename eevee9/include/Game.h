@@ -24,7 +24,8 @@ public:
 	bool isOpen();
 	bool isMoving();
 	int update(int);
-	std::vector<sf::RectangleShape> rectangles;
+	std::vector<sf::RectangleShape> walls;
+	std::vector<sf::RectangleShape> grass;
 
 	//Setters
 	void setPause(bool);
@@ -36,7 +37,8 @@ public:
 	int getKeyPressed();
 	sf::RenderWindow* getWindow();
 	void CreateShapes();
-	bool setCollision(Eevee*);
+	bool CreateCollision(Eevee*);
+	bool sethovergrass(Eevee*);
 
 };
 
