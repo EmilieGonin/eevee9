@@ -62,24 +62,26 @@ void Eevee::move(bool collision) {
 
 	if (this->orientation == DOWN) {
 		if (!collision) { changeY = 2; }
-		else (changeY = -2);
 	}
-	else if (this->orientation == UP) {
+	else if (this->orientation == UP) {	
 		if (!collision) { changeY = -2; }
-		else (changeY = 2);
-	}
+		}
 	else if (this->orientation == RIGHT) {
 		if (!collision) { changeX = 2; }
-		else (changeX = -2);
-	}
 	else if (this->orientation == LEFT) {
 		if (!collision) { changeX = -2; }
-		else (changeX = 2);
-	}
 
 	std::cout << this->orientation << std::endl;
 
-	this->sprite.move(changeX * PAS, changeY * PAS);
+	if (!collision) {
+		this->sprite.move(changeX * PAS, changeY * PAS);
+	}
+	else {
+		this->sprite.setPosition(this->sprite.getPosition().x , this->sprite.getPosition().y +1);
+	}
+		
+	
+	
 }
 
 //Getters

@@ -3,6 +3,7 @@
 #include "Eevee.h"
 #include "Enemy.h"
 #include "Game.h"
+#include "Interface.h"
 
 class Battle
 {
@@ -17,12 +18,14 @@ protected:
 	Eevee* _eevee;
 	Enemy* _enemy;
 	Game* _game;
+	Interface* interface;
 	sf::Music music;
 	std::string musicTab[4] = { "./sfx/Music/battle.wav" , "./sfx/Music/battle2.wav" , "./sfx/Music/battle3.wav" , "./sfx/Music/battle4.wav" };
+	std::string whatHappened;
 
 
 public:
-	Battle(Game*, Eevee*, Enemy*);
+	Battle(Game*, Eevee*, Enemy*, Interface*);
 	~Battle();
 	void reset();
 	void end();
@@ -37,7 +40,11 @@ public:
 	//Setters
 	void setChoice(int);
 
+
 	//Getters
 	bool getChoice();
+	bool getWin();
+
+
 };
 
