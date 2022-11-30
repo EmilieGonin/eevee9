@@ -10,7 +10,7 @@ protected:
 	int iter = 0;
 
 	//Evolution
-	int eeveelution; // 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
+	int eeveelution; //0 = not evolved, 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
 	bool evolved;
   
 	//Stones
@@ -21,7 +21,7 @@ protected:
 public:
 	Eevee(sf::Texture &);
 	~Eevee();
-	void evolve();
+	void evolve(int);
 	bool canEvolve();
 	void addLoot(int);
 	bool escape();

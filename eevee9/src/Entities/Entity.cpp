@@ -8,9 +8,8 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
     this->maxHp = 1;
     this->orientation = DOWN;
     this->y = 0;
-    this->xSize = 30;
-    this->ySize = 27;
-    this->spriteFrames = 3;
+    this->xSize = 96;
+    this->ySize = 96;
 }
 
 //Setters
@@ -40,6 +39,14 @@ void Entity::spritePosition(float x, float y) {
 
 }
 
+void Entity::setY(int y) {
+    this->y = y;
+}
+
+void Entity::setSpriteFrames(int frame) {
+    this->spriteFrames = frame;
+}
+
 //Getters
 
 sf::Sprite Entity::getSprite(float x, float y)
@@ -55,3 +62,4 @@ int Entity::getDodgerate() { return  this->dodgerate; }
 int Entity::getSpeed() { return this->speed; }
 std::string Entity::getName() { return this->name; }
 int Entity::getY() { return this->y; }
+int Entity::getSpriteFrames() { return this->spriteFrames; }

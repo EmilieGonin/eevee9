@@ -35,6 +35,8 @@ public:
     void setOrientation(int);
     void setCoords(int, int, int, int);
     void spritePosition(float x, float y);
+    void setY(int);
+    void setSpriteFrames(int);
 
     //Getters
     sf::Sprite getSprite(float, float);
@@ -45,6 +47,7 @@ public:
     int getSpeed();
     std::string getName();
     int getY();
+    int getSpriteFrames();
 };
 
 
