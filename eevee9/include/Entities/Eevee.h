@@ -26,6 +26,7 @@ public:
 	void addLoot(int);
 	bool escape();
 	void move(bool);
+	void collisionNotMoving(bool);
 
 	//Getters
 	int getCatchrate();

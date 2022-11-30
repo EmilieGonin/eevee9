@@ -14,11 +14,11 @@ bool Collision::getcollision(Eevee* player) {
 	sf::Sprite sprite = player->getSprite(2,2);
 	sf::FloatRect Eeveebounds = sprite.getGlobalBounds();
 	if (this->wall) {
-		std::cout << "x : " << this->tile.getPosition().x << " y : " << this->tile.getPosition().y << std::endl;		
+		/*std::cout << "x : " << this->tile.getPosition().x << " y : " << this->tile.getPosition().y << std::endl;		
 		std::cout << "eevee" << std::endl;
-		std::cout << "x : " << sprite.getPosition().x << " y : " << sprite.getPosition().y << std::endl;
+		std::cout << "x : " << sprite.getPosition().x << " y : " << sprite.getPosition().y << std::endl;*/
 		if (bounds.intersects(Eeveebounds)) {
-			std::cout << "TRUE" << std::endl;
+			/*std::cout << "TRUE" << std::endl;*/
 			return 1;
 		}
 		else {

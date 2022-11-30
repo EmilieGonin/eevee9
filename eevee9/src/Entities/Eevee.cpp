@@ -56,23 +56,44 @@ bool Eevee::escape() {
 	return true;
 }
 
+void Eevee::collisionNotMoving(bool collision) {
+	if(collision)
+	{
+		if (this->orientation == UP)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y + 5);
+		}
+		else if (this->orientation == DOWN)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y - 5);
+		}
+		else if (this->orientation == RIGHT)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x - 5, this->sprite.getPosition().y);
+		}
+		else if (this->orientation == LEFT)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x + 5, this->sprite.getPosition().y);
+		}
+	}
+}
 void Eevee::move(bool collision) {
 
 	int changeX = 0;
 	int changeY = 0;
 
 	if (this->orientation == DOWN) {
-		if (!collision) { changeY = 2; }
+		changeY = 2; 
 	}
-	else if (this->orientation == UP) {
-		if (!collision) { changeY = -2; }
+	if (this->orientation == UP) {
+		 changeY = -2; 
 	}
 		
-		else if (this->orientation == RIGHT) {
-			if (!collision) { changeX = 2; }
+	if (this->orientation == RIGHT) {
+		 changeX = 2; 
 		}
-		else if (this->orientation == LEFT) {
-			if (!collision) { changeX = -2; }
+	if (this->orientation == LEFT) {
+		 changeX = -2; 
 		}
 	std::cout << this->orientation << std::endl;
 
@@ -80,9 +101,26 @@ void Eevee::move(bool collision) {
 		this->sprite.move(changeX * PAS, changeY * PAS);
 	}
 	else {
-		this->sprite.setPosition(this->sprite.getPosition().x , this->sprite.getPosition().y +1);
+		if (this->orientation == UP)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y + 1);
+		}
+		else if (this->orientation == DOWN)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y - 1);
+		}
+		else if (this->orientation == RIGHT)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x - 1, this->sprite.getPosition().y);
+		}
+		else if (this->orientation == LEFT)
+		{
+			this->sprite.setPosition(this->sprite.getPosition().x + 1, this->sprite.getPosition().y);
+		}
 	}
 		
+
+
 	
 	
 }

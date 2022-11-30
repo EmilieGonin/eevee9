@@ -67,6 +67,7 @@ int main()
                 }
                 if (game.isMoving()) {
                     player.move(game.setCollision(&player));
+                    player.collisionNotMoving(game.setCollision(&player));
                 }
             }
             else {
