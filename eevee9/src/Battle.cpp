@@ -20,7 +20,7 @@ void Battle::reset() {
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
 	this->_enemy->set();
-	this->_enemy->setHP(75); //temp
+	this->_positionSaved = false;
 }
 
 void Battle::end() {
@@ -40,6 +40,7 @@ void Battle::end() {
 		this->music.stop();
 	}
 
+	this->_eevee->spritePosition(this->_eevee->getMapPosition().x, this->_eevee->getMapPosition().y);
 	this->_eevee->setCoords(0, 30, 27, 3);
 	this->_enemy->reset();
 	this->reset();
@@ -50,21 +51,21 @@ void Battle::loot() {
 	std::cout << "Getting loot : " << loot << std::endl;
 
 	if (loot > 3) {
-		this->_eevee->addLoot(loot);
+		this->_eevee->addLoot(loot - 3);
 	}
 }
 
 bool Battle::battle() {
 	//Music
-
 	if (this->music.getStatus() != 2) {
 		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
 	}
 
-	//On récupère les données de l'ennemi si elles n'existent pas
-	if (!this->_enemy->getY()) {
-		this->_enemy->set();
+	if (!this->_positionSaved) {
+		std::cout << "Eevee map position saved !" << std::endl;
+		this->_eevee->setMapPosition(this->_eevee->getSprite(2, 2).getPosition());
+		this->_positionSaved = true;
 	}
 
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
@@ -205,7 +206,7 @@ void Battle::attack(bool eevee) {
 }
 
 bool Battle::pokeball() {
-	if (this->random(100) <= this->_eevee->getCatchrate()) {
+	if (this->random(100) <= this->_eevee->catchrate()) {
 		return true;
 	}
 	else {

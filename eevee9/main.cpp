@@ -3,18 +3,10 @@
 #include "Database.h"
 #include "Collision.h"
 
-/*Todo list
-- Mettre un délai au lancement du combat avant l'apparition de l'écran ?
-- Déplacer correctement le menu de combat
-- Afficher PV et nom des Pokémon lors du combat
-- Relier inventaire Eevee au menu pause
-- Save position eevee sur la map et remettre eevee au bon endroit
-*/
-
 int main()
 {
     //Chargement de la base de données
-    std::cout << "Loading database...\n";
+    std::cout << "Loading database..." << std::endl;
     sqlite3* db = getDatabase();
     createEnemies(db);
 
@@ -22,29 +14,26 @@ int main()
     game.CreateShapes();
 
     sf::Texture eeveeTexture, enemyTexture;
-    eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
-    enemyTexture.loadFromFile("img/ponchiot.png"); //temp
+    eeveeTexture.loadFromFile("img/player_spritesheet.png");
+    enemyTexture.loadFromFile("img/enemies_spritesheet.png");
 
-    Eevee player(eeveeTexture);
-    Enemy enemy(enemyTexture);
+    Eevee player(eeveeTexture, db);
+    Enemy enemy(enemyTexture, db);
     Interface interface(&game, &player, &enemy);
     Battle battle(&game, &player, &enemy, &interface);
     
     interface.start();
 
     player.spritePosition(850, 510);
-    enemy.spritePosition(550, 80); 
-    enemy.setCoords(1, 96, 96, 64);
+    enemy.spritePosition(550, 80);
 
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-
+            //player.evolve(2);
             interface.stopMusic();
-            player.spritePosition(2, 200); //Déplace Eevee au bon endroit
-            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
-            //Sprite de combat pour Eevee
-            game.setBattle(battle.battle()); //Conditions de win/loose
+            game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
+
             //Si le combat est toujours en cours, on sélectionne un choix
             if (game.getBattle() && !battle.getChoice()) {
                 std::cout << "NO CHOICE SELECTED" << std::endl;
@@ -54,8 +43,7 @@ int main()
                 battle.turn(); //Tour de jeu suivant le choix          
             }            
         }
-        //Sinon, on vérifie les mouvements du joueur + la pause
-        else {
+        else { //Sinon, on vérifie les mouvements du joueur + la pause
             player.setOrientation(game.update(player.getOrientation()));
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
@@ -76,7 +64,6 @@ int main()
             
             game.clear();
             interface.map();
-
             game.drawtile();
             game.draw(player);
             game.display();

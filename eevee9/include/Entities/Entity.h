@@ -19,6 +19,7 @@ protected:
     int orientation;
     sf::Sprite sprite;
     const sf::Texture& texture;
+    sqlite3* db;
 
     //Sprite coordinates and sizes
     int spriteFrames;
@@ -27,7 +28,7 @@ protected:
     int ySize;
 
 public:
-    Entity(const sf::Texture& texture);
+    Entity(const sf::Texture&, sqlite3*);
 
     //Setters
     void setHP(int);
@@ -35,6 +36,8 @@ public:
     void setOrientation(int);
     void setCoords(int, int, int, int);
     void spritePosition(float x, float y);
+    void setY(int);
+    void setSpriteFrames(int);
 
     //Getters
     sf::Sprite getSprite(float, float);
@@ -45,6 +48,7 @@ public:
     int getSpeed();
     std::string getName();
     int getY();
+    int getSpriteFrames();
 };
 
 

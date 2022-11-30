@@ -5,12 +5,11 @@
 class Eevee : public AnimatedEntity
 {
 protected:
-	int catchrate;
-	int count = 0;
+	sf::Vector2f mapPosition;
 	int iter = 0;
 
 	//Evolution
-	int eeveelution; // 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
+	int eeveelution; //0 = not evolved, 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
 	bool evolved;
   
 	//Stones
@@ -19,19 +18,24 @@ protected:
 	int thunderstone;
 
 public:
-	Eevee(sf::Texture &);
+	Eevee(sf::Texture&, sqlite3*);
 	~Eevee();
-	void evolve();
+	void evolve(int);
 	bool canEvolve();
 	void addLoot(int);
 	bool escape();
 	void move(bool);
 	void collisionNotMoving(bool);
+	int catchrate();
+
+	//Setters
+	void setMapPosition(sf::Vector2f);
 
 	//Getters
 	int getCatchrate();
 	int getEeveelution();
 	bool isEvolved();
+	sf::Vector2f getMapPosition();
 };
 
 
