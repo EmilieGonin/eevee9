@@ -14,9 +14,6 @@ Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	this->ySize = 28;
 	this->spriteFrames = 3;
 
-	//Eevee datas
-	this->catchrate = 6;
-
 	//Evolution
 	this->eeveelution = 0;
 	this->evolved = false;
@@ -138,6 +135,13 @@ void Eevee::move(bool collision) {
 	}	
 }
 
+int Eevee::catchrate() {
+	int HpLeft = (100 * this->hp) / this->maxHp;
+	int catchrate = (100 - HpLeft) / 2 + 6;
+	std::cout << HpLeft << "% HP left. Catchrate : " << catchrate << std::endl;
+	return catchrate;
+}
+
 //Setters
 
 void Eevee::setMapPosition(sf::Vector2f position){
@@ -146,7 +150,6 @@ void Eevee::setMapPosition(sf::Vector2f position){
 
 //Getters
 
-int Eevee::getCatchrate() { return this->catchrate; }
 int Eevee::getEeveelution() { return this->eeveelution; }
 bool Eevee::isEvolved() { return this->evolved; }
 sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }

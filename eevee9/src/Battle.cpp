@@ -205,7 +205,7 @@ void Battle::attack(bool eevee) {
 }
 
 bool Battle::pokeball() {
-	if (this->random(100) <= this->_eevee->getCatchrate()) {
+	if (this->random(100) <= this->_eevee->catchrate()) {
 		return true;
 	}
 	else {
