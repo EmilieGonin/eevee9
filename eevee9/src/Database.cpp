@@ -52,20 +52,27 @@ std::vector<std::string> getEnemy(sqlite3* db) {
 }
 
 void createEnemies(sqlite3* db) {
-	//Création des données des ennemis si la base de données est vide
-	//Ajout condition vide
-	std::vector<std::string> pokemon;
-	pokemon.push_back("\"Arceus\", \"120\", \"120\", \"84\"");
-	pokemon.push_back("\"Lillipup\", \"45\", \"55\", \"64\"");
-	pokemon.push_back("\"Caterpie\", \"45\", \"45\", \"41\"");
-	pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"21\"");
+	std::string sql = std::string("SELECT * FROM ENTITIES");
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
 
-	for (size_t i = 0; i < pokemon.size(); i++)
-	{
-		std::string sql = std::string(
-			"INSERT INTO ENTITIES(NAME, HP, SPEED, FRAMES)"\
-			"VALUES(" + pokemon[i] + ");");
-		SQL(db, sql.c_str());
+	if (!datas.size()) { //Création des données des ennemis si la base de données est vide
+		std::cout << "Creating enemies..." << std::endl;
+		std::vector<std::string> pokemon;
+		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"84\"");
+		pokemon.push_back("\"Lillipup\", \"45\", \"55\", \"64\"");
+		pokemon.push_back("\"Caterpie\", \"45\", \"45\", \"41\"");
+		pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"21\"");
+
+		for (size_t i = 0; i < pokemon.size(); i++)
+		{
+			std::string sql = std::string(
+				"INSERT INTO ENTITIES(NAME, HP, SPEED, FRAMES)"\
+				"VALUES(" + pokemon[i] + ");");
+			SQL(db, sql.c_str());
+		}
+	}
+	else {
+		std::cout << "Enemis already created !" << std::endl;
 	}
 }
 
