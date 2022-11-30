@@ -13,9 +13,9 @@ public:
 	float x;
 	float y;
 	sf::RectangleShape &tile;
-	sf::RectangleShape& gettile();
+	sf::RectangleShape &gettile();
 
-	Collision(sf::RectangleShape &);
+	Collision(sf::RectangleShape &, bool, bool);
 
 
 	bool getcollision(Eevee*);
