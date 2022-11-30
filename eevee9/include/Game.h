@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "Collision.h"
 
 
 class Game
@@ -17,12 +18,13 @@ public:
 
 	//Window & Sprite
 	void draw(Entity &);
-	void drawtile(sf::RectangleShape &);
+	void drawtile();
 	void clear();
 	void display();
 	bool isOpen();
 	bool isMoving();
 	int update(int);
+	std::vector<sf::RectangleShape> rectangles;
 
 	//Setters
 	void setPause(bool);
@@ -33,6 +35,8 @@ public:
 	bool getBattle();
 	int getKeyPressed();
 	sf::RenderWindow* getWindow();
+	void CreateShapes();
+	bool setCollision(Eevee*);
 
 };
 

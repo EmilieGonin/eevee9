@@ -13,15 +13,10 @@ public:
 	float x;
 	float y;
 	sf::RectangleShape &tile;
-	sf::RectangleShape tileGet();
 	sf::RectangleShape& gettile();
 
 	Collision(sf::RectangleShape &);
 
-	void collideLeft();
-	void collideRight();
-	void collideUp();
-	void collideDown();
 
 	bool getcollision(Eevee*);
 	
