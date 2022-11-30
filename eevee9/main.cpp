@@ -66,8 +66,8 @@ int main()
                     player.resetAnimation();
                 }
                 if (game.isMoving()) {
-                    player.move(game.setCollision(&player));
-                    player.collisionNotMoving(game.setCollision(&player));
+                    player.move(game.CreateCollision(&player));
+                    player.collisionNotMoving(game.CreateCollision(&player));
                 }
             }
             else {

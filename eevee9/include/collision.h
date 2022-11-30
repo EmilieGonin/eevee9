@@ -19,7 +19,6 @@ public:
 
 
 	bool getcollision(Eevee*);
-	
 };
 
 

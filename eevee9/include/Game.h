@@ -37,7 +37,8 @@ public:
 	int getKeyPressed();
 	sf::RenderWindow* getWindow();
 	void CreateShapes();
-	bool setCollision(Eevee*);
+	bool CreateCollision(Eevee*);
+	bool sethovergrass(Eevee*);
 
 };
 
