@@ -10,10 +10,18 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Images & Shapes
     this->image = new sf::Texture();
     this->bg = new sf::Sprite();
+    this->lifebar = new sf::Texture();
+    this->myHpBar = new sf::Sprite();
     this->winclose = new sf::RectangleShape();
+
+
+    this->hpBarLength = 133;
+    this->count = 40;
+
     this->winclose->setSize(sf::Vector2f(34.5, 39));
     this->winclose->setPosition(1767, 58.5);
     this->winclose->setFillColor(sf::Color::Transparent);
+
 
     //Font & Texts
     this->sizes = { 36,36,36 };
@@ -55,7 +63,7 @@ void Interface::loop_events() {
             this->window->close();
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
-            if (this->pos < this->options.size() - 1) { //Ne pas dépasser le max de choix
+            if (this->pos < this->options.size() - 1) { //Ne pas dÃ©passer le max de choix
                 this->button.play(); //Son du bouton
                 //On retire le contour du choix actuel, puis on change de choix
                 texts[this->pos].setOutlineThickness(0);
@@ -89,7 +97,7 @@ void Interface::loop_events() {
                 this->choice = pos;
             }
         
-            //On évite que le choix soit fait avant relâchement de la touche
+            //On Ã©vite que le choix soit fait avant relÃ¢chement de la touche
             while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 this->pressed = true;
             }
@@ -101,6 +109,7 @@ void Interface::loop_events() {
 void Interface::draw_all() {
     this->window->draw(*bg); //Background
 
+
     if (this->battleMenu == true) {
         for (auto t : texts) { //Draw tous les textes
             t.setCharacterSize(24);
@@ -108,7 +117,7 @@ void Interface::draw_all() {
             t.setOutlineColor(sf::Color::White);
             this->window->draw(t);
         }
-
+        this->window->draw(*myHpBar);
         sf::Text hp;
         hp.setFont(*font2);
         hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
@@ -116,9 +125,17 @@ void Interface::draw_all() {
         hp.setCharacterSize(23);
         hp.setPosition(875, 464);
         this->window->draw(hp);
-        this->window->draw(hp);
 
-        //Définis la texture et les frames de Eevee (évolué ou non)
+        sf::RectangleShape myHp;
+
+
+        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+        myHp.setPosition(846, 448);
+        myHp.setFillColor(sf::Color::Green);
+        window->draw(myHp);
+ 
+
+        //DÃ©finis la texture et les frames de Eevee (Ã©voluÃ© ou non)
         if (this->eevee->getEeveelution()) {
             this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
         }
@@ -127,8 +144,8 @@ void Interface::draw_all() {
             this->eevee->setSpriteFrames(79);
         }
 
-        //Définis les coordonnées de combat de Eeevee
-        this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
+        //DÃ©finis les coordonnÃ©es de combat de Eeevee
+        this->eevee->spritePosition(-50, 125); //DÃ©place Eevee au bon endroit
         this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
 
         this->eevee->idle();
@@ -153,6 +170,29 @@ void Interface::drawComment(std::string comment, bool win) {
         }
     }
     this->window->draw(*bg);
+
+    this->window->draw(*myHpBar);
+    
+
+    sf::RectangleShape myHp;
+
+    std::cout << this->hpBarLength;
+    myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+    float haha = 133 * this->eevee->getHP() / this->eevee->getMaxHP();
+    std::cout << haha;
+    /*while(haha != this->hpBarLength) {
+        std::cout << "hahaha" << std::endl;
+        this->window->draw(myHp);  
+        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+  
+        this->hpBarLength = this->hpBarLength - 0.1;
+    }*/
+
+ 
+    myHp.setPosition(846, 448);
+    myHp.setFillColor(sf::Color::Green);
+    window->draw(myHp);
+
 
     sf::Text text;
     text.setFont(*font2);
@@ -249,10 +289,14 @@ void Interface::pauseOptions() {
 
 int Interface::battle() {
 
-    this->state = true;
-    std::cout << "coucou" << std::endl;
+
+    std::cout << "coucou";
+
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
+    this->lifebar->loadFromFile("./img/lifebar.png");
+    this->myHpBar->setTexture(*lifebar);
+    this->myHpBar->setPosition(802, 444);
 
     this->options = { "" };
     this->coords = { {0,0} };
@@ -280,7 +324,6 @@ void Interface::displayComment(std::string comment, bool win) {
     this->display = true;
     this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
-
     this->options = { "" };
     this->coords = { {0,0} };
     setTexts(options.size());
