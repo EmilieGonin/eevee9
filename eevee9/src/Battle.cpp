@@ -1,13 +1,15 @@
 #include "Battle.h"
 
-Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy) {
+Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy, Interface* interface) {
 	this->_eevee = eevee;
 	this->_enemy = enemy;
 	this->_game = game;
-	this->music.openFromFile(musicTab[this->random(4)]);
+	this->interface = interface;
+	
 	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
 	this->music.setLoop(true);
 	this->music.setVolume(10);
+
 	this->reset();
 }
 
@@ -25,7 +27,8 @@ void Battle::end() {
 	std::cout << "BATTLE ENDED" << std::endl;
 	std::cout << "----------" << std::endl << std::endl;
 	if (this->_win) {
-		std::cout << "You win !!" << std::endl;
+		this->music.stop();
+		this->interface->displayComment("You win", this->_win);
 		this->loot();
 	}
 	else if (this->_loose) {
@@ -53,7 +56,9 @@ void Battle::loot() {
 
 bool Battle::battle() {
 	//Music
+
 	if (this->music.getStatus() != 2) {
+		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
 	}
 
@@ -63,7 +68,7 @@ bool Battle::battle() {
 	}
 
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
-
+	
 	//On vérifie les conditions de win
 	this->_win = this->_enemy->getHP() <= 0;
 	this->_loose = this->_eevee->getHP() <= 0;
@@ -85,12 +90,15 @@ void Battle::turn() {
 		bool escape = this->random(2);
 
 		if (escape) {
-			std::cout << "You got away safely !" << std::endl;
+			this->interface->displayComment("You got away safely..", this->_win);
+			this->_choice = 0;
+			this->_enemy_choice = 0;
 			this->_escape = true;
 			return;
 		}
 		else {
-			std::cout << "You couldn't get away !" << std::endl;
+			
+			this->interface->displayComment("You couldn't get away !", this->_win);
 		}
 	}
 
@@ -112,14 +120,15 @@ void Battle::turn() {
 
 	//L'ennemi lancera toujours sa Pokeball avant notre attaque
 	if (this->_enemy_choice == 3) {
-		std::cout << "Enemy trow a pokeball !" << std::endl;
+
+		this->interface->displayComment("Enemy trow a pokeball !", this->_win);
 		if (this->pokeball()) {
-			std::cout << "You've been caught..." << std::endl;
+			this->interface->displayComment("You've been caught...", this->_win);
 			this->_loose = true;
 			return;
 		}
 		else {
-			std::cout << "You escaped the pokeball !" << std::endl;
+			this->interface->displayComment("You escaped the pokeball !", this->_win);
 		}
 	}
 
@@ -159,16 +168,18 @@ void Battle::attack(bool eevee) {
 	}
 
 	if (eevee) {
-		std::cout << "You attack !" << std::endl;
+		this->interface->displayComment("You attack !", this->_win);
 		dodgerate = this->_eevee->getDodgerate();
 		name = this->_eevee->getName();
 	}
 	else {
 		if (this->_enemy_choice == 1) {
-			std::cout << "Enemy attack !" << std::endl;
+			this->interface->displayComment(this->_enemy->getName() + " attacks !", this->_win);
+			
 		}
 		else {
-			std::cout << "Enemy use its special attack !" << std::endl;
+			this->interface->displayComment(this->_enemy->getName() + " uses his special attack !", this->_win);
+			
 		}
 		dodgerate = this->_enemy->getDodgerate();
 		name = this->_enemy->getName();
@@ -186,7 +197,8 @@ void Battle::attack(bool eevee) {
 		}
 	}
 	else {
-		std::cout << name << " has dodged the attack !" << std::endl;
+		this->interface->displayComment(this->_enemy->getName() + " has dodged the attack !", this->_win);
+
 		//name has dodge the attack !
 	}
 }
@@ -213,11 +225,19 @@ int Battle::random(int range ) {
 //Setters
 
 void Battle::setChoice(int choice) {
+	std::cout << "i choose";
 	this->_choice = choice;
 }
+
 
 //Getters
 
 bool Battle::getChoice() {
 	return this->_choice;
 }
+
+
+bool Battle::getWin() {
+	return this->_win;
+}
+
