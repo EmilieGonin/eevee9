@@ -3,14 +3,6 @@
 #include "Database.h"
 #include "Collision.h"
 
-/*Todo list
-- Mettre un délai au lancement du combat avant l'apparition de l'écran ?
-- Déplacer correctement le menu de combat
-- Afficher PV et nom des Pokémon lors du combat
-- Relier inventaire Eevee au menu pause
-- Save position eevee sur la map et remettre eevee au bon endroit
-*/
-
 int main()
 {
     //Chargement de la base de données
