@@ -19,7 +19,7 @@ bool Collision::getcollision(Eevee* player) {
 		}
 	}
 	if (this->grass) {
-		if (bounds.contains(sprite.getPosition())) {
+		if (bounds.intersects(Eeveebounds)) {
 			return 1;
 		}
 	}

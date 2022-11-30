@@ -15,7 +15,7 @@ protected:
     int choice;
     bool pressed, startMenu, pauseMenu, battleMenu, display, state;
 
-    float hpBarLength;
+    int hpBarLength;
     int count;
 
     Game* _game;

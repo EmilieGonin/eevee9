@@ -110,7 +110,6 @@ void Eevee::move(bool collision) {
 	if (this->orientation == LEFT) {
 		 changeX = -2; 
 		}
-	std::cout << this->orientation << std::endl;
 
 	if (!collision) {
 		this->sprite.move(changeX * PAS, changeY * PAS);

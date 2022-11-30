@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <random>
 Game::Game()
 {
     window = new sf::RenderWindow();
@@ -32,6 +33,7 @@ bool Game::CreateCollision(Eevee* player) {
     {
         Collision col(walls[i], true, false);
         if (col.getcollision(player)) {
+            std::cout << "True" << std::endl;
             return true;
         }
     }
@@ -43,7 +45,7 @@ bool Game::CreateCollision(Eevee* player) {
 bool Game::sethovergrass(Eevee* player) {
     for (size_t i = 0; i < this->grass.size(); i++)
     {
-        Collision col(grass[i], false, true);
+        Collision col(grass[i], true, false);
         if (col.getcollision(player)) {
             std::cout << "True" << std::endl;
             return true;
@@ -104,12 +106,7 @@ int Game::update(int orientation) {
                     std::cout << "run pause menu" << std::endl;
                     this->pause = true;
                 }
-                else if (event.key.code == sf::Keyboard::B) {
-                    this->battle = true;
-                    std::cout << "----------" << std::endl;
-                    std::cout << "Battle START" << std::endl;
-                    std::cout << "----------" << std::endl;
-                }
+
             }
             break;
 
@@ -131,6 +128,21 @@ void Game::setBattle(bool battle) {
     this->battle = battle;
 }
 
+void Game::randomBattle(bool grass) {
+
+
+    int random = rand() % 100;
+    std::cout << random << std::endl;
+    if (random < 2 && grass) {
+        setBattle(true);
+        this->keypressed = NULL;
+    }
+    else
+    {
+        setBattle(false);
+    }
+   
+}
 void Game::CreateShapes() {
 
 
@@ -196,22 +208,22 @@ void Game::CreateShapes() {
 
     sf::RectangleShape grass(sf::Vector2f(620, 90));
     grass.setPosition(293, 96);
-    grass.setFillColor(sf::Color::Yellow);
+    grass.setFillColor(sf::Color::Transparent);
     this->grass.push_back(grass);
 
     sf::RectangleShape grass2(sf::Vector2f(305, 56));
     grass2.setPosition(618, 192);
-    grass2.setFillColor(sf::Color::Yellow);
+    grass2.setFillColor(sf::Color::Transparent);
     this->grass.push_back(grass2);
 
     sf::RectangleShape grass3(sf::Vector2f(84, 150));
     grass3.setPosition(842, 256);
-    grass3.setFillColor(sf::Color::Yellow);
+    grass3.setFillColor(sf::Color::Transparent);
     this->grass.push_back(grass3);
 
     sf::RectangleShape grass4(sf::Vector2f(50, 200));
     grass4.setPosition(262, 200);
-    grass4.setFillColor(sf::Color::Yellow);
+    grass4.setFillColor(sf::Color::Transparent);
     this->grass.push_back(grass4);
 
 }

@@ -176,21 +176,26 @@ void Interface::drawComment(std::string comment, bool win) {
 
     sf::RectangleShape myHp;
 
-    std::cout << this->hpBarLength;
-    myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
-    float haha = 133 * this->eevee->getHP() / this->eevee->getMaxHP();
-    std::cout << haha;
-    /*while(haha != this->hpBarLength) {
-        std::cout << "hahaha" << std::endl;
-        this->window->draw(myHp);  
+ 
+    this->hpBarLength = this->hpBarLength * 100;
+    int hpBarToGet = 133 * this->eevee->getHP() / this->eevee->getMaxHP() * 100;
+
+   if(hpBarToGet != this->hpBarLength) {
+
+
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+        this->window->draw(myHp);  
+      
   
-        this->hpBarLength = this->hpBarLength - 0.1;
-    }*/
+        this->hpBarLength = this->hpBarLength - 1;
+    }
 
  
+
+    this->hpBarLength = this->hpBarLength / 100;
     myHp.setPosition(846, 448);
     myHp.setFillColor(sf::Color::Green);
+    myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
     window->draw(myHp);
 
 
@@ -212,7 +217,7 @@ void Interface::drawComment(std::string comment, bool win) {
 
     this->eevee->idle();
     this->enemy->idle();
-    this->window->draw(this->eevee->getSprite(7, 7));
+    this->window->draw(this->eevee->getSprite(6, 6));
     this->window->draw(this->enemy->getSprite(4, 4));
 
     for (auto t : texts) {

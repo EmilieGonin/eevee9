@@ -56,6 +56,7 @@ int main()
                 if (game.isMoving()) {
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
+                    game.randomBattle(game.sethovergrass(&player));
                 }
             }
             else {

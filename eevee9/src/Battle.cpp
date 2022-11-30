@@ -185,7 +185,7 @@ void Battle::attack(bool eevee) {
 		dodgerate = this->_enemy->getDodgerate();
 		name = this->_enemy->getName();
 	}
-
+		
 	if (this->random(100) > dodgerate) {
 		std::cout << "Attack success !" << std::endl;
 		//Attack succeed

@@ -27,9 +27,12 @@ public:
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 
+	void randomBattle(bool);
+
 	//Setters
 	void setPause(bool);
 	void setBattle(bool);
+	
 
 	//Getters
 	bool getPause();
