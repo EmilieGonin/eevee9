@@ -37,7 +37,7 @@ int main()
     interface.start();
 
     player.spritePosition(850, 510);
-    enemy.spritePosition(50, 500); //Déplace Eevee au bon endroit
+    enemy.spritePosition(50, 500); 
     enemy.setCoords(0, 96, 96, 64);
 
     while (game.isOpen())
@@ -80,7 +80,8 @@ int main()
             game.clear();
             interface.map();
             game.drawtile(rectangleTile.gettile());
-            game.draw(player);            
+            game.draw(player); 
+            game.draw(enemy);
             game.display();
         }
     }

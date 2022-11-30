@@ -63,14 +63,16 @@ void Eevee::move(bool collision) {
 	if (this->orientation == DOWN) {
 		if (!collision) { changeY = 2; }
 	}
-	else if (this->orientation == UP) {	
+	else if (this->orientation == UP) {
 		if (!collision) { changeY = -2; }
+	}
+		
+		else if (this->orientation == RIGHT) {
+			if (!collision) { changeX = 2; }
 		}
-	else if (this->orientation == RIGHT) {
-		if (!collision) { changeX = 2; }
-	else if (this->orientation == LEFT) {
-		if (!collision) { changeX = -2; }
-
+		else if (this->orientation == LEFT) {
+			if (!collision) { changeX = -2; }
+		}
 	std::cout << this->orientation << std::endl;
 
 	if (!collision) {
