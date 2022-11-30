@@ -4,7 +4,8 @@ Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
 {
     this->dodgerate = 0;
     this->speed = 0;
-    this->hp = 1;
+    this->hp = 70;
+    this->maxHp = 1;
     this->orientation = DOWN;
     this->y = 0;
     this->xSize = 30;
@@ -48,6 +49,7 @@ sf::Sprite Entity::getSprite(float x, float y)
 }
 
 int Entity::getHP() { return this->hp; }
+int Entity::getMaxHP() { return this->maxHp; }
 int Entity::getOrientation() { return this->orientation; }
 int Entity::getDodgerate() { return  this->dodgerate; }
 int Entity::getSpeed() { return this->speed; }

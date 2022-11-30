@@ -19,8 +19,8 @@ void Battle::reset() {
 	this->_win = this->_loose = this->_escape = false;
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
-
-	this->_enemy->setHP(1); //temp
+	this->_enemy->set();
+	this->_enemy->setHP(75); //temp
 }
 
 void Battle::end() {

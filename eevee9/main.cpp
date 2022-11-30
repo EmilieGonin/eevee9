@@ -33,8 +33,8 @@ int main()
     interface.start();
 
     player.spritePosition(850, 510);
-    enemy.spritePosition(50, 500); 
-    enemy.setCoords(0, 96, 96, 64);
+    enemy.spritePosition(550, 80); 
+    enemy.setCoords(1, 96, 96, 64);
 
     while (game.isOpen())
     {
@@ -75,6 +75,7 @@ int main()
             
             game.clear();
             interface.map();
+
             game.drawtile();
             game.draw(player);
             game.display();

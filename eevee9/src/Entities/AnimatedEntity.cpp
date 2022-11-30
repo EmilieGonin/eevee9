@@ -23,8 +23,9 @@ void AnimatedEntity::resetAnimation(void) {
 }
 
 void AnimatedEntity::idle(void) {
-    //std::cout << "idle" << std::endl;
-    if (this->count % 200 == 0)
+
+ 
+    if (this->count % 250 == 0)
     {
         this->frame = (this->frame + 1) % this->spriteFrames;
         this->sprite.setTextureRect(sf::IntRect(this->frame * this->xSize, this->y, this->xSize, this->ySize));
