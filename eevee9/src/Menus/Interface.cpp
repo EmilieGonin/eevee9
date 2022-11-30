@@ -122,7 +122,7 @@ void Interface::draw_all() {
 
         this->eevee->idle();
         this->enemy->idle();
-        this->window->draw(this->eevee->getSprite(7, 7));
+        this->window->draw(this->eevee->getSprite(6, 6));
         this->window->draw(this->enemy->getSprite(4, 4));
     }
     else {

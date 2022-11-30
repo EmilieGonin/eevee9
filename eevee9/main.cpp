@@ -22,7 +22,7 @@ int main()
     game.CreateShapes();
 
     sf::Texture eeveeTexture, enemyTexture;
-    eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
+    eeveeTexture.loadFromFile("img/player_spritesheet.png");
     enemyTexture.loadFromFile("img/ponchiot.png"); //temp
 
     Eevee player(eeveeTexture);
@@ -39,10 +39,19 @@ int main()
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
+            //player.evolve(2);
+            if (player.getEeveelution()) {
+                player.setY(227 + (96 * player.getEeveelution()));
+            }
+            else {
+                player.setY(227);
+                player.setSpriteFrames(79);
+            }
+            std::cout << player.getY();
 
             interface.stopMusic();
-            player.spritePosition(2, 200); //Déplace Eevee au bon endroit
-            player.setCoords(227, 60, 60, 79); //Sprite de combat pour Eevee
+            player.spritePosition(-50, 125); //Déplace Eevee au bon endroit
+            player.setCoords(player.getY(), 96, 96, player.getSpriteFrames()); //Sprite de combat pour Eevee
             //Sprite de combat pour Eevee
             game.setBattle(battle.battle()); //Conditions de win/loose
             //Si le combat est toujours en cours, on sélectionne un choix

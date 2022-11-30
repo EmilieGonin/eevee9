@@ -7,8 +7,12 @@ Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 	this->hp = 55;
 	this->maxHp = 55;
 	this->speed = 55;
-	this->sprite.scale(1, 1);
 	this->orientation = DOWN;
+
+	//Sprite
+	this->xSize = 30;
+	this->ySize = 28;
+	this->spriteFrames = 3;
 
 	//Eevee datas
 	this->catchrate = 6;
@@ -25,8 +29,22 @@ Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
 
 Eevee::~Eevee() {};
 
-void Eevee::evolve() {
-	//Change this->y;
+void Eevee::evolve(int eeveelution) {
+	this->eeveelution = eeveelution;
+
+	int frame = 0;
+
+	if (eeveelution == 1) { //Vaporeon
+		frame = 54;
+	}
+	else if (eeveelution == 2) { //Jolteon
+		frame = 50;
+	}
+	else if (eeveelution == 3) { //Flareon
+		frame = 84;
+	}
+
+	this->spriteFrames = frame;
 }
 
 bool Eevee::canEvolve() {
