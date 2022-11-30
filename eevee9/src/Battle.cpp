@@ -178,7 +178,7 @@ void Battle::attack(bool eevee) {
 			
 		}
 		else {
-			this->interface->displayComment(this->_enemy->getName() + " uses his special attack !", this->_win);
+			
 			
 		}
 		dodgerate = this->_enemy->getDodgerate();
@@ -194,6 +194,7 @@ void Battle::attack(bool eevee) {
 		}
 		else {
 			this->_eevee->subHP(10);
+			this->interface->displayComment(this->_enemy->getName() + " uses his special attack !", this->_win);
 		}
 	}
 	else {

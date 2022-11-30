@@ -10,10 +10,18 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Images & Shapes
     this->image = new sf::Texture();
     this->bg = new sf::Sprite();
+    this->lifebar = new sf::Texture();
+    this->myHpBar = new sf::Sprite();
     this->winclose = new sf::RectangleShape();
+
+
+    this->hpBarLength = 133;
+    this->count = 40;
+
     this->winclose->setSize(sf::Vector2f(34.5, 39));
     this->winclose->setPosition(1767, 58.5);
     this->winclose->setFillColor(sf::Color::Transparent);
+
 
     //Font & Texts
     this->sizes = { 36,36,36 };
@@ -101,6 +109,7 @@ void Interface::loop_events() {
 
 void Interface::draw_all() {
     this->window->draw(*bg);
+    
 
     if(this->battleMenu == true)
     {
@@ -110,7 +119,7 @@ void Interface::draw_all() {
             t.setOutlineColor(sf::Color::White);
             this->window->draw(t);
         }
-
+        this->window->draw(*myHpBar);
         sf::Text hp;
         hp.setFont(*font2);
         hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
@@ -118,7 +127,15 @@ void Interface::draw_all() {
         hp.setCharacterSize(23);
         hp.setPosition(875, 464);
         this->window->draw(hp);
-        this->window->draw(hp);
+
+        sf::RectangleShape myHp;
+
+
+        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+        myHp.setPosition(846, 448);
+        myHp.setFillColor(sf::Color::Green);
+        window->draw(myHp);
+ 
 
         this->eevee->idle();
         this->enemy->idle();
@@ -145,6 +162,29 @@ void Interface::drawComment(std::string comment, bool win) {
         }
     }
     this->window->draw(*bg);
+    this->window->draw(*myHpBar);
+    
+
+    sf::RectangleShape myHp;
+
+    std::cout << this->hpBarLength;
+    myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+    float haha = 133 * this->eevee->getHP() / this->eevee->getMaxHP();
+    std::cout << haha;
+    /*while(haha != this->hpBarLength) {
+        std::cout << "hahaha" << std::endl;
+        this->window->draw(myHp);  
+        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+  
+        this->hpBarLength = this->hpBarLength - 0.1;
+    }*/
+
+ 
+    myHp.setPosition(846, 448);
+    myHp.setFillColor(sf::Color::Green);
+    window->draw(myHp);
+    
+    
     
 
     sf::Text text;
@@ -247,10 +287,12 @@ void Interface::pauseOptions() {
 
 int Interface::battle() {
 
-    this->state = true;
     std::cout << "coucou";
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
+    this->lifebar->loadFromFile("./img/lifebar.png");
+    this->myHpBar->setTexture(*lifebar);
+    this->myHpBar->setPosition(802, 444);
 
 
     this->options = { "" };
@@ -284,6 +326,7 @@ void Interface::displayComment(std::string comment, bool win) {
     this->display = true;
     this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
+
 
 
     this->options = { "" };

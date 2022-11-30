@@ -15,15 +15,20 @@ protected:
     int choice;
     bool pressed, theselect, startMenu, pauseMenu, battleMenu, display, state;
 
+    float hpBarLength;
+    int count;
 
     Game* _game;
     Eevee* eevee;
 
     Enemy* enemy;
     sf::RectangleShape* winclose;
+    
     sf::Font* font;
     sf::Font* font2;
     sf::Texture* image;
+    sf::Texture* lifebar;
+    sf::Sprite* myHpBar;
     sf::Sprite* bg;
     sf::RenderWindow* window;
     sf::Music music;
