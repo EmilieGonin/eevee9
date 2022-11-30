@@ -5,8 +5,8 @@
 class Eevee : public AnimatedEntity
 {
 protected:
+	sf::Vector2f mapPosition;
 	int catchrate;
-	int count = 0;
 	int iter = 0;
 
 	//Evolution
@@ -28,10 +28,14 @@ public:
 	void move(bool);
 	void collisionNotMoving(bool);
 
+	//Setters
+	void setMapPosition(sf::Vector2f);
+
 	//Getters
 	int getCatchrate();
 	int getEeveelution();
 	bool isEvolved();
+	sf::Vector2f getMapPosition();
 };
 
 

@@ -135,24 +135,18 @@ void Eevee::move(bool collision) {
 		{
 			this->sprite.setPosition(this->sprite.getPosition().x + 1, this->sprite.getPosition().y);
 		}
-	}
-		
+	}	
+}
 
+//Setters
 
-	
-	
+void Eevee::setMapPosition(sf::Vector2f position){
+	this->mapPosition = position;
 }
 
 //Getters
 
-int Eevee::getCatchrate() {
-	return this->catchrate;
-}
-
-int Eevee::getEeveelution() {
-	return this->eeveelution;
-}
-
-bool Eevee::isEvolved() {
-	return this->evolved;
-}
+int Eevee::getCatchrate() { return this->catchrate; }
+int Eevee::getEeveelution() { return this->eeveelution; }
+bool Eevee::isEvolved() { return this->evolved; }
+sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }

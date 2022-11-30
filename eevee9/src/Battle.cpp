@@ -20,6 +20,7 @@ void Battle::reset() {
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
 	this->_enemy->set();
+	this->_positionSaved = false;
 }
 
 void Battle::end() {
@@ -39,6 +40,7 @@ void Battle::end() {
 		this->music.stop();
 	}
 
+	this->_eevee->spritePosition(this->_eevee->getMapPosition().x, this->_eevee->getMapPosition().y);
 	this->_eevee->setCoords(0, 30, 27, 3);
 	this->_enemy->reset();
 	this->reset();
@@ -58,6 +60,12 @@ bool Battle::battle() {
 	if (this->music.getStatus() != 2) {
 		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
+	}
+
+	if (!this->_positionSaved) {
+		std::cout << "Eevee map position saved !" << std::endl;
+		this->_eevee->setMapPosition(this->_eevee->getSprite(2, 2).getPosition());
+		this->_positionSaved = true;
 	}
 
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
