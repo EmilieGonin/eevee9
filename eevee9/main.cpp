@@ -31,18 +31,9 @@ int main()
     {
         if (game.getBattle()) { //Si un combat est en cours
             //player.evolve(2);
-            if (player.getEeveelution()) {
-                player.setY(227 + (96 * player.getEeveelution()));
-            }
-            else {
-                player.setY(227);
-                player.setSpriteFrames(79);
-            }
-
             interface.stopMusic();
-            player.spritePosition(-50, 125); //Déplace Eevee au bon endroit
-            player.setCoords(player.getY(), 96, 96, player.getSpriteFrames()); //Sprite de combat pour Eevee
             game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
+
             //Si le combat est toujours en cours, on sélectionne un choix
             if (game.getBattle() && !battle.getChoice()) {
                 std::cout << "NO CHOICE SELECTED" << std::endl;
@@ -52,8 +43,7 @@ int main()
                 battle.turn(); //Tour de jeu suivant le choix          
             }            
         }
-        //Sinon, on vérifie les mouvements du joueur + la pause
-        else {
+        else { //Sinon, on vérifie les mouvements du joueur + la pause
             player.setOrientation(game.update(player.getOrientation()));
             if (game.getPause() != true) {
                 if (game.getKeyPressed()) {
@@ -74,7 +64,6 @@ int main()
             
             game.clear();
             interface.map();
-
             game.drawtile();
             game.draw(player);
             game.display();

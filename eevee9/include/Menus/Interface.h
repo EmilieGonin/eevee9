@@ -13,7 +13,7 @@ class Interface
 protected:
     int pos;
     int choice;
-    bool pressed, theselect, startMenu, pauseMenu, battleMenu, display, state;
+    bool pressed, startMenu, pauseMenu, battleMenu, display, state;
 
 
     Game* _game;
