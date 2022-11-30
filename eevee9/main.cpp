@@ -19,12 +19,8 @@ int main()
     createEnemies(db);
 
     Game game;
+    game.CreateShapes();
 
-    sf::RectangleShape wall(sf::Vector2f(992, 75));
-    wall.setPosition(0, 0);
-    wall.setFillColor(sf::Color::Transparent);
-    Collision rectangleTile(wall);
-    
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/eevee_spritesheet.png");
     enemyTexture.loadFromFile("img/ponchiot.png"); //temp
@@ -70,7 +66,7 @@ int main()
                     player.resetAnimation();
                 }
                 if (game.isMoving()) {
-                    player.move(rectangleTile.getcollision(&player));
+                    player.move(game.setCollision(&player));
                 }
             }
             else {
@@ -79,8 +75,9 @@ int main()
             
             game.clear();
             interface.map();
-            game.drawtile(rectangleTile.gettile());
-            game.draw(player); 
+
+            game.drawtile();
+            game.draw(player);
             game.display();
         }
     }
