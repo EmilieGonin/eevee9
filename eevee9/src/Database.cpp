@@ -1,5 +1,37 @@
 #include "Database.h"
 
+int callback(void* datas, int argc, char** argv, char** azColName) {
+	int i;
+	//On crée une variable qui va copier void* datas dans un autre type
+	std::vector<std::vector<std::string>>* p_datas = static_cast<std::vector<std::vector<std::string>>*>(datas);
+	std::vector<std::string> data;
+
+	for (i = 0; i < argc; i++) {
+		//On stocke chaque valeur retournée dans notre vecteur de string
+		std::string element = std::string(argv[i]);
+		data.push_back(element);
+	}
+
+	//On renvoie ce vecteur dans un autre vecteur contenant toutes les données
+	p_datas->push_back(data);
+	return 0;
+}
+
+std::vector<std::vector<std::string>> dataSQL(sqlite3* db, const char* sql) {
+	std::vector<std::vector<std::string>> datas;
+	char* error = 0;
+	int rc = sqlite3_exec(db, sql, callback, &datas, &error);
+
+	if (rc) {
+		std::cerr << sql << "\n--> SQL error : " << error << std::endl;
+	}
+	else {
+		std::cout << sql << "\n--> SQL done !" << std::endl;
+	}
+
+	return datas;
+}
+
 void SQL(sqlite3* db, const char* sql) {
 	char* error;
 	int rc = sqlite3_exec(db, sql, NULL, NULL, &error);
@@ -12,15 +44,21 @@ void SQL(sqlite3* db, const char* sql) {
 	}
 }
 
+std::vector<std::string> getEnemy(sqlite3* db) {
+	int id = random(3) + 1;
+	std::string sql = std::string("SELECT * FROM ENTITIES WHERE ID = " + std::to_string(id));
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+	return datas[0];
+}
+
 void createEnemies(sqlite3* db) {
 	//Création des données des ennemis
 	std::vector<std::string> pokemon;
-	pokemon.push_back("Name, 50, 50, 50");
-	pokemon.push_back("Name2, 50, 50, 50");
-	pokemon.push_back("Name3, 50, 50, 50");
-	pokemon.push_back("Name4, 50, 50, 50");
+	pokemon.push_back("\"Arceus\", \"50\", \"50\", \"50\"");
+	pokemon.push_back("\"Ponchiot\", \"50\", \"50\", \"50\"");
+	pokemon.push_back("\"Chenipan\", \"50\", \"50\", \"50\"");
+	pokemon.push_back("\"Roucool\", \"50\", \"50\", \"50\"");
 
-	//Récupération des ennemis
 	for (size_t i = 0; i < pokemon.size(); i++)
 	{
 		std::string sql = std::string(
@@ -55,4 +93,10 @@ sqlite3* getDatabase() {
 	std::cout << "----------" << std::endl;
 
 	return db;
+}
+
+int random(int range) {
+	srand(time(0));
+	int random = rand() % range;
+	return random;
 }
