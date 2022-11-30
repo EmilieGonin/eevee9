@@ -1,15 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity(const sf::Texture& texture) : sprite(texture), texture(texture)
+Entity::Entity(const sf::Texture& texture, sqlite3* db) : sprite(texture), texture(texture), db(db)
 {
-    this->dodgerate = 0;
-    this->speed = 0;
     this->hp = 70;
     this->maxHp = 1;
     this->orientation = DOWN;
-    this->y = 0;
-    this->xSize = 96;
-    this->ySize = 96;
+    this->dodgerate = this->speed = this->y = this->spriteFrames = 0;
+    this->xSize = this->ySize = 96;
 }
 
 //Setters

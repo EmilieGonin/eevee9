@@ -20,7 +20,6 @@ void Battle::reset() {
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
 	this->_enemy->set();
-	this->_enemy->setHP(75); //temp
 }
 
 void Battle::end() {
@@ -50,21 +49,15 @@ void Battle::loot() {
 	std::cout << "Getting loot : " << loot << std::endl;
 
 	if (loot > 3) {
-		this->_eevee->addLoot(loot);
+		this->_eevee->addLoot(loot - 3);
 	}
 }
 
 bool Battle::battle() {
 	//Music
-
 	if (this->music.getStatus() != 2) {
 		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
-	}
-
-	//On récupère les données de l'ennemi si elles n'existent pas
-	if (!this->_enemy->getY()) {
-		this->_enemy->set();
 	}
 
 	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;

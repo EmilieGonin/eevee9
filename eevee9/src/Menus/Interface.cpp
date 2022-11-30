@@ -33,9 +33,8 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     this->startButton.setVolume(30);
 
     //Misc
-    this->pos = 0;
-    this->pressed = this->theselect = this->pauseMenu = this->battleMenu = this->display = this->state =  false;
-    
+    this->pos = 0; //Position du curseur (choix)
+    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->state =  false;
     this->startMenu = true;
 }
 
@@ -48,7 +47,7 @@ Interface::~Interface() {
 
 void Interface::loop_events() {
     sf::Event event;
-    texts[this->pos].setOutlineThickness(10);
+    texts[this->pos].setOutlineThickness(10); //On souligne le choix actuel
     //std::cout << "pos : " << this->pos << std::endl;
 
     if (this->window->pollEvent(event)) {
@@ -56,21 +55,23 @@ void Interface::loop_events() {
             this->window->close();
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !this->pressed) {
-            if (this->pos < this->options.size() - 1) {
-                this->button.play();
+            if (this->pos < this->options.size() - 1) { //Ne pas dépasser le max de choix
+                this->button.play(); //Son du bouton
+                //On retire le contour du choix actuel, puis on change de choix
                 texts[this->pos].setOutlineThickness(0);
                 ++pos;
             }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !this->pressed) {
             if (this->pos > 0) {
-                this->button.play();
+                this->button.play(); //Son du bouton
+                //On retire le contour du choix actuel, puis on change de choix
                 texts[this->pos].setOutlineThickness(0);
                 --pos;
             }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
-            std::cout << "---- OPTION SELECTED :" << options[this->pos] << std::endl;
+            std::cout << "---- OPTION SELECTED : " << options[this->pos] << std::endl;
 
             if (this->startMenu == true) {
                 startOptions();
@@ -79,18 +80,16 @@ void Interface::loop_events() {
                 pauseOptions();
             }
             else if (this->display == true) {
-
                 this->button.play();
                 beginningOptions();
-
             }
             else if (this->battleMenu == true) {
                 this->button.play();
                 battleOptions();
                 this->choice = pos;
-
             }
         
+            //On évite que le choix soit fait avant relâchement de la touche
             while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 this->pressed = true;
             }
@@ -100,11 +99,10 @@ void Interface::loop_events() {
 }
 
 void Interface::draw_all() {
-    this->window->draw(*bg);
+    this->window->draw(*bg); //Background
 
-    if(this->battleMenu == true)
-    {
-        for (auto t : texts) {
+    if (this->battleMenu == true) {
+        for (auto t : texts) { //Draw tous les textes
             t.setCharacterSize(24);
             t.setFillColor(sf::Color::Black);
             t.setOutlineColor(sf::Color::White);
@@ -120,32 +118,41 @@ void Interface::draw_all() {
         this->window->draw(hp);
         this->window->draw(hp);
 
+        //Définis la texture et les frames de Eevee (évolué ou non)
+        if (this->eevee->getEeveelution()) {
+            this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
+        }
+        else {
+            this->eevee->setY(227);
+            this->eevee->setSpriteFrames(79);
+        }
+
+        //Définis les coordonnées de combat de Eeevee
+        this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
+        this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
+
         this->eevee->idle();
         this->enemy->idle();
         this->window->draw(this->eevee->getSprite(6, 6));
         this->window->draw(this->enemy->getSprite(4, 4));
     }
     else {
-        for (auto t : texts) {
-            
+        for (auto t : texts) { 
             this->window->draw(t);
         }
     }
-    
-    this->window->display();
+
+    this->window->display(); //On affiche tout
 }
+
 void Interface::drawComment(std::string comment, bool win) {
-
-
     if (win) {
-
         if (this->music.getStatus() != 2) {
             this->music.openFromFile("./sfx/Music/victory.wav");
             this->music.play();
         }
     }
     this->window->draw(*bg);
-    
 
     sf::Text text;
     text.setFont(*font2);
@@ -163,21 +170,16 @@ void Interface::drawComment(std::string comment, bool win) {
     hp.setPosition(875, 464);
     this->window->draw(hp);
 
-   
     this->eevee->idle();
     this->enemy->idle();
     this->window->draw(this->eevee->getSprite(7, 7));
     this->window->draw(this->enemy->getSprite(4, 4));
 
-    
-
-   
-
     for (auto t : texts) {
         this->window->draw(t);
     }
-    this->window->display();
-    
+
+    this->window->display(); //On affiche tout
 }
 
 void Interface::start() {
@@ -248,10 +250,9 @@ void Interface::pauseOptions() {
 int Interface::battle() {
 
     this->state = true;
-    std::cout << "coucou";
+    std::cout << "coucou" << std::endl;
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
-
 
     this->options = { "" };
     this->coords = { {0,0} };
@@ -260,23 +261,18 @@ int Interface::battle() {
     this->battleMenu = true;
         
     std::cout << "je passe ici" << std::endl;
+
     //Texts
     this->options = { "Attack", "Escape" };
     this->coords = { {800,525},{800,575} };
     setTexts(options.size());
 
-    while(this->battleMenu ==true)
+    while(this->battleMenu == true)
     {
-
         loop_events();
         draw_all();
-
-
     }
 
-    
-
-  
     return this->choice;
 }
 
@@ -285,10 +281,10 @@ void Interface::displayComment(std::string comment, bool win) {
     this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
 
-
     this->options = { "" };
     this->coords = { {0,0} };
     setTexts(options.size());
+
     while (this->display == true)
     {
         pos = 0;

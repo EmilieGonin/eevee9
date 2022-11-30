@@ -1,6 +1,6 @@
 #include "AnimatedEntity.h"
 
-AnimatedEntity::AnimatedEntity(const sf::Texture& texture) : Entity(texture)
+AnimatedEntity::AnimatedEntity(const sf::Texture& texture, sqlite3* db) : Entity(texture, db)
 {
     this->count = 0;
     this->frame = 0;
