@@ -1,7 +1,7 @@
 #include "Eevee.h"
 
 
-Eevee::Eevee(sf::Texture &texture) : AnimatedEntity(texture) {
+Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	//Entity datas
 	this->name = "Eevee"; // le joueur peut modifier ?
 	this->hp = 55;

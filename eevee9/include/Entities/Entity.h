@@ -19,6 +19,7 @@ protected:
     int orientation;
     sf::Sprite sprite;
     const sf::Texture& texture;
+    sqlite3* db;
 
     //Sprite coordinates and sizes
     int spriteFrames;
@@ -27,7 +28,7 @@ protected:
     int ySize;
 
 public:
-    Entity(const sf::Texture& texture);
+    Entity(const sf::Texture&, sqlite3*);
 
     //Setters
     void setHP(int);

@@ -8,7 +8,7 @@ protected:
 	sf::Sprite sprite;
 
 public:
-	Enemy(sf::Texture&);
+	Enemy(sf::Texture&, sqlite3*);
 	~Enemy();
 
 	void reset();

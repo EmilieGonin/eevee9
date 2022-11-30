@@ -19,7 +19,7 @@ protected:
 	int thunderstone;
 
 public:
-	Eevee(sf::Texture &);
+	Eevee(sf::Texture&, sqlite3*);
 	~Eevee();
 	void evolve(int);
 	bool canEvolve();

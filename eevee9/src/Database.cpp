@@ -52,12 +52,13 @@ std::vector<std::string> getEnemy(sqlite3* db) {
 }
 
 void createEnemies(sqlite3* db) {
-	//Création des données des ennemis
+	//Création des données des ennemis si la base de données est vide
+	//Ajout condition vide
 	std::vector<std::string> pokemon;
-	pokemon.push_back("\"Arceus\", \"50\", \"50\", \"50\"");
-	pokemon.push_back("\"Ponchiot\", \"50\", \"50\", \"50\"");
-	pokemon.push_back("\"Chenipan\", \"50\", \"50\", \"50\"");
-	pokemon.push_back("\"Roucool\", \"50\", \"50\", \"50\"");
+	pokemon.push_back("\"Arceus\", \"120\", \"120\", \"84\"");
+	pokemon.push_back("\"Lillipup\", \"45\", \"55\", \"64\"");
+	pokemon.push_back("\"Caterpie\", \"45\", \"45\", \"41\"");
+	pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"21\"");
 
 	for (size_t i = 0; i < pokemon.size(); i++)
 	{
