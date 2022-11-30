@@ -15,6 +15,7 @@ protected:
     int dodgerate;
     int speed;
     int hp;
+    int maxHp;
     int orientation;
     sf::Sprite sprite;
     const sf::Texture& texture;
@@ -38,6 +39,7 @@ public:
     //Getters
     sf::Sprite getSprite(float, float);
     int getHP();
+    int getMaxHP();
     int getOrientation();
     int getDodgerate();
     int getSpeed();

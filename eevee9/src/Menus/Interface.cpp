@@ -18,7 +18,9 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Font & Texts
     this->sizes = { 36,36,36 };
     this->font = new sf::Font();
+    this->font2 = new sf::Font();
     font->loadFromFile("./src/Menus/Hansip.otf");
+    font2->loadFromFile("./src/Menus/Pok.ttf");
 
     //Sounds & Music
     this->music.setLoop(true);
@@ -105,14 +107,23 @@ void Interface::draw_all() {
         for (auto t : texts) {
             t.setCharacterSize(24);
             t.setFillColor(sf::Color::Black);
-         
             t.setOutlineColor(sf::Color::White);
             this->window->draw(t);
         }
+
+        sf::Text hp;
+        hp.setFont(*font2);
+        hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
+        hp.setFillColor(sf::Color::Black);
+        hp.setCharacterSize(23);
+        hp.setPosition(875, 464);
+        this->window->draw(hp);
+        this->window->draw(hp);
+
         this->eevee->idle();
         this->enemy->idle();
         this->window->draw(this->eevee->getSprite(7, 7));
-        this->window->draw(this->enemy->getSprite(7, 7));
+        this->window->draw(this->enemy->getSprite(4, 4));
     }
     else {
         for (auto t : texts) {
@@ -137,17 +148,26 @@ void Interface::drawComment(std::string comment, bool win) {
     
 
     sf::Text text;
-    text.setFont(*font);
+    text.setFont(*font2);
     text.setString(comment);
     text.setFillColor(sf::Color::Black);
     text.setCharacterSize(24);
     text.setPosition(50, 600);
-
     this->window->draw(text);
+
+    sf::Text hp;
+    hp.setFont(*font2);
+    hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
+    hp.setFillColor(sf::Color::Black);
+    hp.setCharacterSize(23);
+    hp.setPosition(875, 464);
+    this->window->draw(hp);
+
+   
     this->eevee->idle();
     this->enemy->idle();
     this->window->draw(this->eevee->getSprite(7, 7));
-    this->window->draw(this->enemy->getSprite(7, 7));
+    this->window->draw(this->enemy->getSprite(4, 4));
 
     
 

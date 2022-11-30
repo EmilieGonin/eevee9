@@ -22,6 +22,7 @@ protected:
     Enemy* enemy;
     sf::RectangleShape* winclose;
     sf::Font* font;
+    sf::Font* font2;
     sf::Texture* image;
     sf::Sprite* bg;
     sf::RenderWindow* window;

@@ -22,7 +22,7 @@ int main()
 
     sf::RectangleShape wall(sf::Vector2f(992, 75));
     wall.setPosition(0, 0);
-    wall.setFillColor(sf::Color::Red);
+    wall.setFillColor(sf::Color::Transparent);
     Collision rectangleTile(wall);
     
     sf::Texture eeveeTexture, enemyTexture;
@@ -37,8 +37,8 @@ int main()
     interface.start();
 
     player.spritePosition(850, 510);
-    enemy.spritePosition(50, 500); 
-    enemy.setCoords(0, 96, 96, 64);
+    enemy.spritePosition(550, 80); 
+    enemy.setCoords(1, 96, 96, 64);
 
     while (game.isOpen())
     {
@@ -81,7 +81,6 @@ int main()
             interface.map();
             game.drawtile(rectangleTile.gettile());
             game.draw(player); 
-            game.draw(enemy);
             game.display();
         }
     }
