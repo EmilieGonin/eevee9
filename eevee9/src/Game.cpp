@@ -222,22 +222,22 @@ void Game::CreateShapes(int mapId) {
             wall12.setFillColor(sf::Color::Transparent);
             this->walls.push_back(wall12);
 
-            sf::RectangleShape grass(sf::Vector2f(620, 90));
-            grass.setPosition(293, 96);
+            sf::RectangleShape grass(sf::Vector2f(600, 55));
+            grass.setPosition(310, 96);
             grass.setFillColor(sf::Color::Transparent);
             this->grass.push_back(grass);
 
-            sf::RectangleShape grass2(sf::Vector2f(305, 56));
-            grass2.setPosition(618, 192);
+            sf::RectangleShape grass2(sf::Vector2f(280, 25));
+            grass2.setPosition(640, 192);
             grass2.setFillColor(sf::Color::Transparent);
             this->grass.push_back(grass2);
 
-            sf::RectangleShape grass3(sf::Vector2f(84, 150));
-            grass3.setPosition(842, 256);
+            sf::RectangleShape grass3(sf::Vector2f(60, 150));
+            grass3.setPosition(865, 256);
             grass3.setFillColor(sf::Color::Transparent);
             this->grass.push_back(grass3);
 
-            sf::RectangleShape grass4(sf::Vector2f(50, 200));
+            sf::RectangleShape grass4(sf::Vector2f(30, 200));
             grass4.setPosition(262, 200);
             grass4.setFillColor(sf::Color::Transparent);
             this->grass.push_back(grass4);
@@ -356,22 +356,22 @@ void Game::CreateShapes(int mapId) {
 
             sf::RectangleShape xrass(sf::Vector2f(130, 80));
             xrass.setPosition(770, 530);
-            xrass.setFillColor(sf::Color::Yellow);
+            xrass.setFillColor(sf::Color::Transparent);
             this->grass.push_back(xrass);
 
             sf::RectangleShape xrass2(sf::Vector2f(75, 85));
             xrass2.setPosition(32, 180);
-            xrass2.setFillColor(sf::Color::Yellow);
+            xrass2.setFillColor(sf::Color::Transparent);
             this->grass.push_back(xrass2);
 
             sf::RectangleShape xrass3(sf::Vector2f(215, 5));
             xrass3.setPosition(150, 70);
-            xrass3.setFillColor(sf::Color::Yellow);
+            xrass3.setFillColor(sf::Color::Transparent);
             this->grass.push_back(xrass3);
 
             sf::RectangleShape xrass4(sf::Vector2f(100, 5));
             xrass4.setPosition(428, 120);
-            xrass4.setFillColor(sf::Color::Yellow);
+            xrass4.setFillColor(sf::Color::Transparent);
             this->grass.push_back(xrass4);
 
 
@@ -406,11 +406,50 @@ void Game::CreateShapes(int mapId) {
         if (this->map3.size() == 0) {
             std::cout << "map3 created" << std::endl;
 
-            sf::RectangleShape zall(sf::Vector2f(380, 30));
+            sf::RectangleShape zall(sf::Vector2f(1, 672));
             zall.setPosition(0, 0);
-            zall.setFillColor(sf::Color::Red);
+            zall.setFillColor(sf::Color::Transparent);
             this->walls.push_back(zall);
 
+            sf::RectangleShape zall2(sf::Vector2f(992, 1));
+            zall2.setPosition(0, 672);
+            zall2.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall2);
+
+            sf::RectangleShape zall3(sf::Vector2f(522, 205));
+            zall3.setPosition(0, 365);
+            zall3.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall3);
+
+            sf::RectangleShape zall4(sf::Vector2f(450, 200));
+            zall4.setPosition(0, 0);
+            zall4.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall4);
+
+            sf::RectangleShape zall5(sf::Vector2f(492, 118));
+            zall5.setPosition(0, 100);
+            zall5.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall5);
+
+            sf::RectangleShape zall6(sf::Vector2f(200, 400));
+            zall6.setPosition(770, 0);
+            zall6.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall6);
+
+            sf::RectangleShape zall7(sf::Vector2f(250, 300));
+            zall7.setPosition(720, 112);
+            zall7.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall7);
+
+            sf::RectangleShape zall8(sf::Vector2f(220, 120));
+            zall8.setPosition(755, 590);
+            zall8.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall8);
+
+            sf::RectangleShape zall9(sf::Vector2f(2, 170)); //this is a wall but is places where a TP to potential 4th map would be
+            zall9.setPosition(990, 415);
+            zall9.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall9);
 
 
             sf::RectangleShape tp(sf::Vector2f(250, 5));
