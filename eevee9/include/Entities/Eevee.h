@@ -32,7 +32,6 @@ public:
 	void setMapPosition(sf::Vector2f);
 
 	//Getters
-	int getCatchrate();
 	int getEeveelution();
 	bool isEvolved();
 	sf::Vector2f getMapPosition();
