@@ -281,7 +281,7 @@ void Game::CreateShapes(int mapId) {
 
         if (this->map2.size() < 1)
         {
-            this->map1.push_back(&this->tp);
+            this->map2.push_back(&this->tp);
         }
     }
 
