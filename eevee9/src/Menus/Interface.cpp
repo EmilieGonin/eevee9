@@ -16,7 +16,6 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
 
     this->hpBarLength = 133;
     this->count = 40;
-    this->mapId = 0; // fetch dans la bdd en fonction de la sauvegarde
 
     this->winclose->setSize(sf::Vector2f(34.5, 39));
     this->winclose->setPosition(1767, 58.5);
@@ -44,7 +43,9 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     this->pos = 0; //Position du curseur (choix)
     this->pressed = this->pauseMenu = this->battleMenu = this->display = this->evolveMenu = false;
     this->startMenu = true;
-    
+
+    //Fetch mapId from database
+    this->mapId = this->eevee->getMap();
 }
 
 Interface::~Interface() {

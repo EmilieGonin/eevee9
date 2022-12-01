@@ -6,7 +6,7 @@ class Eevee : public AnimatedEntity
 {
 protected:
 	sf::Vector2f mapPosition;
-	int iter = 0;
+	int map;
 
 	//Evolution
 	int eeveelution; //0 = not evolved, 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
@@ -30,6 +30,7 @@ public:
 	void setMapPosition(sf::Vector2f);
 
 	//Getters
+	int getMap();
 	int getEeveelution();
 	bool isEvolved();
 

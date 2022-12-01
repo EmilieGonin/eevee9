@@ -45,6 +45,7 @@ void Eevee::set() {
 	this->firestone = stoi(datas[4]);
 
 	//Position
+	this->map = stoi(datas[5]);
 	this->orientation = stoi(datas[8]);
 	this->mapPosition.x = stoi(datas[6]);
 	this->mapPosition.y = stoi(datas[7]);
@@ -172,6 +173,7 @@ void Eevee::setMapPosition(sf::Vector2f position){
 
 //Getters
 
+int Eevee::getMap() { return this->map; }
 int Eevee::getEeveelution() { return this->eeveelution; }
 bool Eevee::isEvolved() { return this->evolved; }
 sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }
