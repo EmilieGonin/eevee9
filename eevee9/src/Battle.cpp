@@ -61,7 +61,7 @@ void Battle::end() {
 	}
 
 	this->_eevee->spritePosition(this->_eevee->getMapPosition().x, this->_eevee->getMapPosition().y);
-	this->_eevee->setCoords(0, 30, 27, 3);
+	this->_eevee->setCoords(0, 30, 28, 3);
 	this->_enemy->reset();
 	this->reset();
 }
