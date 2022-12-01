@@ -203,15 +203,16 @@ void Battle::attack(bool eevee) {
 		//Evolve
 	}
 
+	//On vérifie si c'est l'attaque de Eevee
 	if (eevee) {
-		
-		dodgerate = this->_eevee->getDodgerate();
-		name = this->_eevee->getName();
+		//Si c'est le cas, on récupère la dodgerate de l'ennemi
+		this->interface->displayComment("You attack !", this->_win);
+		dodgerate = this->_enemy->getDodgerate();
 	}
 	else {
-
-		dodgerate = this->_enemy->getDodgerate();
-		name = this->_enemy->getName();
+		//Sinon, celle d'Eevee
+		this->interface->displayComment(this->_enemy->getName() + " attacks!", this->_win);
+		dodgerate = this->_eevee->getDodgerate();
 	}
 		
 	if (this->random(100) > dodgerate) {
@@ -219,11 +220,12 @@ void Battle::attack(bool eevee) {
 		//Attack succeed
 		//if special attack, bonus to dmg + different animation
 		if (eevee) {
-			
+			//Si c'est Eevee qui attaque, on baisse les HP de l'ennemi
 			this->_enemy->subHP(10); //temp dmg
 			this->interface->displayComment("You attack !", this->_win);
 		}
 		else {
+			//Sinon, c'est Eevee qui perds de la vie
 			this->_eevee->subHP(10);
 			this->interface->displayComment(this->_enemy->getName() + " attacks!", this->_win);
 			std::cout << this->_eevee->getHP();
@@ -236,15 +238,16 @@ void Battle::attack(bool eevee) {
 					this->lowMusic.openFromFile("./sfx/Music/lowHp.wav");
 					this->lowMusic.play();
 				}
-
-				
 			}
 		}
 	}
 	else {
-		this->interface->displayComment(this->_enemy->getName() + " has dodged the attack !", this->_win);
-
-		//name has dodge the attack !
+		if (eevee) { //Si c'est Eevee qui attaque, c'est l'ennmi qui a dodge
+			this->interface->displayComment(this->_enemy->getName() + " has dodged the attack !", this->_win);
+		}
+		else {
+			this->interface->displayComment("You dodged the attack !", this->_win);
+		}
 	}
 }
 

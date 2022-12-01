@@ -23,7 +23,6 @@ public:
 	void evolve(int);
 	bool canEvolve();
 	void addLoot(int);
-	bool escape();
 	void move(bool);
 	void collisionNotMoving(bool);
 	int catchrate();

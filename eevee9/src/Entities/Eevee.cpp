@@ -65,12 +65,6 @@ void Eevee::addLoot(int loot) {
 	}
 }
 
-bool Eevee::escape() {
-	//
-	int random = 0;
-	return true;
-}
-
 void Eevee::collisionNotMoving(bool collision) {
 	if(collision)
 	{
