@@ -15,8 +15,9 @@ protected:
     int choice;
     bool pressed, startMenu, pauseMenu, battleMenu, display, state;
 
-    int hpBarLength;
+    int hpBarLength, ennemyHpBarLength;
     int count;
+    int mapId;
 
     Game* _game;
     Eevee* eevee;
@@ -27,8 +28,7 @@ protected:
     sf::Font* font;
     sf::Font* font2;
     sf::Texture* image;
-    sf::Texture* lifebar;
-    sf::Sprite* myHpBar;
+
     sf::Sprite* bg;
     sf::RenderWindow* window;
     sf::Music music;
@@ -36,6 +36,8 @@ protected:
     sf::Sound button;
     sf::SoundBuffer bufferStart;
     sf::Sound startButton;
+
+    std::string mapLinks[2] = { "./img/map.png", "./img/map2.png" };
 
     std::vector<const char*> options;
     std::vector<sf::Vector2f> coords;
@@ -52,23 +54,26 @@ public:
     void start();
     void startOptions();
     void pause();
-    void pauseOptions();
     int battle();
     void battleOptions();
     void beginningOptions();
     void stateOptions();
+    void pauseOptions();
 
     void map();
+    void changeMap(bool);
     void displayComment(std::string, bool);
 
     //Setters
     void stopMusic();
     void setPauseMenu(bool);
     void setTexts(int);
+    void setMap(int);
 
     //Getters
     int getPos();
     bool getStartMenu();
     bool getPauseMenu();
     bool getBattleMenu();
+    bool getMapId();
 };

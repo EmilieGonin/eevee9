@@ -10,13 +10,13 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Images & Shapes
     this->image = new sf::Texture();
     this->bg = new sf::Sprite();
-    this->lifebar = new sf::Texture();
-    this->myHpBar = new sf::Sprite();
+
     this->winclose = new sf::RectangleShape();
 
 
     this->hpBarLength = 133;
     this->count = 40;
+    this->mapId = 0; // fetch dans la bdd en fonction de la sauvegarde
 
     this->winclose->setSize(sf::Vector2f(34.5, 39));
     this->winclose->setPosition(1767, 58.5);
@@ -42,8 +42,9 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
 
     //Misc
     this->pos = 0; //Position du curseur (choix)
-    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->state =  false;
+    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->state = false;
     this->startMenu = true;
+    
 }
 
 Interface::~Interface() {
@@ -108,7 +109,7 @@ void Interface::loop_events() {
 
 void Interface::draw_all() {
     this->window->draw(*bg); //Background
-
+    
 
     if (this->battleMenu == true) {
         for (auto t : texts) { //Draw tous les textes
@@ -117,7 +118,7 @@ void Interface::draw_all() {
             t.setOutlineColor(sf::Color::White);
             this->window->draw(t);
         }
-        this->window->draw(*myHpBar);
+
         sf::Text hp;
         hp.setFont(*font2);
         hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
@@ -125,15 +126,32 @@ void Interface::draw_all() {
         hp.setCharacterSize(23);
         hp.setPosition(875, 464);
         this->window->draw(hp);
-
+        
         sf::RectangleShape myHp;
 
-
+        
+        if (this->hpBarLength == 0) {
+            this->hpBarLength = 133;
+        }
+ 
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
         myHp.setPosition(846, 448);
         myHp.setFillColor(sf::Color::Green);
         window->draw(myHp);
  
+
+        sf::RectangleShape ennemyBarHp;
+
+        if (this->enemy->getMaxHP() == this->enemy->getHP()) {
+            this->ennemyHpBarLength = 150;
+        }
+        ennemyBarHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
+        ennemyBarHp.setPosition(145, 94);
+        ennemyBarHp.setFillColor(sf::Color::Green);
+        window->draw(ennemyBarHp);
+
+
+
 
         //Définis la texture et les frames de Eevee (évolué ou non)
         if (this->eevee->getEeveelution()) {
@@ -171,32 +189,42 @@ void Interface::drawComment(std::string comment, bool win) {
     }
     this->window->draw(*bg);
 
-    this->window->draw(*myHpBar);
-    
-
-    sf::RectangleShape myHp;
-
  
+    sf::RectangleShape myHp;
     this->hpBarLength = this->hpBarLength * 100;
     int hpBarToGet = 133 * this->eevee->getHP() / this->eevee->getMaxHP() * 100;
 
    if(hpBarToGet != this->hpBarLength) {
-
-
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
         this->window->draw(myHp);  
-      
-  
         this->hpBarLength = this->hpBarLength - 1;
     }
-
- 
 
     this->hpBarLength = this->hpBarLength / 100;
     myHp.setPosition(846, 448);
     myHp.setFillColor(sf::Color::Green);
     myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
     window->draw(myHp);
+
+    sf::RectangleShape ennemyHp;
+
+    this->ennemyHpBarLength = this->ennemyHpBarLength * 100;
+    int ennemyhpBarToGet = 150 * this->enemy->getHP() / this->enemy->getMaxHP() * 100;
+
+    if (ennemyhpBarToGet != this->ennemyHpBarLength) {
+
+
+        ennemyHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
+        this->window->draw(ennemyHp);
+        this->ennemyHpBarLength = this->ennemyHpBarLength - 1;
+    }
+
+
+    this->ennemyHpBarLength = this->ennemyHpBarLength / 100;
+    ennemyHp.setPosition(145, 94);
+    ennemyHp.setFillColor(sf::Color::Green);
+    ennemyHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
+    window->draw(ennemyHp);
 
 
     sf::Text text;
@@ -216,9 +244,14 @@ void Interface::drawComment(std::string comment, bool win) {
     this->window->draw(hp);
 
     this->eevee->idle();
-    this->enemy->idle();
     this->window->draw(this->eevee->getSprite(6, 6));
-    this->window->draw(this->enemy->getSprite(4, 4));
+
+    if(!win)
+    {
+        this->enemy->idle();
+        this->window->draw(this->enemy->getSprite(4, 4));
+    }
+ 
 
     for (auto t : texts) {
         this->window->draw(t);
@@ -299,9 +332,7 @@ int Interface::battle() {
 
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
-    this->lifebar->loadFromFile("./img/lifebar.png");
-    this->myHpBar->setTexture(*lifebar);
-    this->myHpBar->setPosition(802, 444);
+
 
     this->options = { "" };
     this->coords = { {0,0} };
@@ -353,7 +384,7 @@ void Interface::map() {
         this->music.stop();
     }
 
-    this->image->loadFromFile("./img/map.png");
+    this->image->loadFromFile(this->mapLinks[this->mapId]);
     this->bg->setTexture(*image);
     this->window->draw(*bg);
 }
@@ -396,9 +427,26 @@ void Interface::setTexts(int size) {
     }
 }
 
+void Interface::setMap(int nb) {
+    this->mapId = nb;
+}
+
+void Interface::changeMap(bool colTp) {
+    if (colTp) {
+        if (this->mapId == 0) {
+            setMap(1);
+            this->eevee->spritePosition(50, this->eevee->getSprite(2,2).getPosition().y);
+        }
+        if (this->mapId == 1 && this->eevee->getOrientation() == LEFT ) {
+            setMap(0);
+            this->eevee->spritePosition(880, this->eevee->getSprite(2, 2).getPosition().y);
+        }
+    }
+}
 //Getters
 
 int Interface::getPos() { return this->pos; }
 bool Interface::getStartMenu() { return this->startMenu; }
 bool Interface::getPauseMenu() { return this->pauseMenu; }
 bool Interface::getBattleMenu() { return this->battleMenu; }
+bool Interface::getMapId() { return this->mapId; }

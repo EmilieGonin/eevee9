@@ -24,8 +24,11 @@ public:
 	bool isOpen();
 	bool isMoving();
 	int update(int);
+	std::vector<std::vector<sf::RectangleShape>*> map1;
+	std::vector<std::vector<sf::RectangleShape>*> map2;
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
+	std::vector<sf::RectangleShape> tp;
 
 	void randomBattle(bool);
 
@@ -39,9 +42,10 @@ public:
 	bool getBattle();
 	int getKeyPressed();
 	sf::RenderWindow* getWindow();
-	void CreateShapes();
+	void CreateShapes(int);
 	bool CreateCollision(Eevee*);
 	bool sethovergrass(Eevee*);
+	bool setHoverTp(Eevee*);
 
 };
 

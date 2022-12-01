@@ -11,7 +11,7 @@ int main()
     createEnemies(db);
 
     Game game;
-    game.CreateShapes();
+  
 
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/player_spritesheet.png");
@@ -30,7 +30,7 @@ int main()
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-            //player.evolve(2);
+            player.evolve(2);
             interface.stopMusic();
             game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
 
@@ -57,6 +57,7 @@ int main()
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
                     game.randomBattle(game.sethovergrass(&player));
+                    interface.changeMap(game.setHoverTp(&player));
                 }
             }
             else {
@@ -65,7 +66,8 @@ int main()
             
             game.clear();
             interface.map();
-            game.drawtile();
+            game.CreateShapes(interface.getMapId());
+            //game.drawtile();
             game.draw(player);
             game.display();
         }

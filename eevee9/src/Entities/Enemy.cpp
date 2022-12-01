@@ -15,7 +15,9 @@ void Enemy::set() {
 	std::vector<std::string> datas = getEnemy(this->db);
 
 	this->name = datas[1];
+	std::cout << stoi(datas[2]);
 	this->hp = stoi(datas[2]);
+	this->maxHp =stoi(datas[2]);
 	this->speed = stoi(datas[3]);
 	this->spriteFrames = stoi(datas[4]);
 

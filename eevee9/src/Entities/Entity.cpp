@@ -17,6 +17,9 @@ void Entity::setHP(int hp) {
 
 void Entity::subHP(int dmg) {
     this->hp = this->hp - dmg;
+    if (this->hp < 0) {
+        this->hp = 0;
+    }
 }
 
 void Entity::setOrientation(int orientation)

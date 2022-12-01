@@ -10,6 +10,9 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy, Interface* interface) {
 	this->music.setLoop(true);
 	this->music.setVolume(10);
 
+	this->lowMusic.setLoop(true);
+	this->lowMusic.setVolume(10);
+
 	this->reset();
 }
 
@@ -27,17 +30,34 @@ void Battle::end() {
 	std::cout << "BATTLE ENDED" << std::endl;
 	std::cout << "----------" << std::endl << std::endl;
 	if (this->_win) {
+		
+		this->lowMusic.stop();
+
+		if(this->music.getVolume() == 0)
+		{
+			int goalVolume = 20;
+			int volume = 0;
+			while(volume != goalVolume)
+			{
+				volume++;
+				this->music.setVolume(volume);
+			}
+		}
+		this->interface->displayComment(this->_enemy->getName() + " fainted...", this->_win - 1);
 		this->music.stop();
 		this->interface->displayComment("You win", this->_win);
 		this->loot();
 	}
 	else if (this->_loose) {
 		std::cout << "You loose..." << std::endl;
-		//écran game over
+		this->_eevee->setHP(this->_eevee->getMaxHP());
+		this->_enemy->setHP(this->_enemy->getMaxHP());
+		this->interface->setMap(1); //reset eevee and puts it at his spawn
 	}
 
 	if (this->music.getStatus() == 2) {
 		this->music.stop();
+		this->lowMusic.stop();
 	}
 
 	this->_eevee->spritePosition(this->_eevee->getMapPosition().x, this->_eevee->getMapPosition().y);
@@ -57,7 +77,22 @@ void Battle::loot() {
 
 bool Battle::battle() {
 	//Music
+	float percent = 20.0 / 100.0;
+
 	if (this->music.getStatus() != 2) {
+		if (this->_eevee->getHP() < percent * this->_eevee->getMaxHP()) {
+			std::cout << "je suis low";
+			this->music.setVolume(0);
+			if (this->lowMusic.getStatus() != 2) {
+				this->lowMusic.openFromFile("./sfx/Music/lowHp.wav");
+				this->lowMusic.play();
+			}
+
+
+		}
+		else {
+			this->music.setVolume(20);
+		}
 		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
 	}
@@ -126,7 +161,7 @@ void Battle::turn() {
 		if (this->pokeball()) {
 			this->interface->displayComment("You've been caught...", this->_win);
 			this->_loose = true;
-			return;
+			
 		}
 		else {
 			this->interface->displayComment("You escaped the pokeball !", this->_win);
@@ -169,33 +204,41 @@ void Battle::attack(bool eevee) {
 	}
 
 	if (eevee) {
-		this->interface->displayComment("You attack !", this->_win);
+		
 		dodgerate = this->_eevee->getDodgerate();
 		name = this->_eevee->getName();
 	}
 	else {
-		if (this->_enemy_choice == 1) {
-			this->interface->displayComment(this->_enemy->getName() + " attacks !", this->_win);
-			
-		}
-		else {
-			
-			
-		}
+
 		dodgerate = this->_enemy->getDodgerate();
 		name = this->_enemy->getName();
 	}
 		
 	if (this->random(100) > dodgerate) {
-		std::cout << "Attack success !" << std::endl;
+	
 		//Attack succeed
 		//if special attack, bonus to dmg + different animation
 		if (eevee) {
+			
 			this->_enemy->subHP(10); //temp dmg
+			this->interface->displayComment("You attack !", this->_win);
 		}
 		else {
 			this->_eevee->subHP(10);
-			this->interface->displayComment(this->_enemy->getName() + " uses his special attack !", this->_win);
+			this->interface->displayComment(this->_enemy->getName() + " attacks!", this->_win);
+			std::cout << this->_eevee->getHP();
+			float percent = 20.0 / 100.0;
+
+			if (this->_eevee->getHP() < percent * this->_eevee->getMaxHP()) {
+				std::cout << "je suis low";
+				this->music.setVolume(0);
+				if (this->lowMusic.getStatus() != 2) {
+					this->lowMusic.openFromFile("./sfx/Music/lowHp.wav");
+					this->lowMusic.play();
+				}
+
+				
+			}
 		}
 	}
 	else {
@@ -206,7 +249,7 @@ void Battle::attack(bool eevee) {
 }
 
 bool Battle::pokeball() {
-	if (this->random(100) <= this->_eevee->catchrate()) {
+	if (this->random(200) <= this->_eevee->catchrate()) {
 		return true;
 	}
 	else {
