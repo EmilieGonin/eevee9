@@ -19,15 +19,15 @@ Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	this->evolved = false;
 
 	//Stones
-	this->firestone = 0;
-	this->waterstone = 0;
-	this->thunderstone = 0;
+	this->firestone = 1;
+	this->waterstone = 1;
+	this->thunderstone = 1;
 };
 
 Eevee::~Eevee() {};
 
 void Eevee::evolve(int eeveelution) {
-	this->eeveelution = eeveelution;
+	this->eeveelution = eeveelution+1;
 
 	int frame = 0;
 
@@ -52,6 +52,10 @@ bool Eevee::canEvolve() {
 		return false;
 	}
 }
+
+int Eevee::getFire() { return this->firestone; }
+int Eevee::getWater(){ return this->waterstone; }
+int Eevee::getThunder(){ return this->thunderstone; }
 
 void Eevee::addLoot(int loot) {
 	if (loot == 1) {
