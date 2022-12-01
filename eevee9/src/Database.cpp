@@ -109,10 +109,8 @@ std::vector<std::string> getPlayer(sqlite3* db) {
 	if (!datas.size()) { //On initialise le joueur s'il n'existe pas
 		std::cout << "Creating eevee and eeveelutions..." << std::endl;
 		std::vector<std::string> eevee;
-		/*
-		* 1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
-		* 5[Frames int], 6[Type int]
-		*/
+		//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
+		//5[Frames int], 6[Type int]
 		eevee.push_back("\"Eevee\", \"55\", \"55\", \"55\", \"3\", \"1\"");
 		eevee.push_back("\"Vaporeon\", \"130\", \"65\", \"65\", \"54\", \"2\"");
 		eevee.push_back("\"Jolteon\", \"65\", \"65\", \"130\", \"50\", \"3\"");
@@ -140,10 +138,8 @@ void createDatabase(sqlite3* db) {
 	if (!datas.size()) { //Création des données des types si la table est vide
 		std::cout << "Creating types..." << std::endl;
 		std::vector<std::string> types;
-		/* -- Types
-		* 1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
-		* 6: Fly
-		* */
+		//1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
+		//6: Fly
 		types.push_back("\"Normal\", \"0\", \"0\"");
 		types.push_back("\"Water\", \"4\", \"3\"");
 		types.push_back("\"Thunder\", \"2\", \"0\"");
@@ -170,12 +166,6 @@ void createDatabase(sqlite3* db) {
 	if (!datas.size()) { //Création des données des ennemis si la table est vide
 		std::cout << "Creating enemies..." << std::endl;
 		std::vector<std::string> pokemon;
-		/* 
-		* -- Rarities
-		* 1: Common - 2: Rare - 3: Very Rare
-		* -- Types
-		* 1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
-		*/
 		//1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
 		// 5[Frames int], 6[Type int], 7[Rarities int]
 		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"120\", \"84\", \"1\", \"3\"");
@@ -185,8 +175,6 @@ void createDatabase(sqlite3* db) {
 		pokemon.push_back("\"Vulpix\", \"38\", \"41\", \"65\", \"36\", \"4\", \"1\"");
 		pokemon.push_back("\"Psyduck\", \"50\", \"52\", \"55\", \"24\", \"2\", \"1\"");
 		pokemon.push_back("\"Ninetales\", \"73\", \"76\", \"100\", \"27\", \"4\", \"2\"");
-		//pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"1\", \"21\", \"1\", \"1\"");
-		//pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"1\", \"21\", \"1\", \"1\"");
 
 		for (size_t i = 0; i < pokemon.size(); i++)
 		{
@@ -219,11 +207,14 @@ sqlite3* getDatabase() {
 	* - Entities : Enemies
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int],
 	* 5[Frames int], 6[Type int], 7[Rarities int]
+	* 
 	* - Types
 	* [Name (100)], [Effective int] (Strong against), [Weakness int] (Weak against)
+	* 
 	* - Player
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
 	* 5[Frames int], 6[Type int]
+	* 
 	* - Save
 	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
 	* 6[x], 7[y], 8[Orientation int]
@@ -235,7 +226,6 @@ sqlite3* getDatabase() {
 		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT);";
 
 	SQL(db, sql);
-
 	return db;
 }
 

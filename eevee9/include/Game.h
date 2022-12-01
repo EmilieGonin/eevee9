@@ -3,12 +3,10 @@
 #include "Entity.h"
 #include "Collision.h"
 
-
 class Game
 {
 protected:
 	bool pause, battle;
-
 	int keypressed;
 	sf::RenderWindow *window;
 
@@ -35,7 +33,6 @@ public:
 	//Setters
 	void setPause(bool);
 	void setBattle(bool);
-	
 
 	//Getters
 	bool getPause();

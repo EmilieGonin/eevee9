@@ -2,11 +2,7 @@
 
 #include "Game.h"
 #include "Eevee.h";
-
 #include "Enemy.h"
-
-
-
 
 class Interface
 {
@@ -21,14 +17,12 @@ protected:
 
     Game* _game;
     Eevee* eevee;
-
     Enemy* enemy;
+
     sf::RectangleShape* winclose;
-    
     sf::Font* font;
     sf::Font* font2;
     sf::Texture* image;
-
     sf::Sprite* bg;
     sf::RenderWindow* window;
     sf::Music music;
@@ -36,7 +30,6 @@ protected:
     sf::Sound button;
     sf::SoundBuffer bufferStart;
     sf::Sound startButton;
-
     std::string mapLinks[2] = { "./img/map.png", "./img/map2.png" };
 
     std::vector<const char*> options;
@@ -61,7 +54,6 @@ public:
     void beginningOptions();
     void evolveOptions();
     void pauseOptions();
-
     void map();
     void changeMap(bool);
     void displayComment(std::string, bool);

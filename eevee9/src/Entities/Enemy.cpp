@@ -1,10 +1,7 @@
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Texture& texture, sqlite3* db) : AnimatedEntity(texture, db) {
-	//
-}
-Enemy::~Enemy() {}
-
+Enemy::Enemy(sf::Texture& texture, sqlite3* db) : AnimatedEntity(texture, db) {};
+Enemy::~Enemy() {};
 
 void Enemy::reset() {
 	this->y = 0;

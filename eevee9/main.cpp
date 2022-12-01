@@ -12,7 +12,6 @@ int main()
 
     Game game;
   
-
     sf::Texture eeveeTexture, enemyTexture;
     eeveeTexture.loadFromFile("img/player_spritesheet.png");
     enemyTexture.loadFromFile("img/enemies_spritesheet.png");
@@ -30,7 +29,6 @@ int main()
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-       
             interface.stopMusic();
             game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
 
@@ -45,15 +43,16 @@ int main()
         }
         else { //Sinon, on vérifie les mouvements du joueur + la pause
             player.setOrientation(game.update(player.getOrientation()));
-            if (game.getPause() != true) {
-                if (game.getKeyPressed()) {
 
+            if (game.getPause() != true) { //Si le jeu n'est pas en pause
+                if (game.getKeyPressed()) { //On vérifie les touches pressées
                     player.update();
                 }
                 else {
                     player.resetAnimation();
                 }
-                if (game.isMoving()) {
+
+                if (game.isMoving()) { //On vérifie si le sprite doit bouger
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
                     game.randomBattle(game.sethovergrass(&player));
@@ -65,9 +64,8 @@ int main()
             }
             
             game.clear();
-            interface.map();
-            game.CreateShapes(interface.getMapId());
-            game.drawtile();
+            interface.map(); //Création de la map et des collisions
+            game.drawtile(); //Debug only - voir où sont placés nos collisions
             game.draw(player);
             game.display();
         }
