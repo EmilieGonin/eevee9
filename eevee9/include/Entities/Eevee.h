@@ -13,9 +13,7 @@ protected:
 	bool evolved;
   
 	//Stones
-	int firestone;
-	int waterstone;
-	int thunderstone;
+	int waterstone, thunderstone, firestone;
 
 public:
 	Eevee(sf::Texture&, sqlite3*);
@@ -28,6 +26,7 @@ public:
 	int catchrate();
 
 	//Setters
+	void set();
 	void setMapPosition(sf::Vector2f);
 
 	//Getters

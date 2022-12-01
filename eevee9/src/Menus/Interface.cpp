@@ -317,7 +317,7 @@ void Interface::pauseOptions() {
     }
     else if (this->pos == 1) {
         this->button.play();
-        //sauvegarde
+        sqlite3* db = getDatabase();
     }
     else if (this->pos == 2) {
         this->button.play();

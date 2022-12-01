@@ -2,30 +2,53 @@
 
 
 Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
-	//Entity datas
-	this->name = "Eevee"; // le joueur peut modifier ?
-	this->hp = this->maxHp = 55;
-	this->attack = 55;
-	this->speed = 55;
-	this->type = 1;
 	this->orientation = DOWN;
 
 	//Sprite
 	this->xSize = 30;
 	this->ySize = 28;
-	this->spriteFrames = 3;
 
 	//Evolution
 	this->eeveelution = 0;
 	this->evolved = false;
 
-	//Stones
-	this->firestone = 0;
-	this->waterstone = 0;
-	this->thunderstone = 0;
+	this->set();
 };
 
 Eevee::~Eevee() {};
+
+void Eevee::set() {
+	std::cout << "setting eevee's datas..." << std::endl;
+	//Fetch player datas
+	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
+	//5[Frames int], 6[Type int]
+	std::vector<std::string> datas = getPlayer(this->db);
+
+	//Stats
+	this->name = datas[1]; // le joueur peut modifier ?
+	this->maxHp = stoi(datas[2]);
+	this->attack = stoi(datas[3]);
+	this->speed = stoi(datas[4]);
+	this->type = stoi(datas[6]);
+
+	//Sprite
+	this->spriteFrames = stoi(datas[5]);
+
+	//Fetch save datas
+	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+	datas = getSave(this->db);
+
+	this->hp = stoi(datas[1]);
+
+	//Stones
+	this->waterstone = stoi(datas[2]);
+	this->thunderstone = stoi(datas[3]);
+	this->firestone = stoi(datas[4]);
+
+	//Position
+	this->mapPosition.x = stoi(datas[6]);
+	this->mapPosition.y = stoi(datas[7]);
+}
 
 void Eevee::evolve(int eeveelution) {
 	this->eeveelution = eeveelution;
