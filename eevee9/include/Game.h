@@ -24,6 +24,7 @@ public:
 	int update(int);
 	std::vector<std::vector<sf::RectangleShape>*> map1;
 	std::vector<std::vector<sf::RectangleShape>*> map2;
+	std::vector<std::vector<sf::RectangleShape>*> map3;
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;

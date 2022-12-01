@@ -30,7 +30,7 @@ protected:
     sf::Sound button;
     sf::SoundBuffer bufferStart;
     sf::Sound startButton;
-    std::string mapLinks[2] = { "./img/map.png", "./img/map2.png" };
+    std::string mapLinks[3] = { "./img/map.png", "./img/map2.png", "./img/map3.png" };
 
     std::vector<const char*> options;
     std::vector<sf::Vector2f> coords;

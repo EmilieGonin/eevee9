@@ -263,6 +263,14 @@ void Game::CreateShapes(int mapId) {
             }
             this->map1.pop_back();
         }
+        while (this->map3.size() != 0) {
+            for (size_t i = 0; i < this->map3.size(); i++) {
+                while (this->map3[i]->size() != 0) {
+                    this->map3[i]->pop_back();
+                };
+            }
+            this->map3.pop_back();
+        }
 
         if (this->map2.size() == 0) {
             std::cout << "map2 created" << std::endl;
@@ -346,17 +354,75 @@ void Game::CreateShapes(int mapId) {
             xall16.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall16);
 
+            sf::RectangleShape xrass(sf::Vector2f(130, 80));
+            xrass.setPosition(770, 530);
+            xrass.setFillColor(sf::Color::Yellow);
+            this->grass.push_back(xrass);
+
+            sf::RectangleShape xrass2(sf::Vector2f(75, 85));
+            xrass2.setPosition(32, 180);
+            xrass2.setFillColor(sf::Color::Yellow);
+            this->grass.push_back(xrass2);
+
+            sf::RectangleShape xrass3(sf::Vector2f(215, 5));
+            xrass3.setPosition(150, 70);
+            xrass3.setFillColor(sf::Color::Yellow);
+            this->grass.push_back(xrass3);
+
+            sf::RectangleShape xrass4(sf::Vector2f(100, 5));
+            xrass4.setPosition(428, 120);
+            xrass4.setFillColor(sf::Color::Yellow);
+            this->grass.push_back(xrass4);
+
+
 
             sf::RectangleShape tp(sf::Vector2f(5, 64));
             tp.setPosition(-25, 510);
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
+
+            sf::RectangleShape tp2(sf::Vector2f(120, 5));
+            tp2.setPosition(450, 670);
+            tp2.setFillColor(sf::Color::Transparent);
+            this->tp.push_back(tp2);
         }
 
         if (this->map2.size() < 3) {
             this->map2.push_back(&this->walls);
             this->map2.push_back(&this->grass);
             this->map2.push_back(&this->tp);
+        }
+    }
+    if (mapId == 2) {
+        while (this->map2.size() != 0) {
+            for (size_t i = 0; i < this->map2.size(); i++) {
+                while (this->map2[i]->size() != 0) {
+                    this->map2[i]->pop_back();
+                };
+            }
+            this->map2.pop_back();
+        }
+
+        if (this->map3.size() == 0) {
+            std::cout << "map3 created" << std::endl;
+
+            sf::RectangleShape zall(sf::Vector2f(380, 30));
+            zall.setPosition(0, 0);
+            zall.setFillColor(sf::Color::Red);
+            this->walls.push_back(zall);
+
+
+
+            sf::RectangleShape tp(sf::Vector2f(250, 5));
+            tp.setPosition(480, 5);
+            tp.setFillColor(sf::Color::Transparent);
+            this->tp.push_back(tp);
+        }
+
+        if (this->map3.size() < 3) {
+            this->map3.push_back(&this->walls);
+            this->map3.push_back(&this->grass);
+            this->map3.push_back(&this->tp);
         }
     }
 }

@@ -482,6 +482,14 @@ void Interface::changeMap(bool colTp) {
             setMap(0);
             this->eevee->spritePosition(880, this->eevee->getSprite(2, 2).getPosition().y);
         }
+        if (this->mapId == 1 && this->eevee->getOrientation() == DOWN) {
+            setMap(2);
+            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 50);
+        }
+        if (this->mapId == 2 && this->eevee->getOrientation() == UP) {
+            setMap(1);
+            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 620);
+        }
     }
 }
 
