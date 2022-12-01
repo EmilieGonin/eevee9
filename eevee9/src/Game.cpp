@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include <random>
 Game::Game()
 {
     window = new sf::RenderWindow();
@@ -42,7 +41,6 @@ bool Game::CreateCollision(Eevee* player) {
             return true;
         }
     }
-    
     return false;
 
 };
@@ -70,8 +68,6 @@ bool Game::setHoverTp(Eevee* player) {
     }
     return false;
 };
-
-
 
 void Game::clear() { window->clear(); };
 void Game::display() { window->display(); };
@@ -124,7 +120,6 @@ int Game::update(int orientation) {
                     std::cout << "run pause menu" << std::endl;
                     this->pause = true;
                 }
-
             }
             break;
 
@@ -138,17 +133,11 @@ int Game::update(int orientation) {
 
 //Setters
 
-void Game::setPause(bool pause) {
-    this->pause = pause;
-}
+void Game::setPause(bool pause) { this->pause = pause; }
 
-void Game::setBattle(bool battle) {
-    this->battle = battle;
-}
+void Game::setBattle(bool battle) { this->battle = battle; }
 
 void Game::randomBattle(bool grass) {
-
-
     int random = rand() % 100;  
     if (random < 2 && grass) {
         setBattle(true);
@@ -158,24 +147,20 @@ void Game::randomBattle(bool grass) {
     {
         setBattle(false);
     }
-   
 }
+
 void Game::CreateShapes(int mapId) {
-   
-    if(mapId == 0 )
-    {
-        while(this->map2.size() != 0)
-        {
-            for (size_t i = 0; i < this->map2.size(); i++)
-            {
+    if(mapId == 0 ) {
+        while(this->map2.size() != 0) {
+            for (size_t i = 0; i < this->map2.size(); i++) {
                 std::cout << "je delete";
                 while (this->map2[i]->size() != 0) {
                     this->map2[i]->pop_back();
                 };
-                
             }
             this->map2.pop_back();
         }
+
         if (this->map1.size() == 0) {
             sf::RectangleShape wall1(sf::Vector2f(992, 75));
             wall1.setPosition(0, 0);
@@ -263,26 +248,22 @@ void Game::CreateShapes(int mapId) {
             this->tp.push_back(tp);
         }
                        
-        if (this->map1.size() < 3)
-        {
+        if (this->map1.size() < 3) {
             this->map1.push_back(&this->walls);
             this->map1.push_back(&this->grass);
             this->map1.push_back(&this->tp);
         }
-
     }
     if (mapId == 1) {
-        while (this->map1.size() != 0)
-        {
-            for (size_t i = 0; i < this->map1.size(); i++)
-            {
+        while (this->map1.size() != 0) {
+            for (size_t i = 0; i < this->map1.size(); i++) {
                 while (this->map1[i]->size() != 0) {
                     this->map1[i]->pop_back();
                 };
-
             }
             this->map1.pop_back();
         }
+
         if (this->map2.size() == 0) {
             std::cout << "map2 created" << std::endl;
             sf::RectangleShape xall(sf::Vector2f(992, 30));
@@ -367,14 +348,12 @@ void Game::CreateShapes(int mapId) {
             this->tp.push_back(tp);
         }
 
-        if (this->map2.size() < 3)
-        {
+        if (this->map2.size() < 3) {
             this->map2.push_back(&this->walls);
             this->map2.push_back(&this->grass);
             this->map2.push_back(&this->tp);
         }
     }
-
 }
 
 //Getters

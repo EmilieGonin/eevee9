@@ -1,12 +1,11 @@
 #pragma once
+
 #include "Eevee.h"
 #include <SFML/Graphics.hpp>
 
-
-
-class Collision {
+class Collision
+{
 public:
-	
 	bool item;
 	float x;
 	float y;

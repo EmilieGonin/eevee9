@@ -83,16 +83,16 @@ bool Battle::battle() {
 		if (this->_eevee->getHP() < percent * this->_eevee->getMaxHP()) {
 			std::cout << "je suis low";
 			this->music.setVolume(0);
+
 			if (this->lowMusic.getStatus() != 2) {
 				this->lowMusic.openFromFile("./sfx/Music/lowHp.wav");
 				this->lowMusic.play();
 			}
-
-
 		}
 		else {
 			this->music.setVolume(20);
 		}
+
 		this->music.openFromFile(musicTab[this->random(4)]);
 		this->music.play();
 	}
@@ -109,6 +109,7 @@ bool Battle::battle() {
 	this->_win = this->_enemy->getHP() <= 0;
 	this->_loose = this->_eevee->getHP() <= 0;
 	this->_game->setBattle(!this->_win && !this->_loose && !this->_escape);
+
 	if (!this->_game->getBattle()) {
 		this->end();
 		return 0;
@@ -277,15 +278,8 @@ void Battle::setChoice(int choice) {
 	this->_choice = choice;
 }
 
-
 //Getters
 
-bool Battle::getChoice() {
-	return this->_choice;
-}
-
-
-bool Battle::getWin() {
-	return this->_win;
-}
+bool Battle::getChoice() { return this->_choice; }
+bool Battle::getWin() { return this->_win; }
 

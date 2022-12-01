@@ -1,6 +1,5 @@
 #include "Eevee.h"
 
-
 Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	//Sprite
 	this->xSize = 30;
@@ -117,7 +116,6 @@ void Eevee::collisionNotMoving(bool collision) {
 	}
 }
 void Eevee::move(bool collision) {
-
 	int changeX = 0;
 	int changeY = 0;
 

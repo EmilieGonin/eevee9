@@ -10,17 +10,10 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     //Images & Shapes
     this->image = new sf::Texture();
     this->bg = new sf::Sprite();
-
     this->winclose = new sf::RectangleShape();
-
-
-    this->hpBarLength = 133;
-    this->count = 40;
-
     this->winclose->setSize(sf::Vector2f(34.5, 39));
     this->winclose->setPosition(1767, 58.5);
     this->winclose->setFillColor(sf::Color::Transparent);
-
 
     //Font & Texts
     this->sizes = { 36,36,36 };
@@ -43,6 +36,8 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
     this->pos = 0; //Position du curseur (choix)
     this->pressed = this->pauseMenu = this->battleMenu = this->display = this->evolveMenu = false;
     this->startMenu = true;
+    this->hpBarLength = 133;
+    this->count = 40;
 
     //Fetch mapId from database
     this->mapId = this->eevee->getMap();
@@ -80,7 +75,6 @@ void Interface::loop_events() {
                 --pos;
             }
         }
-
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->pressed) {
             std::cout << "j'escape";
             texts[this->pos].setOutlineThickness(0);
@@ -89,7 +83,6 @@ void Interface::loop_events() {
                 this->battleMenu = true;
                 this->evolveMenu = false;
             }
-
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
             std::cout << "---- OPTION SELECTED : " << options[this->pos] << std::endl;
@@ -146,7 +139,6 @@ void Interface::drawEevee() {
 
 void Interface::draw_all() {
     this->window->draw(*bg); //Background
-    
 
     if (this->battleMenu == true ||this->evolveMenu) {
         for (auto t : texts) { //Draw tous les textes
@@ -165,7 +157,6 @@ void Interface::draw_all() {
         this->window->draw(hp);
         
         sf::RectangleShape myHp;
-
         
         if (this->hpBarLength == 0) {
             this->hpBarLength = 133;
@@ -175,13 +166,13 @@ void Interface::draw_all() {
         myHp.setPosition(846, 448);
         myHp.setFillColor(sf::Color::Green);
         window->draw(myHp);
- 
 
         sf::RectangleShape ennemyBarHp;
 
         if (this->enemy->getMaxHP() == this->enemy->getHP()) {
             this->ennemyHpBarLength = 150;
         }
+
         ennemyBarHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
         ennemyBarHp.setPosition(145, 94);
         ennemyBarHp.setFillColor(sf::Color::Green);
@@ -208,7 +199,6 @@ void Interface::drawComment(std::string comment, bool win) {
         }
     }
     this->window->draw(*bg);
-
  
     sf::RectangleShape myHp;
     this->hpBarLength = this->hpBarLength * 100;
@@ -232,20 +222,16 @@ void Interface::drawComment(std::string comment, bool win) {
     int ennemyhpBarToGet = 150 * this->enemy->getHP() / this->enemy->getMaxHP() * 100;
 
     if (ennemyhpBarToGet != this->ennemyHpBarLength) {
-
-
         ennemyHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
         this->window->draw(ennemyHp);
         this->ennemyHpBarLength = this->ennemyHpBarLength - 1;
     }
-
 
     this->ennemyHpBarLength = this->ennemyHpBarLength / 100;
     ennemyHp.setPosition(145, 94);
     ennemyHp.setFillColor(sf::Color::Green);
     ennemyHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
     window->draw(ennemyHp);
-
 
     sf::Text text;
     text.setFont(*font2);
@@ -265,12 +251,11 @@ void Interface::drawComment(std::string comment, bool win) {
 
     this->drawEevee();
 
-    if(!win)
+    if (!win)
     {
         this->enemy->idle();
         this->window->draw(this->enemy->getSprite(4, 4));
     }
- 
 
     for (auto t : texts) {
         this->window->draw(t);
@@ -301,19 +286,16 @@ void Interface::start() {
 }
 
 void Interface::evolve() {
-
-
     //Background
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
-
-
     this->options = {""};
     this->coords = { {1,1} };
-    if(this->eevee->canEvolve())
-    {
+
+    if (this->eevee->canEvolve()) {
         this->options.erase(this->options.begin());
         this->coords.erase(this->coords.begin());
+
         if (this->eevee->getFire() > 0) {
             this->options.push_back("Fire");
             this->coords.push_back({ 490,290 });
@@ -327,13 +309,11 @@ void Interface::evolve() {
             this->coords.push_back({ 490,515 });
         }
     }
-    //Texts
 
     setTexts(options.size());
-
     pos = 0;
-    while (this->evolveMenu == true) {
 
+    while (this->evolveMenu == true) {
         loop_events();
         draw_all();
     }
@@ -387,41 +367,30 @@ void Interface::pauseOptions() {
 }
 
 int Interface::battle() {
-
-
-    std::cout << "coucou";
-
+    this->battleMenu = true;
     this->image->loadFromFile("./img/battle1.png");
     this->bg->setTexture(*image);
-
 
     this->options = { "" };
     this->coords = { {0,0} };
     setTexts(options.size());
 
-    this->battleMenu = true;
-        
-    std::cout << "je passe ici" << std::endl;
-
-    //Texts
-
-    while(this->battleMenu == true)
-    {
+    while(this->battleMenu == true) {
         this->options = { "Attack", "Escape", "Evolve" };
         this->coords = { {800,525},{800,575},{800,630} };
+
         setTexts(options.size());
         loop_events();
         draw_all();
+
         if (this->evolveMenu == true)
         {
-            std::cout << "je suis en train d'evolve ";
-           
+            std::cout << "je suis en train d'evolve";
             evolve();
         }
 
     }
-    std::cout << this->choice;
-
+    std::cout << this->choice << std::endl;
     return this->choice;
 }
 
@@ -433,18 +402,20 @@ void Interface::displayComment(std::string comment, bool win) {
     this->coords = { {0,0} };
     setTexts(options.size());
 
-    while (this->display == true)
-    {
+    while (this->display == true) {
         pos = 0;
         loop_events();
         drawComment(comment, win);
     }
+
     if (win) {
         this->music.stop();
     }
 }
 
 void Interface::map() {
+    this->_game->CreateShapes(this->mapId);
+
     if (!this->battleMenu && this->music.getStatus() != 2) {
         this->music.openFromFile("./sfx/Music/route.wav");
         this->music.play();
@@ -466,12 +437,10 @@ void Interface::battleOptions() {
 }
 
 void Interface::beginningOptions() {
-    std::cout << "je passe ici" << std::endl;
     this->display = false;
 }
 
 void Interface::evolveOptions() {
-    
     this->evolveMenu = false;
 }
 
@@ -515,6 +484,7 @@ void Interface::changeMap(bool colTp) {
         }
     }
 }
+
 //Getters
 
 int Interface::getPos() { return this->pos; }
