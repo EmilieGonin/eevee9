@@ -42,7 +42,7 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
 
     //Misc
     this->pos = 0; //Position du curseur (choix)
-    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->state = false;
+    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->evolveMenu = false;
     this->startMenu = true;
     
 }
@@ -79,9 +79,20 @@ void Interface::loop_events() {
                 --pos;
             }
         }
+
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->pressed) {
+            std::cout << "j'escape";
+            texts[this->pos].setOutlineThickness(0);
+            if (this->evolveMenu == true)
+            {
+                this->battleMenu = true;
+                this->evolveMenu = false;
+            }
+
+        }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
             std::cout << "---- OPTION SELECTED : " << options[this->pos] << std::endl;
-
+            texts[this->pos].setOutlineThickness(0);
             if (this->startMenu == true) {
                 startOptions();
             }
@@ -97,7 +108,14 @@ void Interface::loop_events() {
                 battleOptions();
                 this->choice = pos;
             }
-        
+            else if (this->evolveMenu == true) {
+                this->button.play();
+                evolveOptions();
+                
+                this->choice = pos+2;
+                std::cout << this->choice;
+            }
+            
             //On évite que le choix soit fait avant relâchement de la touche
             while (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 this->pressed = true;
@@ -129,7 +147,7 @@ void Interface::draw_all() {
     this->window->draw(*bg); //Background
     
 
-    if (this->battleMenu == true) {
+    if (this->battleMenu == true ||this->evolveMenu) {
         for (auto t : texts) { //Draw tous les textes
             t.setCharacterSize(24);
             t.setFillColor(sf::Color::Black);
@@ -232,7 +250,7 @@ void Interface::drawComment(std::string comment, bool win) {
     text.setFont(*font2);
     text.setString(comment);
     text.setFillColor(sf::Color::Black);
-    text.setCharacterSize(24);
+    text.setCharacterSize(26);
     text.setPosition(50, 600);
     this->window->draw(text);
 
@@ -279,6 +297,46 @@ void Interface::start() {
     }
 
     this->music.stop();
+}
+
+void Interface::evolve() {
+
+
+    //Background
+    this->image->loadFromFile("./img/battle1.png");
+    this->bg->setTexture(*image);
+
+
+    this->options = {""};
+    this->coords = { {1,1} };
+    if(this->eevee->canEvolve())
+    {
+        this->options.erase(this->options.begin());
+        this->coords.erase(this->coords.begin());
+        if (this->eevee->getFire() > 0) {
+            this->options.push_back("Fire");
+            this->coords.push_back({ 490,290 });
+        }
+        if (this->eevee->getWater() > 0) {
+            this->options.push_back("Water");
+            this->coords.push_back({ 463,400 });
+        }
+        if (this->eevee->getThunder() > 0) {
+            this->options.push_back("Thunder");
+            this->coords.push_back({ 490,515 });
+        }
+    }
+    //Texts
+
+    setTexts(options.size());
+
+    pos = 0;
+    while (this->evolveMenu == true) {
+
+        loop_events();
+        draw_all();
+    }
+
 }
 
 void Interface::startOptions() {
@@ -343,15 +401,23 @@ int Interface::battle() {
     std::cout << "je passe ici" << std::endl;
 
     //Texts
-    this->options = { "Attack", "Escape" };
-    this->coords = { {800,525},{800,575} };
-    setTexts(options.size());
 
     while(this->battleMenu == true)
     {
+        this->options = { "Attack", "Escape", "Evolve" };
+        this->coords = { {800,525},{800,575},{800,630} };
+        setTexts(options.size());
         loop_events();
         draw_all();
+        if (this->evolveMenu == true)
+        {
+            std::cout << "je suis en train d'evolve ";
+           
+            evolve();
+        }
+
     }
+    std::cout << this->choice;
 
     return this->choice;
 }
@@ -391,6 +457,9 @@ void Interface::map() {
 
 void Interface::battleOptions() {
     this->battleMenu = false;
+    if (pos == 2) {
+        this->evolveMenu = true;
+    }
 }
 
 void Interface::beginningOptions() {
@@ -398,9 +467,9 @@ void Interface::beginningOptions() {
     this->display = false;
 }
 
-void Interface::stateOptions() {
-    std::cout << "je passe ici" << std::endl;
-    this->state = false;
+void Interface::evolveOptions() {
+    
+    this->evolveMenu = false;
 }
 
 //Setters

@@ -32,6 +32,10 @@ public:
 	//Getters
 	int getEeveelution();
 	bool isEvolved();
+
+	int getFire();
+	int getWater();
+	int getThunder();
 	sf::Vector2f getMapPosition();
 };
 

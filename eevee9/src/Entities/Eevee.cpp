@@ -51,7 +51,7 @@ void Eevee::set() {
 }
 
 void Eevee::evolve(int eeveelution) {
-	this->eeveelution = eeveelution;
+	this->eeveelution = eeveelution+1;
 
 	int frame = 0;
 
@@ -76,6 +76,10 @@ bool Eevee::canEvolve() {
 		return false;
 	}
 }
+
+int Eevee::getFire() { return this->firestone; }
+int Eevee::getWater(){ return this->waterstone; }
+int Eevee::getThunder(){ return this->thunderstone; }
 
 void Eevee::addLoot(int loot) {
 	if (loot == 1) {

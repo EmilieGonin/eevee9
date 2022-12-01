@@ -30,7 +30,7 @@ int main()
     while (game.isOpen())
     {
         if (game.getBattle()) { //Si un combat est en cours
-            player.evolve(2);
+       
             interface.stopMusic();
             game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
 
@@ -67,7 +67,7 @@ int main()
             game.clear();
             interface.map();
             game.CreateShapes(interface.getMapId());
-            //game.drawtile();
+            game.drawtile();
             game.draw(player);
             game.display();
         }

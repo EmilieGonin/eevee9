@@ -13,7 +13,7 @@ class Interface
 protected:
     int pos;
     int choice;
-    bool pressed, startMenu, pauseMenu, battleMenu, display, state;
+    bool pressed, startMenu, pauseMenu, battleMenu, display, evolveMenu;
 
     int hpBarLength, ennemyHpBarLength;
     int count;
@@ -55,10 +55,11 @@ public:
     void start();
     void startOptions();
     void pause();
+    void evolve();
     int battle();
     void battleOptions();
     void beginningOptions();
-    void stateOptions();
+    void evolveOptions();
     void pauseOptions();
 
     void map();
