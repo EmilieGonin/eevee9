@@ -8,7 +8,7 @@ int main()
     //Chargement de la base de données
     std::cout << "Loading database..." << std::endl;
     sqlite3* db = getDatabase();
-    createEnemies(db);
+    createDatabase(db);
 
     Game game;
   

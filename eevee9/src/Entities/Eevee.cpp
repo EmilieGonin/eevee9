@@ -4,9 +4,10 @@
 Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	//Entity datas
 	this->name = "Eevee"; // le joueur peut modifier ?
-	this->hp = 55;
-	this->maxHp = 55;
+	this->hp = this->maxHp = 55;
+	this->attack = 55;
 	this->speed = 55;
+	this->type = 1;
 	this->orientation = DOWN;
 
 	//Sprite
