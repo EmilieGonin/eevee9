@@ -67,7 +67,7 @@ int main()
             game.clear();
             interface.map();
             game.CreateShapes(interface.getMapId());
-            //game.drawtile();
+            game.drawtile();
             game.draw(player);
             game.display();
         }
