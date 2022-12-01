@@ -12,11 +12,7 @@ class Entity
 {
 protected:
     std::string name;
-    int dodgerate;
-    int speed;
-    int hp;
-    int maxHp;
-    int orientation;
+    int dodgerate, hp, maxHp, attack, speed, type, orientation;
     sf::Sprite sprite;
     const sf::Texture& texture;
     sqlite3* db;

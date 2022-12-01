@@ -29,6 +29,8 @@ std::vector<std::vector<std::string>> dataSQL(sqlite3* db, const char* sql) {
 		std::cout << sql << "\n--> SQL done !" << std::endl;
 	}
 
+	std::cout << "----------" << std::endl;
+
 	return datas;
 }
 
@@ -42,31 +44,147 @@ void SQL(sqlite3* db, const char* sql) {
 	else {
 		std::cout << sql << "\n--> SQL done !" << std::endl;
 	}
+
+	std::cout << "----------" << std::endl;
 }
 
 std::vector<std::string> getEnemy(sqlite3* db) {
-	int id = random(3) + 1;
-	std::string sql = std::string("SELECT * FROM ENTITIES WHERE ID = " + std::to_string(id));
+	//Get rarities
+	int rarity = random(100);
+	bool can = true; //temp
+
+	if (rarity <= 1) {
+		rarity = 3; //Very rare
+	}
+	else if (can && rarity > 1 && rarity <= 25) { //Check if can elvolve
+		rarity = 2; //Rare
+	}
+	else {
+		rarity = 1; //Common
+	}
+
+	std::string sql = std::string("SELECT * FROM ENTITIES WHERE RARITIES = " + std::to_string(rarity));
 	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+	std::cout << "datas size : " << datas.size() << std::endl;
+
+	//Get a random pokemon inside datas
+	int id = random(datas.size());
+	std::cout << "Pokemon choosen : " << datas[id][1] << std::endl;
+	return datas[id];
+}
+
+std::vector<std::string> getSave(sqlite3* db) {
+	std::string sql = std::string("SELECT * FROM SAVE");
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+
+	if (!datas.size()) { //On initialise la partie si elle n'existe pas
+		//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+		setSave(db, 55, 0, 0, 0, 1, 850, 510);
+		datas = dataSQL(db, sql.c_str());
+	}
+
 	return datas[0];
 }
 
-void createEnemies(sqlite3* db) {
-	std::string sql = std::string("SELECT * FROM ENTITIES");
+void setSave(sqlite3* db, int hp, int waterstone, int thunderstone, int firestone, int map, int x, int y) {
+	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+	std::string sql = std::string(
+		"INSERT INTO SAVE(HP, WATERSTONE, THUNDERSTONE, FIRESTONE, MAP, X, Y)"\
+		"VALUES("+ std::to_string(hp) + ", " + std::to_string(waterstone) + ", " + std::to_string(thunderstone) + ", " + std::to_string(firestone) + ", " + std::to_string(map) + ", " + std::to_string(x) + ", " + std::to_string(y) + "); ");
+	SQL(db, sql.c_str());
+}
+
+std::vector<std::string> getPlayer(sqlite3* db) {
+	std::cout << "Fetching eevee and eeveelutions..." << std::endl;
+	std::string sql = std::string("SELECT * FROM PLAYER");
 	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
 
-	if (!datas.size()) { //Création des données des ennemis si la base de données est vide
+	if (!datas.size()) { //On initialise le joueur s'il n'existe pas
+		std::cout << "Creating eevee and eeveelutions..." << std::endl;
+		std::vector<std::string> eevee;
+		/*
+		* 1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
+		* 5[Frames int], 6[Type int]
+		*/
+		eevee.push_back("\"Eevee\", \"55\", \"55\", \"55\", \"3\", \"1\"");
+		eevee.push_back("\"Vaporeon\", \"130\", \"65\", \"65\", \"54\", \"2\"");
+		eevee.push_back("\"Jolteon\", \"65\", \"65\", \"130\", \"50\", \"3\"");
+		eevee.push_back("\"Flareon\", \"65\", \"130\", \"65\", \"84\", \"4\"");
+
+		for (size_t i = 0; i < eevee.size(); i++)
+		{
+			std::string sql = std::string(
+				"INSERT INTO PLAYER(NAME, HP, ATTACK, SPEED, FRAMES, TYPE)"\
+				"VALUES(" + eevee[i] + ");");
+			SQL(db, sql.c_str());
+		}
+
+		datas = dataSQL(db, sql.c_str());
+	}
+
+	return datas[0];
+}
+
+void createDatabase(sqlite3* db) {
+	//Get types
+	std::string sql = std::string("SELECT * FROM TYPES");
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+
+	if (!datas.size()) { //Création des données des types si la table est vide
+		std::cout << "Creating types..." << std::endl;
+		std::vector<std::string> types;
+		/* -- Types
+		* 1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
+		* 6: Fly
+		* */
+		types.push_back("\"Normal\", \"0\", \"0\"");
+		types.push_back("\"Water\", \"4\", \"3\"");
+		types.push_back("\"Thunder\", \"2\", \"0\"");
+		types.push_back("\"Fire\", \"5\", \"2\"");
+		types.push_back("\"Bug\", \"0\", \"4\"");
+		types.push_back("\"Fly\", \"0\", \"3\"");
+
+		for (size_t i = 0; i < types.size(); i++)
+		{
+			std::string sql = std::string(
+				"INSERT INTO TYPES(NAME, EFFECTIVE, WEAKNESS)"\
+				"VALUES(" + types[i] + ");");
+			SQL(db, sql.c_str());
+		}
+	}
+	else {
+		std::cout << "Enemis already created !" << std::endl;
+	}
+
+	//Get entities
+	sql = std::string("SELECT * FROM ENTITIES");
+	datas = dataSQL(db, sql.c_str());
+
+	if (!datas.size()) { //Création des données des ennemis si la table est vide
 		std::cout << "Creating enemies..." << std::endl;
 		std::vector<std::string> pokemon;
-		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"84\"");
-		pokemon.push_back("\"Lillipup\", \"45\", \"55\", \"64\"");
-		pokemon.push_back("\"Caterpie\", \"45\", \"45\", \"41\"");
-		pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"21\"");
+		/* 
+		* -- Rarities
+		* 1: Common - 2: Rare - 3: Very Rare
+		* -- Types
+		* 1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
+		*/
+		//1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
+		// 5[Frames int], 6[Type int], 7[Rarities int]
+		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"120\", \"84\", \"1\", \"3\"");
+		pokemon.push_back("\"Lillipup\", \"45\", \"60\", \"55\", \"64\", \"1\", \"1\"");
+		pokemon.push_back("\"Caterpie\", \"45\", \"30\", \"45\", \"41\", \"5\", \"1\"");
+		pokemon.push_back("\"Pidgey\", \"40\", \"45\", \"56\", \"21\", \"6\", \"1\"");
+		pokemon.push_back("\"Vulpix\", \"38\", \"41\", \"65\", \"36\", \"4\", \"1\"");
+		pokemon.push_back("\"Psyduck\", \"50\", \"52\", \"55\", \"24\", \"2\", \"1\"");
+		pokemon.push_back("\"Ninetales\", \"73\", \"76\", \"100\", \"27\", \"4\", \"2\"");
+		//pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"1\", \"21\", \"1\", \"1\"");
+		//pokemon.push_back("\"Pidgey\", \"40\", \"56\", \"1\", \"21\", \"1\", \"1\"");
 
 		for (size_t i = 0; i < pokemon.size(); i++)
 		{
 			std::string sql = std::string(
-				"INSERT INTO ENTITIES(NAME, HP, SPEED, FRAMES)"\
+				"INSERT INTO ENTITIES(NAME, HP, ATTACK, SPEED, FRAMES, TYPE, RARITIES)"\
 				"VALUES(" + pokemon[i] + ");");
 			SQL(db, sql.c_str());
 		}
@@ -91,14 +209,24 @@ sqlite3* getDatabase() {
 	std::cout << "Loading tables..." << std::endl;
 
 	/* ----Tables----
-	* - Entities : Eevee [ID 0] + Enemies
-	* [Name (100)], [HP int], [Speed int], [Frames int]
+	* - Entities : Enemies
+	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int],
+	* 5[Frames int], 6[Type int], 7[Rarities int]
+	* - Types
+	* [Name (100)], [Effective int] (Strong against), [Weakness int] (Weak against)
+	* - Player
+	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
+	* 5[Frames int], 6[Type int]
+	* - Save
+	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
 	*/
-	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, SPEED INT, FRAMES INT);";
+
+	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT);"\
+		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT);"\
+		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT);"\
+		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT);";
 
 	SQL(db, sql);
-
-	std::cout << "----------" << std::endl;
 
 	return db;
 }

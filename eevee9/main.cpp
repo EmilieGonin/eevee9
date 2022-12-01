@@ -8,7 +8,7 @@ int main()
     //Chargement de la base de données
     std::cout << "Loading database..." << std::endl;
     sqlite3* db = getDatabase();
-    createEnemies(db);
+    createDatabase(db);                
 
     Game game;
   
@@ -24,7 +24,7 @@ int main()
     
     interface.start();
 
-    player.spritePosition(850, 510);
+    player.spritePosition(player.getMapPosition().x, player.getMapPosition().y);
     enemy.spritePosition(550, 80);
 
     while (game.isOpen())

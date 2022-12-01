@@ -44,6 +44,7 @@ protected:
     std::vector<sf::Text> texts;
     std::vector<std::size_t> sizes;
 
+    void drawEevee();
     void loop_events();
     void draw_all();
     void drawComment(std::string, bool);
