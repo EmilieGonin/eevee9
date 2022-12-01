@@ -268,81 +268,86 @@ void Game::CreateShapes(int mapId) {
             std::cout << "map2 created" << std::endl;
             sf::RectangleShape xall(sf::Vector2f(992, 30));
             xall.setPosition(0, 0);
-            xall.setFillColor(sf::Color::Red);
+            xall.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall);
 
             sf::RectangleShape xall2(sf::Vector2f(20, 672));
             xall2.setPosition(956, 0);
-            xall2.setFillColor(sf::Color::Red);
+            xall2.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall2);
 
             sf::RectangleShape xall3(sf::Vector2f(350, 5));
             xall3.setPosition(610, 650);
-            xall3.setFillColor(sf::Color::Red);
+            xall3.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall3);
 
             sf::RectangleShape xall4(sf::Vector2f(200, 5));
             xall4.setPosition(215, 650);
-            xall4.setFillColor(sf::Color::Red);
+            xall4.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall4);
 
             sf::RectangleShape xall5(sf::Vector2f(200, 150));
             xall5.setPosition(0, 585);
-            xall5.setFillColor(sf::Color::Red);
+            xall5.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall5);
 
             sf::RectangleShape xall6(sf::Vector2f(144, 180));
             xall6.setPosition(0, 304);
-            xall6.setFillColor(sf::Color::Red);
+            xall6.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall6);
 
             sf::RectangleShape xall7(sf::Vector2f(2, 265));
             xall7.setPosition(0, 30);
-            xall7.setFillColor(sf::Color::Red);
+            xall7.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall7);
 
             sf::RectangleShape xall8(sf::Vector2f(28, 310));
             xall8.setPosition(150, 150);
-            xall8.setFillColor(sf::Color::Red);
+            xall8.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall8);
 
             sf::RectangleShape xall9(sf::Vector2f(535, 50));
             xall9.setPosition(170, 140);
-            xall9.setFillColor(sf::Color::Red);
+            xall9.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall9);
 
-            sf::RectangleShape xall10(sf::Vector2f(10, 190));
-            xall10.setPosition(295, 320);
-            xall10.setFillColor(sf::Color::Red);
+            sf::RectangleShape xall10(sf::Vector2f(2, 190));
+            xall10.setPosition(280, 320);
+            xall10.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall10);
 
             sf::RectangleShape xall11(sf::Vector2f(375, 10));
             xall11.setPosition(302, 294);
-            xall11.setFillColor(sf::Color::Red);
+            xall11.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall11);
 
             sf::RectangleShape xall12(sf::Vector2f(150, 160));
             xall12.setPosition(823, 0);
-            xall12.setFillColor(sf::Color::Red);
+            xall12.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall12);
 
             sf::RectangleShape xall13(sf::Vector2f(18, 10));
             xall13.setPosition(502, 374);
-            xall13.setFillColor(sf::Color::Red);
+            xall13.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall13);
 
-            /*sf::RectangleShape xall14(sf::Vector2f(992, 75));
-            xall14.setPosition(0, 0);
-            xall14.setFillColor(sf::Color::Red);
+            sf::RectangleShape xall14(sf::Vector2f(2, 80));
+            xall14.setPosition(400, 320);
+            xall14.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall14);
 
-            sf::RectangleShape xall15(sf::Vector2f(992, 75));
-            xall15.setPosition(0, 0);
-            xall15.setFillColor(sf::Color::Red);
-            this->walls.push_back(xall15);*/
+            sf::RectangleShape xall15(sf::Vector2f(100, 5));
+            xall15.setPosition(280, 400);
+            xall15.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(xall15);
+
+            sf::RectangleShape xall16(sf::Vector2f(32, 55));
+            xall16.setPosition(175, 175);
+            xall16.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(xall16);
 
 
-            sf::RectangleShape tp(sf::Vector2f(50, 64));
+            sf::RectangleShape tp(sf::Vector2f(5, 64));
             tp.setPosition(-25, 510);
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
