@@ -6,7 +6,6 @@
 class Collision
 {
 public:
-	bool item;
 	float x;
 	float y;
 	sf::RectangleShape &tile;

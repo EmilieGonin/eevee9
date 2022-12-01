@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Collision.h"
+#include "Items.h"
 
 class Game
 {
@@ -23,11 +24,14 @@ public:
 	bool isMoving();
 	int update(int);
 	std::vector<std::vector<sf::RectangleShape>*> map1;
+	std::vector < Items*> itemmap1;
 	std::vector<std::vector<sf::RectangleShape>*> map2;
+	std::vector <Items*> itemmap2;
 	std::vector<std::vector<sf::RectangleShape>*> map3;
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;
+	
 
 	void randomBattle(bool);
 

@@ -149,6 +149,7 @@
     <ClCompile Include="src\Entities\Enemy.cpp" />
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Items.cpp" />
     <ClCompile Include="src\Menus\Interface.cpp" />
     <ClCompile Include="src\Collision.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="include\Entities\Enemy.h" />
     <ClInclude Include="include\Entities\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Items.h" />
     <ClInclude Include="include\Menus\Interface.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\Utils.h" />
