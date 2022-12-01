@@ -107,6 +107,24 @@ void Interface::loop_events() {
     }
 }
 
+void Interface::drawEevee() {
+    //Définis la texture et les frames de Eevee (évolué ou non)
+    if (this->eevee->getEeveelution()) {
+        this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
+    }
+    else {
+        this->eevee->setY(227);
+        this->eevee->setSpriteFrames(79);
+    }
+
+    //Définis les coordonnées de combat de Eeevee
+    this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
+    this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
+
+    this->eevee->idle();
+    this->window->draw(this->eevee->getSprite(6, 6));
+}
+
 void Interface::draw_all() {
     this->window->draw(*bg); //Background
     
@@ -150,25 +168,8 @@ void Interface::draw_all() {
         ennemyBarHp.setFillColor(sf::Color::Green);
         window->draw(ennemyBarHp);
 
-
-
-
-        //Définis la texture et les frames de Eevee (évolué ou non)
-        if (this->eevee->getEeveelution()) {
-            this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
-        }
-        else {
-            this->eevee->setY(227);
-            this->eevee->setSpriteFrames(79);
-        }
-
-        //Définis les coordonnées de combat de Eeevee
-        this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
-        this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
-
-        this->eevee->idle();
+        this->drawEevee();
         this->enemy->idle();
-        this->window->draw(this->eevee->getSprite(6, 6));
         this->window->draw(this->enemy->getSprite(4, 4));
     }
     else {
@@ -243,8 +244,7 @@ void Interface::drawComment(std::string comment, bool win) {
     hp.setPosition(875, 464);
     this->window->draw(hp);
 
-    this->eevee->idle();
-    this->window->draw(this->eevee->getSprite(6, 6));
+    this->drawEevee();
 
     if(!win)
     {
