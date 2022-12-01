@@ -161,102 +161,109 @@ void Game::randomBattle(bool grass) {
    
 }
 void Game::CreateShapes(int mapId) {
-
-    if(mapId == 0)
+   
+    if(mapId == 0 )
     {
-        
-        for (size_t i = 0; i < this->map2.size(); i++)
+        while(this->map2.size() != 0)
         {
-            while (this->map2[i]->size() != 0) {
-                this->map2[i]->pop_back();
+            for (size_t i = 0; i < this->map2.size(); i++)
+            {
+                std::cout << "je delete";
+                while (this->map2[i]->size() != 0) {
+                    this->map2[i]->pop_back();
+                };
+                
             }
+            this->map2.pop_back();
         }
+        if (this->map1.size() == 0) {
+            sf::RectangleShape wall1(sf::Vector2f(992, 75));
+            wall1.setPosition(0, 0);
+            wall1.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall1);
 
-        sf::RectangleShape wall1(sf::Vector2f(992, 75));
-        wall1.setPosition(0, 0);
-        wall1.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall1);
+            sf::RectangleShape wall2(sf::Vector2f(75, 480));
+            wall2.setPosition(940, 0);
+            wall2.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall2);
 
-        sf::RectangleShape wall2(sf::Vector2f(75, 480));
-        wall2.setPosition(940, 0);
-        wall2.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall2);
+            sf::RectangleShape wall3(sf::Vector2f(75, 100));
+            wall3.setPosition(940, 585);
+            wall3.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall3);
 
-        sf::RectangleShape wall3(sf::Vector2f(75, 100));
-        wall3.setPosition(940, 585);
-        wall3.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall3);
+            sf::RectangleShape wall4(sf::Vector2f(992, 32));
+            wall4.setPosition(0, 650);
+            wall4.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall4);
 
-        sf::RectangleShape wall4(sf::Vector2f(992, 32));
-        wall4.setPosition(0, 650);
-        wall4.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall4);
+            sf::RectangleShape wall5(sf::Vector2f(180, 240));
+            wall5.setPosition(0, 0);
+            wall5.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall5);
 
-        sf::RectangleShape wall5(sf::Vector2f(180, 240));
-        wall5.setPosition(0, 0);
-        wall5.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall5);
+            sf::RectangleShape wall6(sf::Vector2f(242, 190));
+            wall6.setPosition(0, 237);
+            wall6.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall6);
 
-        sf::RectangleShape wall6(sf::Vector2f(242, 190));
-        wall6.setPosition(0, 237);
-        wall6.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall6);
+            sf::RectangleShape wall7(sf::Vector2f(175, 175));
+            wall7.setPosition(0, 412);
+            wall7.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall7);
 
-        sf::RectangleShape wall7(sf::Vector2f(175, 175));
-        wall7.setPosition(0, 412);
-        wall7.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall7);
+            sf::RectangleShape wall8(sf::Vector2f(1, 100));
+            wall8.setPosition(250, 530);
+            wall8.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall8);
 
-        sf::RectangleShape wall8(sf::Vector2f(1, 100));
-        wall8.setPosition(250, 530);
-        wall8.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall8);
+            sf::RectangleShape wall9(sf::Vector2f(125, 88));
+            wall9.setPosition(500, 394);
+            wall9.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall9);
 
-        sf::RectangleShape wall9(sf::Vector2f(125, 88));
-        wall9.setPosition(500, 394);
-        wall9.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall9);
+            sf::RectangleShape wall10(sf::Vector2f(1, 110));
+            wall10.setPosition(342, 430);
+            wall10.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall10);
 
-        sf::RectangleShape wall10(sf::Vector2f(1, 110));
-        wall10.setPosition(342, 430);
-        wall10.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall10);
+            sf::RectangleShape wall11(sf::Vector2f(80, 1));
+            wall11.setPosition(242, 426);
+            wall11.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall11);
 
-        sf::RectangleShape wall11(sf::Vector2f(80, 1));
-        wall11.setPosition(242, 426);
-        wall11.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall11);
+            sf::RectangleShape wall12(sf::Vector2f(45, 5));
+            wall12.setPosition(860, 432);
+            wall12.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(wall12);
 
-        sf::RectangleShape wall12(sf::Vector2f(45, 5));
-        wall12.setPosition(860, 432);
-        wall12.setFillColor(sf::Color::Transparent);
-        this->walls.push_back(wall12);
+            sf::RectangleShape grass(sf::Vector2f(620, 90));
+            grass.setPosition(293, 96);
+            grass.setFillColor(sf::Color::Transparent);
+            this->grass.push_back(grass);
 
-        sf::RectangleShape grass(sf::Vector2f(620, 90));
-        grass.setPosition(293, 96);
-        grass.setFillColor(sf::Color::Transparent);
-        this->grass.push_back(grass);
+            sf::RectangleShape grass2(sf::Vector2f(305, 56));
+            grass2.setPosition(618, 192);
+            grass2.setFillColor(sf::Color::Transparent);
+            this->grass.push_back(grass2);
 
-        sf::RectangleShape grass2(sf::Vector2f(305, 56));
-        grass2.setPosition(618, 192);
-        grass2.setFillColor(sf::Color::Transparent);
-        this->grass.push_back(grass2);
+            sf::RectangleShape grass3(sf::Vector2f(84, 150));
+            grass3.setPosition(842, 256);
+            grass3.setFillColor(sf::Color::Transparent);
+            this->grass.push_back(grass3);
 
-        sf::RectangleShape grass3(sf::Vector2f(84, 150));
-        grass3.setPosition(842, 256);
-        grass3.setFillColor(sf::Color::Transparent);
-        this->grass.push_back(grass3);
+            sf::RectangleShape grass4(sf::Vector2f(50, 200));
+            grass4.setPosition(262, 200);
+            grass4.setFillColor(sf::Color::Transparent);
+            this->grass.push_back(grass4);
 
-        sf::RectangleShape grass4(sf::Vector2f(50, 200));
-        grass4.setPosition(262, 200);
-        grass4.setFillColor(sf::Color::Transparent);
-        this->grass.push_back(grass4);
-
-        sf::RectangleShape tp(sf::Vector2f(50, 64));
-        tp.setPosition(950, 510);
-        tp.setFillColor(sf::Color::Transparent);
-        this->tp.push_back(tp);
-        if(this->map1.size() < 3)
+            sf::RectangleShape tp(sf::Vector2f(50, 64));
+            tp.setPosition(950, 510);
+            tp.setFillColor(sf::Color::Transparent);
+            this->tp.push_back(tp);
+        }
+                       
+        if (this->map1.size() < 3)
         {
             this->map1.push_back(&this->walls);
             this->map1.push_back(&this->grass);
@@ -265,23 +272,106 @@ void Game::CreateShapes(int mapId) {
 
     }
     if (mapId == 1) {
-
-        for (size_t i = 0; i < this->map1.size(); i++)
+        while (this->map1.size() != 0)
         {
-            while (this->map1[i]->size() != 0) {
-                this->map1[i]->pop_back();
+            for (size_t i = 0; i < this->map1.size(); i++)
+            {
+                while (this->map1[i]->size() != 0) {
+                    this->map1[i]->pop_back();
+                };
+
             }
+            this->map1.pop_back();
+        }
+        if (this->map2.size() == 0) {
+            std::cout << "map2 created" << std::endl;
+            sf::RectangleShape xall(sf::Vector2f(992, 30));
+            xall.setPosition(0, 0);
+            xall.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall);
+
+            sf::RectangleShape xall2(sf::Vector2f(20, 672));
+            xall2.setPosition(956, 0);
+            xall2.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall2);
+
+            sf::RectangleShape xall3(sf::Vector2f(350, 5));
+            xall3.setPosition(610, 650);
+            xall3.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall3);
+
+            sf::RectangleShape xall4(sf::Vector2f(200, 5));
+            xall4.setPosition(215, 650);
+            xall4.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall4);
+
+            sf::RectangleShape xall5(sf::Vector2f(200, 150));
+            xall5.setPosition(0, 585);
+            xall5.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall5);
+
+            sf::RectangleShape xall6(sf::Vector2f(144, 180));
+            xall6.setPosition(0, 304);
+            xall6.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall6);
+
+            sf::RectangleShape xall7(sf::Vector2f(2, 265));
+            xall7.setPosition(0, 30);
+            xall7.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall7);
+
+            sf::RectangleShape xall8(sf::Vector2f(28, 310));
+            xall8.setPosition(150, 150);
+            xall8.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall8);
+
+            sf::RectangleShape xall9(sf::Vector2f(535, 50));
+            xall9.setPosition(170, 140);
+            xall9.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall9);
+
+            sf::RectangleShape xall10(sf::Vector2f(10, 190));
+            xall10.setPosition(295, 320);
+            xall10.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall10);
+
+            sf::RectangleShape xall11(sf::Vector2f(375, 10));
+            xall11.setPosition(302, 294);
+            xall11.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall11);
+
+            sf::RectangleShape xall12(sf::Vector2f(150, 160));
+            xall12.setPosition(823, 0);
+            xall12.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall12);
+
+            sf::RectangleShape xall13(sf::Vector2f(18, 10));
+            xall13.setPosition(502, 374);
+            xall13.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall13);
+
+            /*sf::RectangleShape xall14(sf::Vector2f(992, 75));
+            xall14.setPosition(0, 0);
+            xall14.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall14);
+
+            sf::RectangleShape xall15(sf::Vector2f(992, 75));
+            xall15.setPosition(0, 0);
+            xall15.setFillColor(sf::Color::Red);
+            this->walls.push_back(xall15);*/
+
+
+            sf::RectangleShape tp(sf::Vector2f(50, 64));
+            tp.setPosition(-25, 510);
+            tp.setFillColor(sf::Color::Transparent);
+            this->tp.push_back(tp);
         }
 
-
-        sf::RectangleShape tp(sf::Vector2f(50, 64));
-        tp.setPosition(-25, 510);
-        tp.setFillColor(sf::Color::Transparent);
-        this->tp.push_back(tp);
-
-        if (this->map2.size() < 1)
+        if (this->map2.size() < 3)
         {
-            this->map1.push_back(&this->tp);
+            this->map2.push_back(&this->walls);
+            this->map2.push_back(&this->grass);
+            this->map2.push_back(&this->tp);
         }
     }
 
