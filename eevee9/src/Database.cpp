@@ -78,19 +78,26 @@ std::vector<std::string> getSave(sqlite3* db) {
 	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
 
 	if (!datas.size()) { //On initialise la partie si elle n'existe pas
-		//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
-		setSave(db, 55, 0, 0, 0, 1, 850, 510);
+		std::cout << "creating save..." << std::endl;
+		//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
+		//6[x], 7[y], 8[Orientation int]
+		std::string sql2 = std::string(
+			"INSERT INTO SAVE(HP, WATERSTONE, THUNDERSTONE, FIRESTONE, MAP, X, Y, ORIENTATION)"\
+			"VALUES(\"55\", \"0\", \"0\", \"0\", \"1\", \"850\", \"510\", \"0\");");
+		SQL(db, sql2.c_str());
+
 		datas = dataSQL(db, sql.c_str());
 	}
 
 	return datas[0];
 }
 
-void setSave(sqlite3* db, int hp, int waterstone, int thunderstone, int firestone, int map, int x, int y) {
-	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+void setSave(sqlite3* db, int hp, int waterstone, int thunderstone, int firestone, int map, int x, int y, int orientation) {
+	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
+	//6[x], 7[y], 8[Orientation int]
 	std::string sql = std::string(
-		"INSERT INTO SAVE(HP, WATERSTONE, THUNDERSTONE, FIRESTONE, MAP, X, Y)"\
-		"VALUES("+ std::to_string(hp) + ", " + std::to_string(waterstone) + ", " + std::to_string(thunderstone) + ", " + std::to_string(firestone) + ", " + std::to_string(map) + ", " + std::to_string(x) + ", " + std::to_string(y) + "); ");
+		"UPDATE SAVE "\
+		"SET HP = "+ std::to_string(hp) +", WATERSTONE = "+ std::to_string(waterstone) +", THUNDERSTONE = "+ std::to_string(thunderstone) +", FIRESTONE = " + std::to_string(firestone) +", MAP = " + std::to_string(map) +", X = "+ std::to_string(x) +", Y = " + std::to_string(y) + ", ORIENTATION ="+ std::to_string(orientation) +";");
 	SQL(db, sql.c_str());
 }
 
@@ -218,13 +225,14 @@ sqlite3* getDatabase() {
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
 	* 5[Frames int], 6[Type int]
 	* - Save
-	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
+	* 6[x], 7[y], 8[Orientation int]
 	*/
 
 	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT);"\
 		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT);"\
 		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT);"\
-		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT);";
+		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT);";
 
 	SQL(db, sql);
 

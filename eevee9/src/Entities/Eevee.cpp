@@ -2,8 +2,6 @@
 
 
 Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
-	this->orientation = DOWN;
-
 	//Sprite
 	this->xSize = 30;
 	this->ySize = 28;
@@ -35,7 +33,8 @@ void Eevee::set() {
 	this->spriteFrames = stoi(datas[5]);
 
 	//Fetch save datas
-	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map], 6[x], 7[y]
+	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
+	//6[x], 7[y], 8[Orientation]
 	datas = getSave(this->db);
 
 	this->hp = stoi(datas[1]);
@@ -46,8 +45,10 @@ void Eevee::set() {
 	this->firestone = stoi(datas[4]);
 
 	//Position
+	this->orientation = stoi(datas[8]);
 	this->mapPosition.x = stoi(datas[6]);
 	this->mapPosition.y = stoi(datas[7]);
+	std::cout << "done !" << std::endl;
 }
 
 void Eevee::evolve(int eeveelution) {

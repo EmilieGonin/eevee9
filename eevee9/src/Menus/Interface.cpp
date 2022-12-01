@@ -375,7 +375,9 @@ void Interface::pauseOptions() {
     }
     else if (this->pos == 1) {
         this->button.play();
+        this->eevee->setMapPosition(this->eevee->getSprite(2, 2).getPosition());
         sqlite3* db = getDatabase();
+        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation());
     }
     else if (this->pos == 2) {
         this->button.play();
