@@ -17,7 +17,7 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy, Interface* interface) {
 Battle::~Battle() {};
 
 void Battle::reset() {
-	this->_win = this->_loose = this->_escape = false;
+	this->_win = this->_loose = this->_escape = this->_caught = false;
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
 	this->_enemy->set(this->_eevee->canEvolve());
@@ -310,6 +310,28 @@ double Battle::checkType(int type1, int type2) {
 	//1[Name(100)] , 2[Effective], 3[Weakness], 4[Affect]
 	std::cout << "Getting type datas..." << std::endl;
 	std::vector<std::string> datas = getType(db, type1);
+
+	std::vector<int> effective, weakness, affect;
+
+	for (size_t i = 0; i < datas.size(); i++)
+	{
+		for (size_t j = 0; j < datas[i].size() ; j++)
+		{
+			//std::cout << "test: " << datas[i][j] << std::endl;
+			if (i == 2 && isdigit(datas[i][j])) {
+				std::cout << "effective : " << datas[i][j] << std::endl;
+				effective.push_back(datas[i][j]);
+			}
+			else if (i == 3 && isdigit(datas[i][j])) {
+				std::cout << "weakness : " << datas[i][j] << std::endl;
+				weakness.push_back(datas[i][j]);
+			}
+			else if (i == 4 && isdigit(datas[i][j])) {
+				std::cout << "affect : " << datas[i][j] << std::endl;
+				affect.push_back(datas[i][j]);
+			}
+		}
+	}
 
 	if (stoi(datas[2]) == type2) { //Très efficace
 		this->interface->displayComment("It's very effective !", this->_win);
