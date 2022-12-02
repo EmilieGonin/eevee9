@@ -12,15 +12,15 @@ protected:
 	int eeveelution; //0 = not evolved, 1 = Vaporeon, 2 = Jolteon, 3 = Flareon
 	bool evolved;
   
-	//Stones
-	int waterstone, thunderstone, firestone;
+	//Inventory
+	int waterstone, thunderstone, firestone,money;
 
 public:
 	Eevee(sf::Texture&, sqlite3*);
 	~Eevee();
 	void evolve(int);
 	bool canEvolve();
-	void addLoot(int);
+	void addLoot(int, int);
 	void move(bool);
 	void collisionNotMoving(bool);
 	int catchrate();
@@ -37,6 +37,7 @@ public:
 	int getFire();
 	int getWater();
 	int getThunder();
+	int getMoney();
 	sf::Vector2f getMapPosition();
 };
 

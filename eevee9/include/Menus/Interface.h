@@ -58,6 +58,7 @@ public:
     void map();
     void changeMap(bool);
     void displayComment(std::string, bool);
+    void displayInfo(std::string);
 
     //Setters
     void stopMusic();

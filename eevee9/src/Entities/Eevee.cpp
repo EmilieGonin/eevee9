@@ -82,7 +82,7 @@ int Eevee::getFire() { return this->firestone; }
 int Eevee::getWater(){ return this->waterstone; }
 int Eevee::getThunder(){ return this->thunderstone; }
 
-void Eevee::addLoot(int loot) {
+void Eevee::addLoot(int loot, int money) {
 	if (loot == 1) {
 		this->firestone++;
 	}
@@ -92,6 +92,8 @@ void Eevee::addLoot(int loot) {
 	else if (loot == 3) {
 		this->thunderstone++;
 	}
+
+	this->money += money;
 }
 
 void Eevee::collisionNotMoving(bool collision) {
@@ -169,9 +171,12 @@ void Eevee::setMapPosition(sf::Vector2f position){
 	this->mapPosition = position;
 }
 
-//Getters
+//Getters	
 
 int Eevee::getMap() { return this->map; }
 int Eevee::getEeveelution() { return this->eeveelution; }
+int Eevee::getMoney() {
+	return this->money;
+}
 bool Eevee::isEvolved() { return this->evolved; }
 sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }

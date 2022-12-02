@@ -102,7 +102,7 @@ void Interface::loop_events() {
                 battleOptions();
                 this->choice = pos;
             }
-            else if (this->evolveMenu == true) {
+            else if (this->evolveMenu == true && options[this->pos] != "") {
                 this->button.play();
                 evolveOptions();
                 
@@ -148,35 +148,16 @@ void Interface::draw_all() {
             this->window->draw(t);
         }
 
-        sf::Text hp;
-        hp.setFont(*font2);
-        hp.setString(std::to_string(this->eevee->getHP()) + "      " + std::to_string(this->eevee->getMaxHP()));
-        hp.setFillColor(sf::Color::Black);
-        hp.setCharacterSize(23);
-        hp.setPosition(875, 464);
-        this->window->draw(hp);
-        
-        sf::RectangleShape myHp;
-        
         if (this->hpBarLength == 0) {
             this->hpBarLength = 133;
         }
- 
-        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
-        myHp.setPosition(846, 448);
-        myHp.setFillColor(sf::Color::Green);
-        window->draw(myHp);
-
-        sf::RectangleShape ennemyBarHp;
-
         if (this->enemy->getMaxHP() == this->enemy->getHP()) {
             this->ennemyHpBarLength = 150;
         }
 
-        ennemyBarHp.setSize(sf::Vector2f(this->ennemyHpBarLength, 11));
-        ennemyBarHp.setPosition(145, 94);
-        ennemyBarHp.setFillColor(sf::Color::Green);
-        window->draw(ennemyBarHp);
+        displayInfo("");
+
+
 
         this->drawEevee();
         this->enemy->idle();
@@ -200,13 +181,32 @@ void Interface::drawComment(std::string comment, bool win) {
     }
     this->window->draw(*bg);
  
+    displayInfo(comment);
+
+    this->drawEevee();
+
+    if (!win)
+    {
+        this->enemy->idle();
+        this->window->draw(this->enemy->getSprite(4, 4));
+    }
+
+    for (auto t : texts) {
+        this->window->draw(t);
+    }
+
+    this->window->display(); //On affiche tout
+}
+
+
+void Interface::displayInfo(std::string comment) {
     sf::RectangleShape myHp;
     this->hpBarLength = this->hpBarLength * 100;
     int hpBarToGet = 133 * this->eevee->getHP() / this->eevee->getMaxHP() * 100;
 
-   if(hpBarToGet != this->hpBarLength) {
+    if (hpBarToGet != this->hpBarLength) {
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
-        this->window->draw(myHp);  
+        this->window->draw(myHp);
         this->hpBarLength = this->hpBarLength - 1;
     }
 
@@ -249,20 +249,23 @@ void Interface::drawComment(std::string comment, bool win) {
     hp.setPosition(875, 464);
     this->window->draw(hp);
 
-    this->drawEevee();
+    sf::Text enemyName;
+    hp.setFont(*font2);
+    hp.setString(this->enemy->getName());
+    hp.setFillColor(sf::Color::Black);
+    hp.setCharacterSize(28);
+    hp.setPosition(30, 54);
+    this->window->draw(hp);
 
-    if (!win)
-    {
-        this->enemy->idle();
-        this->window->draw(this->enemy->getSprite(4, 4));
-    }
-
-    for (auto t : texts) {
-        this->window->draw(t);
-    }
-
-    this->window->display(); //On affiche tout
+    sf::Text name;
+    hp.setFont(*font2);
+    hp.setString(this->eevee->getName());
+    hp.setFillColor(sf::Color::Black);
+    hp.setCharacterSize(28);
+    hp.setPosition(750, 410);
+    this->window->draw(hp);
 }
+
 
 void Interface::start() {
     this->music.openFromFile("./sfx/Music/title.wav");
@@ -358,7 +361,7 @@ void Interface::pauseOptions() {
         this->button.play();
         this->eevee->setMapPosition(this->eevee->getSprite(2, 2).getPosition());
         sqlite3* db = getDatabase();
-        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation());
+        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation(), this->eevee->getMoney());
     }
     else if (this->pos == 2) {
         this->button.play();
