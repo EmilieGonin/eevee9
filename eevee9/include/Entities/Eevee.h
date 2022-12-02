@@ -13,7 +13,7 @@ protected:
 	bool evolved;
   
 	//Inventory
-	int waterstone, thunderstone, firestone,money;
+	int waterstone, thunderstone, firestone, money;
 
 public:
 	Eevee(sf::Texture&, sqlite3*);
