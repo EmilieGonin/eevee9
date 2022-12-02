@@ -107,7 +107,8 @@ bool Game::setInteractItem(Eevee* player) {
     {
         Collision item(interactitem[i]);
         if (item.getcollision(player)) {
-
+            sqlite3* db = getDatabase();
+            //removeItem(db, item.gettile().getPosition().x, item.gettile().getPosition().y);
             return true;
         }
     }
