@@ -9,34 +9,47 @@ Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 	this->eeveelution = 0;
 	this->evolved = false;
 
-	this->set();
+	this->set(0);
 };
 
 Eevee::~Eevee() {};
 
-void Eevee::set() {
+void Eevee::set(int id) {
+	if (!id) {
+		this->evolved = false;
+		this->eeveelution = 0;
+	}
+	else {
+		this->eeveelution = id;
+	}
+
 	std::cout << "setting eevee's datas..." << std::endl;
 	//Fetch player datas
 	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
 	//5[Frames int], 6[Type int]
-	std::vector<std::string> datas = getPlayer(this->db);
+	std::vector<std::string> playerDatas = getPlayer(this->db, id);
 
 	//Stats
-	this->name = datas[1]; // le joueur peut modifier ?
-	this->maxHp = stoi(datas[2]);
-	this->attack = stoi(datas[3]);
-	this->speed = stoi(datas[4]);
-	this->type = stoi(datas[6]);
+	this->name = playerDatas[1]; // le joueur peut modifier ?
+	this->maxHp = stoi(playerDatas[2]);
+	this->attack = stoi(playerDatas[3]);
+	this->speed = stoi(playerDatas[4]);
+	this->type = stoi(playerDatas[6]);
 
 	//Sprite
-	this->spriteFrames = stoi(datas[5]);
+	this->spriteFrames = stoi(playerDatas[5]);
 
 	//Fetch save datas
 	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
 	//6[x], 7[y], 8[Orientation]
-	datas = getSave(this->db);
+	std::vector<std::string> datas = getSave(this->db);
 
-	this->hp = stoi(datas[1]);
+	if (!this->evolved) {
+		this->hp = stoi(datas[1]);
+	}
+	else {
+		this->hp = stoi(playerDatas[2]);
+	}
 
 	//Stones
 	this->waterstone = stoi(datas[2]);
@@ -52,21 +65,10 @@ void Eevee::set() {
 }
 
 void Eevee::evolve(int eeveelution) {
-	this->eeveelution = eeveelution+1;
-
-	int frame = 0;
-
-	if (eeveelution == 1) { //Vaporeon
-		frame = 54;
-	}
-	else if (eeveelution == 2) { //Jolteon
-		frame = 50;
-	}
-	else if (eeveelution == 3) { //Flareon
-		frame = 84;
-	}
-
-	this->spriteFrames = frame;
+	this->eeveelution = eeveelution - 2;
+	std::cout << "Eeveelution choosen : " << this->eeveelution << std::endl;
+	this->evolved = true;
+	this->set(this->eeveelution);
 }
 
 bool Eevee::canEvolve() {

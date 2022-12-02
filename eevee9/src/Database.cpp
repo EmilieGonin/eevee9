@@ -86,7 +86,7 @@ std::vector<std::string> getSave(sqlite3* db) {
 	if (!datas.size()) { //On initialise la partie si elle n'existe pas
 		std::cout << "creating save..." << std::endl;
 		//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
-		//6[x], 7[y], 8[Orientation int]
+		//6[x], 7[y], 8[Orientation int], 9[Money int]
 		std::string sql2 = std::string(
 			"INSERT INTO SAVE(HP, WATERSTONE, THUNDERSTONE, FIRESTONE, MAP, X, Y, ORIENTATION, MONEY)"\
 			"VALUES(\"55\", \"0\", \"0\", \"0\", \"1\", \"850\", \"510\", \"0\",\"500\");");
@@ -107,7 +107,7 @@ void setSave(sqlite3* db, int hp, int waterstone, int thunderstone, int fireston
 	SQL(db, sql.c_str());
 }
 
-std::vector<std::string> getPlayer(sqlite3* db) {
+std::vector<std::string> getPlayer(sqlite3* db, int id) {
 	std::cout << "Fetching eevee and eeveelutions..." << std::endl;
 	std::string sql = std::string("SELECT * FROM PLAYER");
 	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
@@ -133,7 +133,7 @@ std::vector<std::string> getPlayer(sqlite3* db) {
 		datas = dataSQL(db, sql.c_str());
 	}
 
-	return datas[0];
+	return datas[id];
 }
 
 void createDatabase(sqlite3* db) {
@@ -224,7 +224,7 @@ sqlite3* getDatabase() {
 	* 
 	* - Save
 	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
-	* 6[x], 7[y], 8[Orientation int]
+	* 6[x], 7[y], 8[Orientation int], 9[Money int]
 	*/
 
 	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT);"\
