@@ -272,6 +272,7 @@ int Battle::random(int range ) {
 }
 
 int Battle::getDamage(bool eevee) {
+	double damage;
 	int attack, type1, type2;
 
 	if (eevee) { //Calcul des dégâts en fonction des stats de Eevee
@@ -279,11 +280,13 @@ int Battle::getDamage(bool eevee) {
 		std::cout << "Eevee Attack Stat : " << attack << std::endl;
 		type1 = this->_eevee->getType();
 		type2 = this->_enemy->getType();
+		damage = 5;
 	}
 	else { //Sinon en fonction de celles de l'ennemi
 		attack = this->_enemy->getAttack();
 		std::cout << "Ennemy Attack Stat : " << attack << std::endl;
 		type2 = this->_eevee->getType();
+		damage = 2;
 
 		if (this->_enemy_choice == 2) {
 			type1 = this->_enemy->getType();
@@ -293,7 +296,7 @@ int Battle::getDamage(bool eevee) {
 		}
 	}
 
-	double damage = ((((((double)attack / 100) * 10) + 10) * this->checkType(type1, type2)));
+	damage = ((((((double)attack / 100) * 10) + damage) * this->checkType(type1, type2)));
 	std::cout << "Damage dealt : " << damage << std::endl;
 	return damage;
 }
