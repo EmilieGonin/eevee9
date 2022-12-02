@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "CollisionNPC.h"
 #include "SpriteMap.h"
+#include "Database.h"
 
 class Game
 {

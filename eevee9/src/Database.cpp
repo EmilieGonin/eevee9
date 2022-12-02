@@ -274,6 +274,7 @@ sqlite3* getDatabase() {
 
 int random(int range) {
 	srand(time(0));
+	rand();
 	int random = rand() % range;
 	return random;
 }

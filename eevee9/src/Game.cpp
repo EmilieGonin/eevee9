@@ -180,22 +180,20 @@ int Game::update(int orientation) {
 void Game::setPause(bool pause) { this->pause = pause; }
 void Game::setBattle(bool battle) { this->battle = battle; }
 void Game::randomBattle(bool grass) {
-    int random = rand() % 100;  
-    if (random < 2 && grass) {
+    //srand(time(0));
+    //int random = rand() % 100;
+    int num = random(100);
+    //std::cout << num << std::endl;
+    if (num < 10 && grass) {
         setBattle(true);
         this->keypressed = NULL;
     }
-    else
-    {
+    else {
         setBattle(false);
     }
 }
 
 void Game::CreateShapes(int mapId) {
-    
-
-    
-
     if(mapId == 0 ) {
         while(this->map2.size() != 0) {
             for (size_t i = 0; i < this->map2.size(); i++) {
