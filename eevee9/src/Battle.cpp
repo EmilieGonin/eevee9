@@ -114,7 +114,7 @@ bool Battle::battle() {
 	
 	//On vérifie les conditions de win
 	this->_win = this->_enemy->getHP() <= 0;
-	this->_loose = this->_eevee->getHP() <= 0;
+	this->_loose = this->_eevee->getHP() <= 0 || this->_caught;
 	this->_game->setBattle(!this->_win && !this->_loose && !this->_escape);
 
 	if (!this->_game->getBattle()) {
@@ -141,7 +141,6 @@ void Battle::turn() {
 			return;
 		}
 		else {
-			
 			this->interface->displayComment("You couldn't get away !", this->_win);
 		}
 	}
@@ -168,8 +167,8 @@ void Battle::turn() {
 		this->interface->displayComment("Enemy trow a pokeball !", this->_win);
 		if (this->pokeball()) {
 			this->interface->displayComment("You've been caught...", this->_win);
-			this->_loose = true;
-			
+			this->_caught = true;
+			return;
 		}
 		else {
 			this->interface->displayComment("You escaped the pokeball !", this->_win);
@@ -261,12 +260,13 @@ void Battle::attack(bool eevee) {
 }
 
 bool Battle::pokeball() {
-	if (this->random(200) <= this->_eevee->catchrate()) {
+	return true;
+	/*if (this->random(200) <= this->_eevee->catchrate()) {
 		return true;
 	}
 	else {
 		return false;
-	}
+	}*/
 }
 
 bool Battle::initiative() {
