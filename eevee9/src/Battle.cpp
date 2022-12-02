@@ -346,7 +346,7 @@ double Battle::checkType(int type1, int type2, std::string name) {
 	//	}
 	//}
 
-	return 1; //Efficace
+	/*return 1;*/ //Efficace
 
 	if (stoi(datas[2]) == type2) { //Très efficace
 		this->interface->displayComment("It's very effective !", this->_win);
