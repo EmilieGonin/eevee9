@@ -43,7 +43,7 @@ public:
 	int getDamage(bool);
 
 	//Return: 0 = N'affecte pas, 0.5 = Pas efficace, 1 = Efficace, 2 = Très efficace
-	double checkType(int, int);
+	double checkType(int, int, std::string);
 
 	//Setters
 

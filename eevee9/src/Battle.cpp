@@ -277,6 +277,7 @@ int Battle::random(int range ) {
 int Battle::getDamage(bool eevee) {
 	double damage;
 	int attack, type1, type2;
+	std::string name;
 
 	if (eevee) { //Calcul des dégâts en fonction des stats de Eevee
 		attack = this->_eevee->getAttack();
@@ -284,12 +285,14 @@ int Battle::getDamage(bool eevee) {
 		type1 = this->_eevee->getType();
 		type2 = this->_enemy->getType();
 		damage = 5;
+		name = this->_enemy->getName();
 	}
 	else { //Sinon en fonction de celles de l'ennemi
 		attack = this->_enemy->getAttack();
 		std::cout << "Ennemy Attack Stat : " << attack << std::endl;
 		type2 = this->_eevee->getType();
 		damage = 2;
+		name = this->_eevee->getName();
 
 		if (this->_enemy_choice == 2) {
 			type1 = this->_enemy->getType();
@@ -299,12 +302,12 @@ int Battle::getDamage(bool eevee) {
 		}
 	}
 
-	damage = ((((((double)attack / 100) * 10) + damage) * this->checkType(type1, type2)));
+	damage = ((((((double)attack / 100) * 10) + damage) * this->checkType(type1, type2, name)));
 	std::cout << "Damage dealt : " << damage << std::endl;
 	return damage;
 }
 
-double Battle::checkType(int type1, int type2) {
+double Battle::checkType(int type1, int type2, std::string name) {
 	sqlite3* db = getDatabase();
 	createDatabase(db);
 	//1[Name(100)] , 2[Effective], 3[Weakness], 4[Affect]
@@ -342,7 +345,7 @@ double Battle::checkType(int type1, int type2) {
 		return 0.5;
 	}
 	else if (stoi(datas[4]) == type2) { //N'affecte pas
-		this->interface->displayComment("It doesn't affect " + this->_enemy->getName(), this->_win);
+		this->interface->displayComment("It doesn't affect " + name, this->_win);
 		return 0;
 	}
 	else { //Efficace
