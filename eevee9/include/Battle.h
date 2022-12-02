@@ -34,6 +34,10 @@ public:
 	bool pokeball();
 	bool initiative(); // If Eevee is faster than the enemy
 	int random(int);
+	int getDamage(bool);
+
+	//Return: 0 = N'affecte pas, 0.5 = Pas efficace, 1 = Efficace, 2 = Très efficace
+	double checkType(int, int);
 
 	//Setters
 	void setChoice(int);

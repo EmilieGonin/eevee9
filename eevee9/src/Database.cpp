@@ -48,6 +48,12 @@ void SQL(sqlite3* db, const char* sql) {
 	std::cout << "----------" << std::endl;
 }
 
+std::vector<std::string> getType(sqlite3* db, int type) {
+	std::string sql = std::string("SELECT * FROM TYPES WHERE ID = " + std::to_string(type));
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+	return datas[0];
+}
+
 std::vector<std::string> getEnemy(sqlite3* db) {
 	//Get rarities
 	int rarity = random(100);
@@ -140,17 +146,18 @@ void createDatabase(sqlite3* db) {
 		std::vector<std::string> types;
 		//1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
 		//6: Fly
-		types.push_back("\"Normal\", \"0\", \"0\"");
-		types.push_back("\"Water\", \"4\", \"3\"");
-		types.push_back("\"Thunder\", \"2\", \"0\"");
-		types.push_back("\"Fire\", \"5\", \"2\"");
-		types.push_back("\"Bug\", \"0\", \"4\"");
-		types.push_back("\"Fly\", \"0\", \"3\"");
+		//1[Name(100)] , 2[Effective], 3[Weakness], 4[Affect]
+		types.push_back("\"Normal\", \"0\", \"0\", \"0\"");
+		types.push_back("\"Water\", \"4\", \"3\", \"0\"");
+		types.push_back("\"Thunder\", \"2\", \"0\", \"0\"");
+		types.push_back("\"Fire\", \"5\", \"2\", \"0\"");
+		types.push_back("\"Bug\", \"0\", \"4\", \"0\"");
+		types.push_back("\"Fly\", \"0\", \"3\", \"0\"");
 
 		for (size_t i = 0; i < types.size(); i++)
 		{
 			std::string sql = std::string(
-				"INSERT INTO TYPES(NAME, EFFECTIVE, WEAKNESS)"\
+				"INSERT INTO TYPES(NAME, EFFECTIVE, WEAKNESS, AFFECT)"\
 				"VALUES(" + types[i] + ");");
 			SQL(db, sql.c_str());
 		}
@@ -209,7 +216,7 @@ sqlite3* getDatabase() {
 	* 5[Frames int], 6[Type int], 7[Rarities int]
 	* 
 	* - Types
-	* [Name (100)], [Effective int] (Strong against), [Weakness int] (Weak against)
+	* [Name (100)], [Effective int] (Very effective), [Weakness int] (Not effective), [Affect int] (Don't affect)
 	* 
 	* - Player
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
@@ -221,7 +228,7 @@ sqlite3* getDatabase() {
 	*/
 
 	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT);"\
-		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT);"\
+		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT, AFFECT INT);"\
 		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT);"\
 		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT);";
 

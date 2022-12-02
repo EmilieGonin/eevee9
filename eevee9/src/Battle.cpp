@@ -8,10 +8,10 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy, Interface* interface) {
 	
 	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
 	this->music.setLoop(true);
-	this->music.setVolume(10);
+	this->music.setVolume(8);
 
 	this->lowMusic.setLoop(true);
-	this->lowMusic.setVolume(10);
+	this->lowMusic.setVolume(8);
 
 	this->reset();
 }
@@ -35,7 +35,7 @@ void Battle::end() {
 
 		if(this->music.getVolume() == 0)
 		{
-			int goalVolume = 20;
+			int goalVolume = 8;
 			int volume = 0;
 			while(volume != goalVolume)
 			{
@@ -90,7 +90,7 @@ bool Battle::battle() {
 			}
 		}
 		else {
-			this->music.setVolume(20);
+			this->music.setVolume(8);
 		}
 
 		this->music.openFromFile(musicTab[this->random(4)]);
@@ -222,12 +222,12 @@ void Battle::attack(bool eevee) {
 		//if special attack, bonus to dmg + different animation
 		if (eevee) {
 			//Si c'est Eevee qui attaque, on baisse les HP de l'ennemi
-			this->_enemy->subHP(10); //temp dmg
+			this->_enemy->subHP(this->getDamage(true)); //temp dmg
 			this->interface->displayComment("You attack !", this->_win);
 		}
 		else {
 			//Sinon, c'est Eevee qui perds de la vie
-			this->_eevee->subHP(10);
+			this->_eevee->subHP(this->getDamage(false));
 			this->interface->displayComment(this->_enemy->getName() + " attacks!", this->_win);
 			std::cout << this->_eevee->getHP();
 			float percent = 20.0 / 100.0;
@@ -269,6 +269,57 @@ int Battle::random(int range ) {
 	srand(time(0));
 	int random = rand() % range;
 	return random;
+}
+
+int Battle::getDamage(bool eevee) {
+	int attack, type1, type2;
+
+	if (eevee) { //Calcul des dégâts en fonction des stats de Eevee
+		attack = this->_eevee->getAttack();
+		std::cout << "Eevee Attack Stat : " << attack << std::endl;
+		type1 = this->_eevee->getType();
+		type2 = this->_enemy->getType();
+	}
+	else { //Sinon en fonction de celles de l'ennemi
+		attack = this->_enemy->getAttack();
+		std::cout << "Ennemy Attack Stat : " << attack << std::endl;
+		type2 = this->_eevee->getType();
+
+		if (this->_enemy_choice == 2) {
+			type1 = this->_enemy->getType();
+		}
+		else {
+			type1 = 1;
+		}
+	}
+
+	double damage = ((((((double)attack / 100) * 10) + 10) * this->checkType(type1, type2)));
+	std::cout << "Damage dealt : " << damage << std::endl;
+	return damage;
+}
+
+double Battle::checkType(int type1, int type2) {
+	sqlite3* db = getDatabase();
+	createDatabase(db);
+	//1[Name(100)] , 2[Effective], 3[Weakness], 4[Affect]
+	std::cout << "Getting type datas..." << std::endl;
+	std::vector<std::string> datas = getType(db, type1);
+
+	if (stoi(datas[2]) == type2) { //Très efficace
+		std::cout << "It's very effective !" << std::endl;
+		return 2;
+	}
+	else if (stoi(datas[3]) == type2) { //Pas très efficace
+		std::cout << "It's not very effective..." << std::endl;
+		return 0.5;
+	}
+	else if (stoi(datas[4]) == type2) { //N'affecte pas
+		std::cout << "It does no effect..." << std::endl;
+		return 0;
+	}
+	else { //Efficace
+		return 1;
+	}
 }
 
 //Setters
