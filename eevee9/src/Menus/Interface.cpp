@@ -106,7 +106,7 @@ void Interface::loop_events() {
                 this->button.play();
                 evolveOptions();
                 
-                this->choice = pos+2;
+                this->choice += 2;
                 std::cout << this->choice;
             }
             
@@ -444,6 +444,15 @@ void Interface::beginningOptions() {
 }
 
 void Interface::evolveOptions() {
+    if (options[pos] == "Fire") {
+        this->choice = 2;
+    }
+    if (options[pos] == "Water") {
+        this->choice = 0;
+    }
+    if (options[pos] == "Thunder") {
+        this->choice = 1;
+    }
     this->evolveMenu = false;
 }
 

@@ -207,8 +207,8 @@ void Battle::attack(bool eevee) {
 	std::string name;
 
 	if (this->_choice > 2 && !this->_eevee->isEvolved()) {
-		std::cout << "Eevee evolve !" << std::endl;
 		this->_eevee->evolve(this->_choice);
+		this->interface->displayComment("Eevee evolve to " + this->_eevee->getName(), this->_win);
 		//Evolve
 	}
 
@@ -317,15 +317,15 @@ double Battle::checkType(int type1, int type2) {
 	std::vector<std::string> datas = getType(db, type1);
 
 	if (stoi(datas[2]) == type2) { //Très efficace
-		std::cout << "It's very effective !" << std::endl;
+		this->interface->displayComment("It's very effective !", this->_win);
 		return 2;
 	}
 	else if (stoi(datas[3]) == type2) { //Pas très efficace
-		std::cout << "It's not very effective..." << std::endl;
+		this->interface->displayComment("It's not very effective...", this->_win);
 		return 0.5;
 	}
 	else if (stoi(datas[4]) == type2) { //N'affecte pas
-		std::cout << "It does no effect..." << std::endl;
+		this->interface->displayComment("It doesn't affect " + this->_enemy->getName(), this->_win);
 		return 0;
 	}
 	else { //Efficace
