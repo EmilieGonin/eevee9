@@ -48,6 +48,19 @@ void SQL(sqlite3* db, const char* sql) {
 	std::cout << "----------" << std::endl;
 }
 
+std::vector<std::string> getItem(sqlite3* db, int x, int y) {
+	std::string sql = std::string("SELECT * FROM ITEMS WHERE RECT X =" + std::to_string(x) + ", RECTY =" + std::to_string(y) + ");");
+	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
+	return datas[0];
+}
+
+void removeItem(sqlite3* db, int x, int y) {
+	std::string sql = std::string(
+		"UPDATE ITEMS "\
+		"SET SHOW = " + std::to_string(false) + " WHERE RECT X = " + std::to_string(x) + ", RECTY = " + std::to_string(y) + ");");
+	SQL(db, sql.c_str());
+}
+
 std::vector<std::string> getType(sqlite3* db, int type) {
 	std::string sql = std::string("SELECT * FROM TYPES WHERE ID = " + std::to_string(type));
 	std::vector<std::vector<std::string>> datas = dataSQL(db, sql.c_str());
@@ -193,6 +206,29 @@ void createDatabase(sqlite3* db) {
 	else {
 		std::cout << "Enemis already created !" << std::endl;
 	}
+
+	//Get items
+	sql = std::string("SELECT * FROM ITEMS");
+	datas = dataSQL(db, sql.c_str());
+
+	if (!datas.size()) { //Création des données des ennemis si la table est vide
+		std::cout << "Creating items..." << std::endl;
+		std::vector<std::string> items;
+		items.push_back("\"0\", \"0\", \"true\"");
+		items.push_back("\"0\", \"0\", \"true\"");
+		items.push_back("\"0\", \"0\", \"true\"");
+
+		for (size_t i = 0; i < items.size(); i++)
+		{
+			std::string sql = std::string(
+				"INSERT INTO ITEMS(X, Y, SHOW)"\
+				"VALUES(" + items[i] + ");");
+			SQL(db, sql.c_str());
+		}
+	}
+	else {
+		std::cout << "Items already created !" << std::endl;
+	}
 }
 
 sqlite3* getDatabase() {
@@ -229,7 +265,8 @@ sqlite3* getDatabase() {
 	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT, X INT, Y INT);"\
 		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT, AFFECT INT);"\
 		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, X INT, Y INT);"\
-		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT, MONEY INT, STEP INT);";
+		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT, MONEY INT, STEP INT);"\
+		"CREATE TABLE IF NOT EXISTS ITEMS(ID INTEGER PRIMARY KEY NOT NULL, X INT, Y INT, SHOW BOOLEAN);";
 
 	SQL(db, sql);
 	return db;
