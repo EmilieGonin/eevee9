@@ -38,6 +38,7 @@ public:
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;
 	std::vector<sf::RectangleShape> interact;
+	std::vector<sf::RectangleShape> interactitem;
 
 	void randomBattle(bool);
 
@@ -56,6 +57,7 @@ public:
 	bool setHoverTp(Eevee*);
 	bool setColSprites(Eevee*);
 	bool setInteractShop(Eevee*);
+	bool setInteractItem(Eevee*);
 
 };
 
