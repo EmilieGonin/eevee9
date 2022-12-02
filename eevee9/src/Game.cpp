@@ -167,7 +167,7 @@ void Game::CreateShapes(int mapId) {
             this->map2.pop_back();
         }
 
-        /*if (this->map1.size() == 0) {*/
+        if (this->map1.size() == 0) {
             sqlite3* db = getDatabase();
             sf::Texture itemTexture;
             itemTexture.loadFromFile("img/item.png");
@@ -257,25 +257,16 @@ void Game::CreateShapes(int mapId) {
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
 
-            Items item(itemTexture, db);
-            item.spritePosition(837, 132);
-            item.getSprite(1, 1).setTexture(itemTexture);
-            this->window->draw(item.getSprite(1, 1));
+         
 
             if (this->map1.size() < 4) {
                 this->map1.push_back(&this->walls);
                 this->map1.push_back(&this->grass);
                 this->map1.push_back(&this->tp);
-                this->itemmap1.push_back(&item);
+               
             }
-        
-                       
-        /*if (this->map1.size() < 4) {
-            this->map1.push_back(&this->walls);
-            this->map1.push_back(&this->grass);
-            this->map1.push_back(&this->tp);
-            this->itemmap1.push_back(item);
-        }*/
+
+        }
     }
     if (mapId == 1) {
         while (this->map1.size() != 0) {

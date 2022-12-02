@@ -71,8 +71,11 @@ void Battle::loot() {
 	std::cout << "Getting loot : " << loot << std::endl;
 
 	if (loot > 3) {
-		this->_eevee->addLoot(loot - 3);
+		this->_eevee->addLoot(loot - 3, 0);
+		this->interface->displayComment("You got a shard !", this->_win);
 	}
+	this->_eevee->addLoot(0,100);
+	this->interface->displayComment("You won 100$", this->_win);
 }
 
 bool Battle::battle() {
