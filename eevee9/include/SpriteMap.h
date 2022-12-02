@@ -4,9 +4,6 @@
 
 class SpriteMap: public AnimatedEntity
 {
-protected:
-
-	
 public:
 	SpriteMap(sf::Texture*);
 	~SpriteMap();
