@@ -45,6 +45,8 @@ public:
     std::string getName();
     int getY();
     int getSpriteFrames();
+    int getAttack();
+    int getType();
 };
 
 

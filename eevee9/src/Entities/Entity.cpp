@@ -63,3 +63,5 @@ int Entity::getSpeed() { return this->speed; }
 std::string Entity::getName() { return this->name; }
 int Entity::getY() { return this->y; }
 int Entity::getSpriteFrames() { return this->spriteFrames; }
+int Entity::getAttack() { return this->attack; }
+int Entity::getType() { return this->type; }
