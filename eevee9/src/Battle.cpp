@@ -316,25 +316,37 @@ double Battle::checkType(int type1, int type2, std::string name) {
 
 	std::vector<int> effective, weakness, affect;
 
-	for (size_t i = 0; i < datas.size(); i++)
-	{
-		for (size_t j = 0; j < datas[i].size() ; j++)
-		{
-			//std::cout << "test: " << datas[i][j] << std::endl;
-			if (i == 2 && isdigit(datas[i][j])) {
-				std::cout << "effective : " << datas[i][j] << std::endl;
-				effective.push_back(datas[i][j]);
-			}
-			else if (i == 3 && isdigit(datas[i][j])) {
-				std::cout << "weakness : " << datas[i][j] << std::endl;
-				weakness.push_back(datas[i][j]);
-			}
-			else if (i == 4 && isdigit(datas[i][j])) {
-				std::cout << "affect : " << datas[i][j] << std::endl;
-				affect.push_back(datas[i][j]);
-			}
-		}
-	}
+	//for (size_t i = 0; i < datas.size(); i++)
+	//{
+	//	for (size_t j = 0; j < datas[i].size() ; j++)
+	//	{
+	//		if (i == 2 && isdigit(datas[i][j])) {
+	//			int element = datas[i][j];
+	//			effective.push_back(element);
+	//			std::cout << effective[0] << std::endl;
+	//			if (std::to_string(type2) == std::to_string(element)) {
+	//				this->interface->displayComment("It's very effective !", this->_win);
+	//				return 2; //Très efficace
+	//			}
+	//		}
+	//		else if (i == 3 && isdigit(datas[i][j])) {
+	//			//weakness.push_back(datas[i][j]);
+	//			if (type2 == datas[i][j]) {
+	//				this->interface->displayComment("It's not very effective...", this->_win);
+	//				return 0.5; //Pas très efficace
+	//			}
+	//		}
+	//		else if (i == 4 && isdigit(datas[i][j])) {
+	//			//affect.push_back(datas[i][j]);
+	//			if (type2 == datas[i][j]) {
+	//				this->interface->displayComment("It doesn't affect " + name, this->_win);
+	//				return 0; //N'affecte pas
+	//			}
+	//		}
+	//	}
+	//}
+
+	return 1; //Efficace
 
 	if (stoi(datas[2]) == type2) { //Très efficace
 		this->interface->displayComment("It's very effective !", this->_win);
