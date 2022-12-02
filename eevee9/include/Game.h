@@ -5,6 +5,7 @@
 #include "CollisionNPC.h"
 #include "SpriteMap.h"
 
+
 class Game
 {
 protected:

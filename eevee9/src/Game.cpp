@@ -83,9 +83,10 @@ bool Game::setColSprites(Eevee* player) {
     {
         CollisionNPC sprite(sprites[i]);
         if (sprite.getcollision(player)) {
-
+            //this->sprites.erase(this->sprites.begin() + i);
             return true;
         }
+        
     }
     return false;
 };
@@ -95,7 +96,6 @@ bool Game::setInteractShop(Eevee* player) {
     {
         Collision shop(interact[i]);
         if (shop.getcollision(player)) {
-
             return true;
         }
     }
@@ -316,7 +316,7 @@ void Game::CreateShapes(int mapId) {
                 this->map1.push_back(&this->grass);
                 this->map1.push_back(&this->tp);
                 this->map1.push_back(&this->interact);
-                this->map1.push_back(&this->interactitem);
+
             }
 
             if (this->sprites1.size() < 1) {
@@ -600,6 +600,7 @@ void Game::CreateShapes(int mapId) {
             this->map3.push_back(&this->grass);
             this->map3.push_back(&this->tp);
             this->map3.push_back(&this->interact);
+
         }
         if (this->sprites3.size() < 1) {
             this->sprites3.push_back(&this->sprites);

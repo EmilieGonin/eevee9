@@ -34,7 +34,7 @@ Interface::Interface(Game* game, Eevee* eevee, Enemy* enemy) {
 
     //Misc
     this->pos = 0; //Position du curseur (choix)
-    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->evolveMenu = false;
+    this->pressed = this->pauseMenu = this->battleMenu = this->display = this->evolveMenu = this->myMessage = false;
     this->startMenu = true;
     this->hpBarLength = 133;
     this->count = 40;
@@ -151,6 +151,7 @@ void Interface::draw_all() {
         this->enemy->idle();
         this->window->draw(this->enemy->getSprite(4, 4));
     }
+    
     else {
         for (auto t : texts) { 
             this->window->draw(t);
@@ -159,6 +160,7 @@ void Interface::draw_all() {
 
     this->window->display(); //On affiche tout
 }
+
 
 void Interface::drawShopInfo() {
     this->window->draw(*bg); //Background
@@ -317,6 +319,7 @@ void Interface::shop() {
     }
 }
 
+
 void Interface::shopOptions() {
     if (this->pos == 0) {
         if (this->eevee->getMoney() >= 2000) {
@@ -403,15 +406,15 @@ void Interface::evolve() {
 
         if (this->eevee->getFire() > 0) {
             this->options.push_back("Fire");
-            this->coords.push_back({ 490,290 });
-        }
+            this->coords.push_back({ 800,525 });
+        }   
         if (this->eevee->getWater() > 0) {
             this->options.push_back("Water");
-            this->coords.push_back({ 463,400 });
+            this->coords.push_back({ 800,575 });
         }
         if (this->eevee->getThunder() > 0) {
             this->options.push_back("Thunder");
-            this->coords.push_back({ 490,515 });
+            this->coords.push_back({ 800,625 });
         }
     }
 
@@ -462,11 +465,15 @@ void Interface::displayInfo(std::string comment) {
     sf::RectangleShape myHp;
     this->hpBarLength = this->hpBarLength * 100;
     int hpBarToGet = 133 * this->eevee->getHP() / this->eevee->getMaxHP() * 100;
-
-    if (hpBarToGet != this->hpBarLength) {
+    if (hpBarToGet < this->hpBarLength) {
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
-        this->window->draw(myHp);
         this->hpBarLength = this->hpBarLength - 1;
+    }
+    else if (hpBarToGet > this->hpBarLength) {
+
+        myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
+        this->hpBarLength += 100;
+        
     }
 
     this->hpBarLength = this->hpBarLength / 100;
@@ -597,7 +604,12 @@ void Interface::openShop(bool shop) {
     if (shop && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         std::cout << " j'ouvre le shop";
         this->shopMenu = true;
+
     }
+}
+void Interface::getItem(bool shop) {
+    int rand = random(3) + 1;
+    this->eevee->addLoot(rand, 0);
 }
 
 //Getters
@@ -608,3 +620,4 @@ bool Interface::getPauseMenu() { return this->pauseMenu; }
 bool Interface::getBattleMenu() { return this->battleMenu; }
 bool Interface::getMapId() { return this->mapId; }
 bool Interface::getShop() { return this->shopMenu; }
+//bool Interface::getMess() { return this->myMessage; }
