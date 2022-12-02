@@ -266,7 +266,6 @@ void Interface::displayInfo(std::string comment) {
     this->window->draw(hp);
 }
 
-
 void Interface::start() {
     this->music.openFromFile("./sfx/Music/title.wav");
     this->music.play();
@@ -361,7 +360,7 @@ void Interface::pauseOptions() {
         this->button.play();
         this->eevee->setMapPosition(this->eevee->getSprite(2, 2).getPosition());
         sqlite3* db = getDatabase();
-        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation(), this->eevee->getMoney());
+        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation(), this->eevee->getMoney(), this->eevee->getStep());
     }
     else if (this->pos == 2) {
         this->button.play();

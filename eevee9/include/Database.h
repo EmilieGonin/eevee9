@@ -21,8 +21,8 @@ std::vector<std::string> getEnemy(sqlite3*, bool);
 std::vector<std::string> getSave(sqlite3*);
 
 //1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
-//6[x], 7[y], 8[Orientation int], 9[Money]
-void setSave(sqlite3*, int, int, int, int, int, int, int, int, int);
+//6[x], 7[y], 8[Orientation int], 9[Money], 10[Step]
+void setSave(sqlite3*, int, int, int, int, int, int, int, int, int, int);
 
 //1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
 //5[Frames int], 6[Type int]

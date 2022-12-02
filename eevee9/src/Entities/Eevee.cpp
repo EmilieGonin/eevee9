@@ -42,7 +42,7 @@ void Eevee::set(int id) {
 
 	//Fetch save datas
 	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
-	//6[x], 7[y], 8[Orientation]
+	//6[x], 7[y], 8[Orientation], 9[Money], 10[Step]
 	std::vector<std::string> datas = getSave(this->db);
 
 	if (!this->evolved) {
@@ -52,10 +52,12 @@ void Eevee::set(int id) {
 		this->hp = stoi(playerDatas[2]);
 	}
 
-	//Stones
+	//Inventory
 	this->waterstone = stoi(datas[2]);
 	this->thunderstone = stoi(datas[3]);
 	this->firestone = stoi(datas[4]);
+	this->money = stoi(datas[9]);
+	this->step = stoi(datas[10]);
 
 	//Position
 	this->map = stoi(datas[5]);
@@ -123,6 +125,13 @@ void Eevee::collisionNotMoving(bool collision) {
 void Eevee::move(bool collision) {
 	int changeX = 0;
 	int changeY = 0;
+	this->step++;
+
+	if (this->step == 1000) {
+		std::cout << "After walking so much, you found a shard !" << std::endl;
+		this->addLoot(random(3) + 1, 0);
+		this->step = 0;
+	}
 
 	if (this->orientation == DOWN) {
 		changeY = 2; 
@@ -142,6 +151,7 @@ void Eevee::move(bool collision) {
 		this->sprite.move(changeX * PAS, changeY * PAS);
 	}
 	else {
+
 		if (this->orientation == UP)
 		{
 			this->sprite.setPosition(this->sprite.getPosition().x, this->sprite.getPosition().y + 1);
@@ -178,8 +188,7 @@ void Eevee::setMapPosition(sf::Vector2f position){
 
 int Eevee::getMap() { return this->map; }
 int Eevee::getEeveelution() { return this->eeveelution; }
-int Eevee::getMoney() {
-	return this->money;
-}
 bool Eevee::isEvolved() { return this->evolved; }
+int Eevee::getMoney() { return this->money; }
+int Eevee::getStep() { return this->step; }
 sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }

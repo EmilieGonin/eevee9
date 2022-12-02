@@ -13,7 +13,7 @@ protected:
 	bool evolved;
   
 	//Inventory
-	int waterstone, thunderstone, firestone, money;
+	int waterstone, thunderstone, firestone, money, step;
 
 public:
 	Eevee(sf::Texture&, sqlite3*);
@@ -38,6 +38,7 @@ public:
 	int getWater();
 	int getThunder();
 	int getMoney();
+	int getStep();
 	sf::Vector2f getMapPosition();
 };
 
