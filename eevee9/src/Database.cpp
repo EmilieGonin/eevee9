@@ -116,16 +116,16 @@ std::vector<std::string> getPlayer(sqlite3* db, int id) {
 		std::cout << "Creating eevee and eeveelutions..." << std::endl;
 		std::vector<std::string> eevee;
 		//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
-		//5[Frames int], 6[Type int]
-		eevee.push_back("\"Eevee\", \"55\", \"55\", \"55\", \"3\", \"1\"");
-		eevee.push_back("\"Vaporeon\", \"130\", \"65\", \"65\", \"54\", \"2\"");
-		eevee.push_back("\"Jolteon\", \"65\", \"65\", \"130\", \"50\", \"3\"");
-		eevee.push_back("\"Flareon\", \"65\", \"130\", \"65\", \"84\", \"4\"");
+		//5[Frames int], 6[Type int], 7[x int], 8[y int]
+		eevee.push_back("\"Eevee\", \"55\", \"55\", \"55\", \"3\", \"1\", \"-50\", \"125\"");
+		eevee.push_back("\"Vaporeon\", \"130\", \"65\", \"65\", \"54\", \"2\", \"-50\", \"105\"");
+		eevee.push_back("\"Jolteon\", \"65\", \"65\", \"130\", \"50\", \"3\", \"-50\", \"125\"");
+		eevee.push_back("\"Flareon\", \"65\", \"130\", \"65\", \"84\", \"4\", \"-70\", \"100\"");
 
 		for (size_t i = 0; i < eevee.size(); i++)
 		{
 			std::string sql = std::string(
-				"INSERT INTO PLAYER(NAME, HP, ATTACK, SPEED, FRAMES, TYPE)"\
+				"INSERT INTO PLAYER(NAME, HP, ATTACK, SPEED, FRAMES, TYPE, X, Y)"\
 				"VALUES(" + eevee[i] + ");");
 			SQL(db, sql.c_str());
 		}
@@ -174,19 +174,19 @@ void createDatabase(sqlite3* db) {
 		std::cout << "Creating enemies..." << std::endl;
 		std::vector<std::string> pokemon;
 		//1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
-		// 5[Frames int], 6[Type int], 7[Rarities int]
-		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"120\", \"84\", \"1\", \"3\"");
-		pokemon.push_back("\"Lillipup\", \"45\", \"60\", \"55\", \"64\", \"1\", \"1\"");
-		pokemon.push_back("\"Caterpie\", \"45\", \"30\", \"45\", \"41\", \"5\", \"1\"");
-		pokemon.push_back("\"Pidgey\", \"40\", \"45\", \"56\", \"21\", \"6\", \"1\"");
-		pokemon.push_back("\"Vulpix\", \"38\", \"41\", \"65\", \"36\", \"4\", \"1\"");
-		pokemon.push_back("\"Psyduck\", \"50\", \"52\", \"55\", \"24\", \"2\", \"1\"");
-		pokemon.push_back("\"Ninetales\", \"73\", \"76\", \"100\", \"27\", \"4\", \"2\"");
+		// 5[Frames int], 6[Type int], 7[Rarities int], 8[x], 9[y]
+		pokemon.push_back("\"Arceus\", \"120\", \"120\", \"120\", \"84\", \"1\", \"3\", \"570\", \"15\"");
+		pokemon.push_back("\"Lillipup\", \"45\", \"60\", \"55\", \"64\", \"1\", \"1\", \"550\", \"80\"");
+		pokemon.push_back("\"Caterpie\", \"45\", \"30\", \"45\", \"41\", \"5\", \"1\", \"550\", \"80\"");
+		pokemon.push_back("\"Pidgey\", \"40\", \"45\", \"56\", \"21\", \"6\", \"1\", \"550\", \"80\"");
+		pokemon.push_back("\"Vulpix\", \"38\", \"41\", \"65\", \"36\", \"4\", \"1\", \"550\", \"80\"");
+		pokemon.push_back("\"Psyduck\", \"50\", \"52\", \"55\", \"24\", \"2\", \"1\", \"550\", \"80\"");
+		pokemon.push_back("\"Ninetales\", \"73\", \"76\", \"100\", \"27\", \"4\", \"2\", \"550\", \"40\"");
 
 		for (size_t i = 0; i < pokemon.size(); i++)
 		{
 			std::string sql = std::string(
-				"INSERT INTO ENTITIES(NAME, HP, ATTACK, SPEED, FRAMES, TYPE, RARITIES)"\
+				"INSERT INTO ENTITIES(NAME, HP, ATTACK, SPEED, FRAMES, TYPE, RARITIES, X, Y)"\
 				"VALUES(" + pokemon[i] + ");");
 			SQL(db, sql.c_str());
 		}
@@ -213,23 +213,23 @@ sqlite3* getDatabase() {
 	/* ----Tables----
 	* - Entities : Enemies
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int],
-	* 5[Frames int], 6[Type int], 7[Rarities int]
+	* 5[Frames int], 6[Type int], 7[Rarities int], 8[x], 9[y]
 	* 
 	* - Types
 	* [Name (100)], [Effective int] (Very effective), [Weakness int] (Not effective), [Affect int] (Don't affect)
 	* 
 	* - Player
 	* 1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
-	* 5[Frames int], 6[Type int]
+	* 5[Frames int], 6[Type int], 7[x int], 8[y int]
 	* 
 	* - Save
 	* 1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
 	* 6[x], 7[y], 8[Orientation int], 9[Money int]
 	*/
 
-	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT);"\
+	sql = "CREATE TABLE IF NOT EXISTS ENTITIES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, RARITIES INT, X INT, Y INT);"\
 		"CREATE TABLE IF NOT EXISTS TYPES(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), EFFECTIVE INT, WEAKNESS INT, AFFECT INT);"\
-		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT);"\
+		"CREATE TABLE IF NOT EXISTS PLAYER(ID INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(100), HP INT, ATTACK INT, SPEED INT, FRAMES INT, TYPE INT, X INT, Y INT);"\
 		"CREATE TABLE IF NOT EXISTS SAVE(ID INTEGER PRIMARY KEY NOT NULL, HP INT, WATERSTONE INT, THUNDERSTONE INT, FIRESTONE INT, MAP INT, X INT, Y INT, ORIENTATION INT, MONEY INT);";
 
 	SQL(db, sql);

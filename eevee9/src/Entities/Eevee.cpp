@@ -15,19 +15,20 @@ Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 Eevee::~Eevee() {};
 
 void Eevee::set(int id) {
+	std::cout << "setting eevee's datas..." << std::endl;
+	//Fetch player datas
+	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
+	//5[Frames int], 6[Type int], 7[x], 8[y]
+	std::vector<std::string> playerDatas = getPlayer(this->db, id);
+
 	if (!id) {
 		this->evolved = false;
 		this->eeveelution = 0;
 	}
 	else {
 		this->eeveelution = id;
+		this->spritePosition(std::stof(playerDatas[7]), std::stof(playerDatas[8]));
 	}
-
-	std::cout << "setting eevee's datas..." << std::endl;
-	//Fetch player datas
-	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
-	//5[Frames int], 6[Type int]
-	std::vector<std::string> playerDatas = getPlayer(this->db, id);
 
 	//Stats
 	this->name = playerDatas[1]; // le joueur peut modifier ?

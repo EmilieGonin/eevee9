@@ -24,7 +24,6 @@ int main()
     interface.start();
 
     player.spritePosition(player.getMapPosition().x, player.getMapPosition().y);
-    enemy.spritePosition(550, 80);
 
     while (game.isOpen())
     {

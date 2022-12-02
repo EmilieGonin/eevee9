@@ -121,16 +121,16 @@ void Interface::loop_events() {
 
 void Interface::drawEevee() {
     //Définis la texture et les frames de Eevee (évolué ou non)
-    if (this->eevee->getEeveelution()) {
+    if (this->eevee->isEvolved()) {
         this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
     }
     else {
         this->eevee->setY(227);
         this->eevee->setSpriteFrames(79);
+        this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
     }
 
     //Définis les coordonnées de combat de Eeevee
-    this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
     this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
 
     this->eevee->idle();

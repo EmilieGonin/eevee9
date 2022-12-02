@@ -8,7 +8,8 @@ void Enemy::reset() {
 }
 
 void Enemy::set() {
-	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int], 5[Frames int], 6[Type int], 7[Rarities int]
+	//1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
+	// 5[Frames int], 6[Type int], 7[Rarities int], 8[x], 9[y]
 	std::cout << "Getting enemy datas..." << std::endl;
 	std::vector<std::string> datas = getEnemy(this->db);
 
@@ -23,5 +24,6 @@ void Enemy::set() {
 	this->y = (stoi(datas[0]) - 1) * this->ySize;
 
 	//Ajout des coordonnées + frames pour le combat
+	this->spritePosition(stoi(datas[8]), stoi(datas[9]));
 	this->setCoords(this->y, 96, 96, this->spriteFrames);
 }
