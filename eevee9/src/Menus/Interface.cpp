@@ -121,16 +121,16 @@ void Interface::loop_events() {
 
 void Interface::drawEevee() {
     //Définis la texture et les frames de Eevee (évolué ou non)
-    if (this->eevee->getEeveelution()) {
+    if (this->eevee->isEvolved()) {
         this->eevee->setY(227 + (96 * this->eevee->getEeveelution()));
     }
     else {
         this->eevee->setY(227);
         this->eevee->setSpriteFrames(79);
+        this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
     }
 
     //Définis les coordonnées de combat de Eeevee
-    this->eevee->spritePosition(-50, 125); //Déplace Eevee au bon endroit
     this->eevee->setCoords(this->eevee->getY(), 96, 96, this->eevee->getSpriteFrames());
 
     this->eevee->idle();
@@ -266,7 +266,6 @@ void Interface::displayInfo(std::string comment) {
     this->window->draw(hp);
 }
 
-
 void Interface::start() {
     this->music.openFromFile("./sfx/Music/title.wav");
     this->music.play();
@@ -361,7 +360,7 @@ void Interface::pauseOptions() {
         this->button.play();
         this->eevee->setMapPosition(this->eevee->getSprite(2, 2).getPosition());
         sqlite3* db = getDatabase();
-        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation(), this->eevee->getMoney());
+        setSave(db, this->eevee->getHP(), this->eevee->getWater(), this->eevee->getThunder(), this->eevee->getFire(), this->mapId, this->eevee->getMapPosition().x, this->eevee->getMapPosition().y, this->eevee->getOrientation(), this->eevee->getMoney(), this->eevee->getStep());
     }
     else if (this->pos == 2) {
         this->button.play();

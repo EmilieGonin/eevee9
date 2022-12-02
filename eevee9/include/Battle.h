@@ -8,7 +8,7 @@
 class Battle
 {
 protected:
-	bool _win, _loose, _escape, _positionSaved;
+	bool _win, _loose, _caught, _escape, _positionSaved;
 	int _choice; //1 = Attack, 2 = Escape
 	int _choosen_attack; //Attaque de Eevee si choisie
 	int _enemy_choice; //1 = Attack, 2 = Special Attack, 3 = Pokeball
