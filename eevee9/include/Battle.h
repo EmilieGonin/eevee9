@@ -25,14 +25,20 @@ protected:
 public:
 	Battle(Game*, Eevee*, Enemy*, Interface*);
 	~Battle();
+	//Reset battle datas
 	void reset();
+	//End battle loop
 	void end();
-	void loot(); // Choose a random loot on a scale of 0 to 6, 0-3 = nothing
+	//Choose a random loot on a scale of 0 to 6, 0-3 = nothing
+	void loot();
+	//Check battle win & loose conditions
 	bool battle();
+	//Check player & enemy choices
 	void turn();
 	void attack(bool);
 	bool pokeball();
-	bool initiative(); // If Eevee is faster than the enemy
+	//If Eevee is faster than the enemy
+	bool initiative();
 	int random(int);
 	int getDamage(bool);
 
@@ -40,9 +46,11 @@ public:
 	double checkType(int, int);
 
 	//Setters
+
 	void setChoice(int);
 
 	//Getters
+
 	bool getChoice();
 	bool getWin();
 };

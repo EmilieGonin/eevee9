@@ -31,8 +31,6 @@ public:
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;
-	
-
 	void randomBattle(bool);
 
 	//Setters

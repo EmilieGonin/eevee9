@@ -26,14 +26,15 @@ public:
 	int catchrate();
 
 	//Setters
+
 	void set(int);
 	void setMapPosition(sf::Vector2f);
 
 	//Getters
+
 	int getMap();
 	int getEeveelution();
 	bool isEvolved();
-
 	int getFire();
 	int getWater();
 	int getThunder();

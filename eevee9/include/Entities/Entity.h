@@ -18,24 +18,24 @@ protected:
     sqlite3* db;
 
     //Sprite coordinates and sizes
-    int spriteFrames;
+    int spriteFrames, xSize, ySize;
     int y; //Determine which set of texture used
-    int xSize;
-    int ySize;
 
 public:
     Entity(const sf::Texture&, sqlite3*);
 
     //Setters
-    void setHP(int);
+
     void subHP(int);
+    void setHP(int);
     void setOrientation(int);
-    void setCoords(int, int, int, int);
-    void spritePosition(float x, float y);
     void setY(int);
     void setSpriteFrames(int);
+    void spritePosition(float x, float y);
+    void setCoords(int, int, int, int);
 
     //Getters
+
     sf::Sprite getSprite(float, float);
     int getHP();
     int getMaxHP();

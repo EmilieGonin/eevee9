@@ -8,13 +8,9 @@
 class Interface
 {
 protected:
-    int pos;
-    int choice;
+    int pos, choice, count, mapId;
     bool pressed, startMenu, pauseMenu, battleMenu, display, evolveMenu;
-
     int hpBarLength, ennemyHpBarLength;
-    int count;
-    int mapId;
 
     Game* _game;
     Eevee* eevee;
@@ -38,35 +34,46 @@ protected:
     std::vector<sf::Text> texts;
     std::vector<std::size_t> sizes;
 
-    void drawEevee();
     void loop_events();
     void draw_all();
+    void drawEevee();
     void drawComment(std::string, bool);
 
 public:
     Interface(Game*, Eevee*, Enemy*);
     ~Interface();
+
+    //Classic menus
+
     void start();
     void startOptions();
     void pause();
-    void evolve();
+    void pauseOptions();
+
+    //Battle menus
+
     int battle();
     void battleOptions();
-    void beginningOptions();
+    void evolve();
     void evolveOptions();
-    void pauseOptions();
-    void map();
-    void changeMap(bool);
+    void beginningOptions();
     void displayComment(std::string, bool);
     void displayInfo(std::string);
 
+    //Map
+
+    void map();
+    void changeMap(bool);
+
     //Setters
+
     void stopMusic();
     void setPauseMenu(bool);
     void setTexts(int);
     void setMap(int);
 
     //Getters
+
     int getPos();
     bool getStartMenu();
     bool getPauseMenu();
