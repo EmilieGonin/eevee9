@@ -25,8 +25,14 @@ void Game::drawtile() {
         window->draw(this->tp[i]);
     }
 
-    for (size_t i = 0; i < this->itemmap1.size(); i++) {
-        window->draw(this->itemmap1[i]->getSprite(1, 1));
+    for (size_t i = 0; i < this->interact.size(); i++)
+    {
+        window->draw(this->interact[i]);
+    }
+    for (size_t i = 0; i < this->sprites.size(); i++)
+    {
+        window->draw(this->sprites[i]);
+
     }
 };
 
@@ -66,6 +72,30 @@ bool Game::setHoverTp(Eevee* player) {
     return false;
 };
 
+
+bool Game::setColSprites(Eevee* player) {
+    for (size_t i = 0; i < this->sprites.size(); i++)
+    {
+        CollisionNPC sprite(sprites[i]);
+        if (sprite.getcollision(player)) {
+
+            return true;
+        }
+    }
+    return false;
+};
+
+bool Game::setInteractShop(Eevee* player) {
+    for (size_t i = 0; i < this->interact.size(); i++)
+    {
+        Collision shop(interact[i]);
+        if (shop.getcollision(player)) {
+
+            return true;
+        }
+    }
+    return false;
+};
 void Game::clear() { window->clear(); };
 void Game::display() { window->display(); };
 bool Game::isOpen() { return window->isOpen(); }
@@ -126,6 +156,8 @@ int Game::update(int orientation) {
     return newOrientation;
 }
 
+
+
 //Setters
 
 void Game::setPause(bool pause) { this->pause = pause; }
@@ -144,6 +176,9 @@ void Game::randomBattle(bool grass) {
 
 void Game::CreateShapes(int mapId) {
     
+
+    
+
     if(mapId == 0 ) {
         while(this->map2.size() != 0) {
             for (size_t i = 0; i < this->map2.size(); i++) {
@@ -155,10 +190,10 @@ void Game::CreateShapes(int mapId) {
             this->map2.pop_back();
         }
 
+
+
         if (this->map1.size() == 0) {
-            sqlite3* db = getDatabase();
-            sf::Texture itemTexture;
-            itemTexture.loadFromFile("img/item.png");
+       
 
             sf::RectangleShape wall1(sf::Vector2f(992, 75));
             wall1.setPosition(0, 0);
@@ -245,13 +280,25 @@ void Game::CreateShapes(int mapId) {
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
 
+
+            sf::Texture *itemTexture = new sf::Texture();
+            itemTexture->loadFromFile("./img/item.png");
+            SpriteMap *item = new SpriteMap(itemTexture);
+            this->sprites.push_back(item->getSprite(1, 1));
+
             if (this->map1.size() < 4) {
                 this->map1.push_back(&this->walls);
                 this->map1.push_back(&this->grass);
                 this->map1.push_back(&this->tp);
-               
+                this->map1.push_back(&this->interact);
             }
+
+            if (this->sprites1.size() < 1) {
+                this->sprites1.push_back(&this->sprites);
+            }
+
         }
+
     }
     if (mapId == 1) {
         while (this->map1.size() != 0) {
@@ -262,6 +309,15 @@ void Game::CreateShapes(int mapId) {
             }
             this->map1.pop_back();
         }
+        while (this->sprites1.size() != 0) {
+            for (size_t i = 0; i < this->sprites1.size(); i++) {
+                while (this->sprites1[i]->size() != 0) {
+                    this->sprites1[i]->pop_back();
+                };
+            }
+            this->sprites1.pop_back();
+        }
+
         while (this->map3.size() != 0) {
             for (size_t i = 0; i < this->map3.size(); i++) {
                 while (this->map3[i]->size() != 0) {
@@ -269,6 +325,14 @@ void Game::CreateShapes(int mapId) {
                 };
             }
             this->map3.pop_back();
+        }
+        while (this->sprites3.size() != 0) {
+            for (size_t i = 0; i < this->sprites3.size(); i++) {
+                while (this->sprites3[i]->size() != 0) {
+                    this->sprites3[i]->pop_back();
+                };
+            }
+            this->sprites3.pop_back();
         }
 
         if (this->map2.size() == 0) {
@@ -384,24 +448,28 @@ void Game::CreateShapes(int mapId) {
             this->tp.push_back(tp2);
         }
 
-        if (this->map2.size() < 3) {
+        if (this->map2.size() < 4) {
             this->map2.push_back(&this->walls);
             this->map2.push_back(&this->grass);
             this->map2.push_back(&this->tp);
+            this->map2.push_back(&this->interact);
         }
     }
     if (mapId == 2) {
-        while (this->map2.size() != 0) {
-            for (size_t i = 0; i < this->map2.size(); i++) {
-                while (this->map2[i]->size() != 0) {
-                    this->map2[i]->pop_back();
-                };
-            }
-            this->map2.pop_back();
-        }
+
 
         if (this->map3.size() == 0) {
+
             std::cout << "map3 created" << std::endl;
+            while (this->map2.size() != 0) {
+                for (size_t i = 0; i < this->map2.size(); i++) {
+                    std::cout << "je delete";
+                    while (this->map2[i]->size() != 0) {
+                        this->map2[i]->pop_back();
+                    };
+                }
+                this->map2.pop_back();
+            }
 
             sf::RectangleShape zall(sf::Vector2f(1, 672));
             zall.setPosition(0, 0);
@@ -453,17 +521,37 @@ void Game::CreateShapes(int mapId) {
             tp.setPosition(480, 5);
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
+
+            sf::Texture* itemTexture = new sf::Texture();
+            itemTexture->loadFromFile("./img/trainer.png");
+            SpriteMap* pnjShop = new SpriteMap(itemTexture);
+            sf::Sprite mySprite = pnjShop->getSprite(0.45, 0.45);
+            sf::Sprite* point = &mySprite;
+            point->setPosition(766, 442);
+            this->sprites.push_back(mySprite);
+
+            sf::RectangleShape shop(sf::Vector2f(50, 50));
+            shop.setPosition(764, 442);
+            shop.setFillColor(sf::Color::Red);
+            this->interact.push_back(shop);
+
         }
 
-        if (this->map3.size() < 3) {
+        if (this->map3.size() < 4) {
             this->map3.push_back(&this->walls);
             this->map3.push_back(&this->grass);
             this->map3.push_back(&this->tp);
+            this->map3.push_back(&this->interact);
+        }
+        if (this->sprites3.size() < 1) {
+            this->sprites3.push_back(&this->sprites);
+
         }
     }
+    
 }
 
-//Getters
+//Getter
 
 bool Game::getBattle() { return this->battle; }
 bool Game::getPause() { return this->pause; }

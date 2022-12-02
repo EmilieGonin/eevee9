@@ -83,6 +83,11 @@ void Interface::loop_events() {
                 this->battleMenu = true;
                 this->evolveMenu = false;
             }
+            if (this->shopMenu == true)
+            {
+                this->shopMenu = false;
+                
+            }
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !this->pressed) {
             std::cout << "---- OPTION SELECTED : " << options[this->pos] << std::endl;
@@ -105,9 +110,11 @@ void Interface::loop_events() {
             else if (this->evolveMenu == true && options[this->pos] != "") {
                 this->button.play();
                 evolveOptions();
-                
                 this->choice += 2;
                 std::cout << this->choice;
+            }
+            else if (this->shopMenu == true) {
+                shopOptions();
             }
             
             //On évite que le choix soit fait avant relâchement de la touche
@@ -243,6 +250,40 @@ void Interface::pause() {
         draw_all();
     }
 }
+
+
+void Interface::shop() {
+    this->button.play();
+    this->shopMenu = true;
+    this->image->loadFromFile("./img/shop.png");
+    this->bg->setTexture(*image);
+
+    //Texts
+    this->options = { "Buy", "Buy", "Buy" };
+    this->coords = { {830,190},{830,300},{830,415} };
+    setTexts(options.size());
+
+    while (this->shopMenu == true) {
+        loop_events();
+        draw_all();
+    }
+}
+
+void Interface::shopOptions() {
+    if (this->pos == 0) {
+        this->shopMenu == false;
+    }
+    if (this->pos == 1) {
+        //
+    }
+    if (this->pos == 2) {
+        //
+    }
+    if (this->pos == 3) {
+        //
+    }
+}
+
 void Interface::pauseOptions() {
     if (this->pos == 0) {
         this->button.play();
@@ -469,6 +510,8 @@ void Interface::changeMap(bool colTp) {
     }
 }
 
+
+
 //Setters
 
 void Interface::stopMusic() {
@@ -494,6 +537,34 @@ void Interface::setMap(int nb) {
     this->mapId = nb;
 }
 
+void Interface::changeMap(bool colTp) {
+    if (colTp) {
+        if (this->mapId == 0) {
+            setMap(1);
+            this->eevee->spritePosition(50, this->eevee->getSprite(2,2).getPosition().y);
+        }
+        if (this->mapId == 1 && this->eevee->getOrientation() == LEFT ) {
+            setMap(0);
+            this->eevee->spritePosition(880, this->eevee->getSprite(2, 2).getPosition().y);
+        }
+        if (this->mapId == 1 && this->eevee->getOrientation() == DOWN) {
+            setMap(2);
+            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 50);
+        }
+        if (this->mapId == 2 && this->eevee->getOrientation() == UP) {
+            setMap(1);
+            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 620);
+        }
+    }
+}
+
+void Interface::openShop(bool shop) {
+    if (shop && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        std::cout << " j'ouvre le shop";
+        this->shopMenu = true;
+    }
+}
+
 //Getters
 
 int Interface::getPos() { return this->pos; }
@@ -501,3 +572,4 @@ bool Interface::getStartMenu() { return this->startMenu; }
 bool Interface::getPauseMenu() { return this->pauseMenu; }
 bool Interface::getBattleMenu() { return this->battleMenu; }
 bool Interface::getMapId() { return this->mapId; }
+bool Interface::getShop() { return this->shopMenu; }

@@ -1,10 +1,10 @@
-#include "Items.h"
+#include "SpriteMap.h"
 
-Items::Items(sf::Texture& texture, sqlite3* db) : AnimatedEntity(texture, db) {};
-Items::~Items() {};
+SpriteMap::SpriteMap(sf::Texture* texture) : AnimatedEntity(*texture, db) {};
+SpriteMap::~SpriteMap() {};
 
 //bool getItem(Eevee* player) {
-//	sf::Sprite sprite = player->getSprite(2, 2);
+//	sf::Sprite sprite = player->getSprite(2, 2);		
 //	sf::FloatRect Eeveebounds = sprite.getGlobalBounds();
 //	sf::Sprite items = item->getSprite();
 //	sf::FloatRect Itembounds = item.getGlobalBounds();
