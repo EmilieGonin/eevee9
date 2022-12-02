@@ -5,10 +5,9 @@
 
 int main()
 {
-    //Chargement de la base de données
     std::cout << "Loading database..." << std::endl;
     sqlite3* db = getDatabase();
-    createDatabase(db);                
+    createDatabase(db); //Chargement de la base de données
 
     Game game;
   
@@ -21,20 +20,18 @@ int main()
     Interface interface(&game, &player, &enemy);
     Battle battle(&game, &player, &enemy, &interface);
     
-    interface.start();
+    interface.start(); //Lancement du menu de démarrage
 
     player.spritePosition(player.getMapPosition().x, player.getMapPosition().y);
 
-    while (game.isOpen())
-    {
+    while (game.isOpen()) {
         if (game.getBattle()) { //Si un combat est en cours
             interface.stopMusic();
             game.setBattle(battle.battle()); //Conditions de win/loose + set ennemy
 
             //Si le combat est toujours en cours, on sélectionne un choix
             if (game.getBattle() && !battle.getChoice()) {
-                std::cout << "NO CHOICE SELECTED" << std::endl;
-                std::cout << "----------" << std::endl << std::endl;
+                std::cout << "NO CHOICE SELECTED" << "----------" << std::endl;
                 //Récupération du choix + affichage du background
                 battle.setChoice(interface.battle() + 1);
                 battle.turn(); //Tour de jeu suivant le choix          
@@ -64,7 +61,7 @@ int main()
             
             game.clear();
             interface.map(); //Création de la map et des collisions
-            game.drawtile(); //Debug only - voir où sont placés nos collisions
+            game.drawtile(); //Debug only - voir où sont placées nos collisions
             game.draw(player);
             game.display();
         }

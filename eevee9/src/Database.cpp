@@ -61,7 +61,7 @@ std::vector<std::string> getEnemy(sqlite3* db, bool canEvolve) {
 	if (canEvolve && rarity <= 1) {
 		rarity = 3; //Very rare
 	}
-	else if (canEvolve && rarity > 1 && rarity <= 25) { //Check if Eevee can elvolve
+	else if (canEvolve && rarity > 1 && rarity <= 20) { //Check if Eevee can elvolve
 		rarity = 2; //Rare
 	}
 	else {

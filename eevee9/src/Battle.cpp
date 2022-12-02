@@ -6,10 +6,8 @@ Battle::Battle(Game* game, Eevee* eevee, Enemy* enemy, Interface* interface) {
 	this->_game = game;
 	this->interface = interface;
 	
-	/*this->music.openFromFile("./sfx/Music/strongBattle.wav");*/
 	this->music.setLoop(true);
 	this->music.setVolume(8);
-
 	this->lowMusic.setLoop(true);
 	this->lowMusic.setVolume(8);
 
@@ -109,8 +107,6 @@ bool Battle::battle() {
 		this->_eevee->setMapPosition(this->_eevee->getSprite(2, 2).getPosition());
 		this->_positionSaved = true;
 	}
-
-	//std::cout << "You encountered a wild " << this->_enemy->getName() << " !" << std::endl;
 	
 	//On vérifie les conditions de win
 	this->_win = this->_enemy->getHP() <= 0;

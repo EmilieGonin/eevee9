@@ -18,6 +18,8 @@ std::vector<std::string> getType(sqlite3*, int);
 // 5[Frames int], 6[Type int], 7[Rarities int], 8[x], 9[y]
 std::vector<std::string> getEnemy(sqlite3*, bool);
 
+//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
+//6[x], 7[y], 8[Orientation int], 9[Money], 10[Step]
 std::vector<std::string> getSave(sqlite3*);
 
 //1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
