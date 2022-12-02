@@ -29,6 +29,10 @@ void Battle::reset() {
 void Battle::end() {
 	std::cout << "BATTLE ENDED" << std::endl;
 	std::cout << "----------" << std::endl << std::endl;
+	if (this->_eevee->isEvolved()) {
+		this->_eevee->set(0);
+	}
+
 	if (this->_win) {
 		
 		this->lowMusic.stop();
@@ -182,8 +186,8 @@ void Battle::turn() {
 			this->attack(!eevee);
 		}
 	}
-	else if (this->_enemy_choice != 3 || this->_choice == 1) {
-		if (this->_choice == 1) {
+	else if (this->_enemy_choice != 3 || this->_choice != 2) {
+		if (this->_choice != 2) {
 			this->attack(true);
 		}
 		else {
@@ -202,8 +206,9 @@ void Battle::attack(bool eevee) {
 	int dodgerate;
 	std::string name;
 
-	if (!this->_eevee->isEvolved() && this->_eevee->getEeveelution()) {
+	if (this->_choice > 2 && !this->_eevee->isEvolved()) {
 		std::cout << "Eevee evolve !" << std::endl;
+		this->_eevee->evolve(this->_choice);
 		//Evolve
 	}
 

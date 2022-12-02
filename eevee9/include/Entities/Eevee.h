@@ -26,7 +26,7 @@ public:
 	int catchrate();
 
 	//Setters
-	void set();
+	void set(int);
 	void setMapPosition(sf::Vector2f);
 
 	//Getters
