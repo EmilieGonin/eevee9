@@ -22,7 +22,7 @@ void Battle::reset() {
 	this->_win = this->_loose = this->_escape = false;
 	this->_choice = this->_choosen_attack = this->_enemy_choice = 0;
 	this->_turn = 1;
-	this->_enemy->set();
+	this->_enemy->set(this->_eevee->canEvolve());
 	this->_positionSaved = false;
 }
 
@@ -260,13 +260,12 @@ void Battle::attack(bool eevee) {
 }
 
 bool Battle::pokeball() {
-	return true;
-	/*if (this->random(200) <= this->_eevee->catchrate()) {
+	if (this->random(200) <= this->_eevee->catchrate()) {
 		return true;
 	}
 	else {
 		return false;
-	}*/
+	}
 }
 
 bool Battle::initiative() {
