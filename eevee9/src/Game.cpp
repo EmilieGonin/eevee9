@@ -39,11 +39,7 @@ void Game::drawtile() {
         window->draw(this->interactitem[i]);
 
     }
-    for (size_t i = 0; i < this->interactitem.size(); i++)
-    {
-        window->draw(this->sprites[i]);
-
-    }
+    
 };
 
 bool Game::CreateCollision(Eevee* player) {
@@ -110,10 +106,10 @@ bool Game::setInteractShop(Eevee* player) {
 bool Game::setInteractItem(Eevee* player) {
     for (size_t i = 0; i < this->interactitem.size(); i++)
     {
-        Collision item(interactitem[i]);
+        CollisionNPC item(interactitem[i]);
         if (item.getcollision(player)) {
-            sqlite3* db = getDatabase();
-            //removeItem(db, item.gettile().getPosition().x, item.gettile().getPosition().y);
+            std::cout << "je get iteù";
+            this->interactitem.erase(this->interactitem.begin() + i);
             return true;
         }
     }
@@ -213,7 +209,14 @@ void Game::CreateShapes(int mapId) {
             this->map2.pop_back();
         }
 
-
+        while (this->sprites2.size() != 0) {
+            for (size_t i = 0; i < this->sprites2.size(); i++) {
+                while (this->sprites2[i]->size() != 0) {
+                    this->sprites2[i]->pop_back();
+                };
+            }
+            this->sprites2.pop_back();
+        }
 
         if (this->map1.size() == 0) {
        
@@ -309,12 +312,9 @@ void Game::CreateShapes(int mapId) {
             sf::Sprite mySprite = pnjItem->getSprite(1.1, 1.1);
             sf::Sprite* point = &mySprite;
             point->setPosition(835, 130);
-            this->sprites.push_back(mySprite);
+            this->interactitem.push_back(mySprite);
 
-            sf::RectangleShape getitem(sf::Vector2f(5, 5));
-            getitem.setPosition(835, 130);
-            getitem.setFillColor(sf::Color::Red);
-            this->interactitem.push_back(getitem);
+
 
             if (this->map1.size() < 5) {
                 this->map1.push_back(&this->walls);
@@ -326,6 +326,7 @@ void Game::CreateShapes(int mapId) {
 
             if (this->sprites1.size() < 1) {
                 this->sprites1.push_back(&this->sprites);
+                this->sprites1.push_back(&this->interactitem);
             }
 
         }
@@ -486,12 +487,9 @@ void Game::CreateShapes(int mapId) {
             sf::Sprite mySprite = pnjItem->getSprite(1.1, 1.1);
             sf::Sprite* point = &mySprite;
             point->setPosition(65, 225);
-            this->sprites.push_back(mySprite);
+            this->interactitem.push_back(mySprite);
 
-            sf::RectangleShape getitem(sf::Vector2f(100, 100));
-            getitem.setPosition(65, 235);
-            getitem.setFillColor(sf::Color::Red);
-            this->interactitem.push_back(getitem);
+    
 
             /*SpriteMap* pnjItem2 = new SpriteMap(itemTexture);
             sf::Sprite mySprite2 = pnjItem2->getSprite(1.1, 1.1);
@@ -510,10 +508,18 @@ void Game::CreateShapes(int mapId) {
             this->map2.push_back(&this->grass);
             this->map2.push_back(&this->tp);
             this->map2.push_back(&this->interact);
-            this->map1.push_back(&this->interactitem);
+           
+        }
+        if (this->sprites2.size() < 1)
+        {
+            this->sprites2.push_back(&this->interactitem);
         }
     }
     if (mapId == 2) {
+
+
+        
+
 
 
         if (this->map3.size() == 0) {
@@ -528,6 +534,17 @@ void Game::CreateShapes(int mapId) {
                 }
                 this->map2.pop_back();
             }
+
+
+            while (this->sprites2.size() != 0) {
+                for (size_t i = 0; i < this->sprites2.size(); i++) {
+                    while (this->sprites2[i]->size() != 0) {
+                        this->sprites2[i]->pop_back();
+                    };
+                }
+                this->sprites2.pop_back();
+            }
+
 
             sf::RectangleShape zall(sf::Vector2f(1, 672));
             zall.setPosition(0, 0);

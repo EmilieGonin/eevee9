@@ -51,7 +51,10 @@ int main()
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
                     player.collisionNotMoving(game.setColSprites(&player));
-                    /*player.collisionNotMoving(game.setColSprites(&player));*/ // fonction de collision avec get item pour items
+             
+                    interface.getItem(game.setInteractItem(&player));
+                   
+                  
                     game.randomBattle(game.sethovergrass(&player));
                     interface.changeMap(game.setHoverTp(&player));
                     

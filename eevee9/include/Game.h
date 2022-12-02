@@ -33,12 +33,13 @@ public:
 	std::vector<std::vector<sf::Sprite>*> sprites2;
 	std::vector<std::vector<sf::Sprite>*> sprites3;
 	std::vector <sf::Sprite> sprites;
+	std::vector<sf::Sprite> interactitem;
 
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;
 	std::vector<sf::RectangleShape> interact;
-	std::vector<sf::RectangleShape> interactitem;
+	
 
 	void randomBattle(bool);
 
