@@ -16,7 +16,7 @@ std::vector<std::string> getType(sqlite3*, int);
 
 //1[Name (100)], 2[HP int], 3[Attack int], 4[Speed int]
 // 5[Frames int], 6[Type int], 7[Rarities int], 8[x], 9[y]
-std::vector<std::string> getEnemy(sqlite3*);
+std::vector<std::string> getEnemy(sqlite3*, bool);
 
 std::vector<std::string> getSave(sqlite3*);
 

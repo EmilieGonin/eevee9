@@ -54,15 +54,14 @@ std::vector<std::string> getType(sqlite3* db, int type) {
 	return datas[0];
 }
 
-std::vector<std::string> getEnemy(sqlite3* db) {
+std::vector<std::string> getEnemy(sqlite3* db, bool canEvolve) {
 	//Get rarities
 	int rarity = random(100);
-	bool can = true; //temp
 
-	if (rarity <= 1) {
+	if (canEvolve && rarity <= 1) {
 		rarity = 3; //Very rare
 	}
-	else if (can && rarity > 1 && rarity <= 25) { //Check if can elvolve
+	else if (canEvolve && rarity > 1 && rarity <= 25) { //Check if Eevee can elvolve
 		rarity = 2; //Rare
 	}
 	else {
