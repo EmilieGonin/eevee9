@@ -39,6 +39,11 @@ void Game::drawtile() {
         window->draw(this->interactitem[i]);
 
     }
+    for (size_t i = 0; i < this->interactitem.size(); i++)
+    {
+        window->draw(this->sprites[i]);
+
+    }
 };
 
 bool Game::CreateCollision(Eevee* player) {
