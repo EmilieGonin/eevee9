@@ -12,5 +12,5 @@ public:
 	~Enemy();
 
 	void reset();
-	void set();
+	void set(bool);
 };

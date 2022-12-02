@@ -1,17 +1,15 @@
 #pragma once
 
 #include "Eevee.h"
-#include <SFML/Graphics.hpp>
 
 class Collision
 {
-public:
-	float x;
-	float y;
-	sf::RectangleShape &tile;
-	sf::RectangleShape &gettile();
+protected:
+	sf::RectangleShape& tile;
 
+public:
 	Collision(sf::RectangleShape &);
+	sf::RectangleShape& gettile();
 	bool getcollision(Eevee*);
 };
 

@@ -1,19 +1,13 @@
 #include "Entity.h"
 
-Entity::Entity(const sf::Texture& texture, sqlite3* db) : sprite(texture), texture(texture), db(db)
-{
-    this->hp = 70;
-    this->maxHp = 1;
+Entity::Entity(const sf::Texture& texture, sqlite3* db) : sprite(texture), texture(texture), db(db) {
+    this->hp = this->maxHp = this->attack = this->speed = this->dodgerate = this->type = 1;
     this->orientation = DOWN;
-    this->dodgerate = this->speed = this->y = this->spriteFrames = 0;
+    this->y = this->spriteFrames = 0;
     this->xSize = this->ySize = 96;
 }
 
 //Setters
-
-void Entity::setHP(int hp) {
-    this->hp = hp;
-}
 
 void Entity::subHP(int dmg) {
     this->hp = this->hp - dmg;
@@ -21,12 +15,11 @@ void Entity::subHP(int dmg) {
         this->hp = 0;
     }
 }
-
-void Entity::setOrientation(int orientation)
-{
-    this->orientation = orientation;
-}
-
+void Entity::setHP(int hp) { this->hp = hp; }
+void Entity::setOrientation(int orientation) { this->orientation = orientation; }
+void Entity::setY(int y) { this->y = y; }
+void Entity::setSpriteFrames(int frame) { this->spriteFrames = frame; }
+void Entity::spritePosition(float x, float y) { this->sprite.setPosition(x, y); }
 void Entity::setCoords(int y, int xSize, int ySize, int frames) {
     this->spriteFrames = frames;
     this->y = y;
@@ -34,23 +27,9 @@ void Entity::setCoords(int y, int xSize, int ySize, int frames) {
     this->ySize = ySize;
 }
 
-void Entity::spritePosition(float x, float y) {
-    this->sprite.setPosition(x, y);
-
-}
-
-void Entity::setY(int y) {
-    this->y = y;
-}
-
-void Entity::setSpriteFrames(int frame) {
-    this->spriteFrames = frame;
-}
-
 //Getters
 
-sf::Sprite Entity::getSprite(float x, float y)
-{
+sf::Sprite Entity::getSprite(float x, float y) {
     this->sprite.setScale(x, y);
     return this->sprite;
 }

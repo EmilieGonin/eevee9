@@ -1,11 +1,9 @@
 #include "Game.h"
 
-Game::Game()
-{
+Game::Game() {
     window = new sf::RenderWindow();
     window->create(sf::VideoMode(992, 672), "Pokemon: Eevee 9", sf::Style::Titlebar | sf::Style::Close);
-    this->pause = false;
-    this->battle = false;
+    this->pause = this->battle = false;
     this->keypressed = NULL;
 }
 
@@ -15,22 +13,18 @@ Game::~Game() {};
 
 void Game::draw(Entity& entity) { window->draw(entity.getSprite(2,2)); };
 void Game::drawtile() { 
-
-    for (size_t i = 0; i < this->walls.size(); i++)
-    {
+    for (size_t i = 0; i < this->walls.size(); i++) {
         window->draw(this->walls[i]);
     }
 
-    for (size_t i = 0; i < this->grass.size(); i++)
-    {
+    for (size_t i = 0; i < this->grass.size(); i++) {
         window->draw(this->grass[i]);
     }
 
-    for (size_t i = 0; i < this->tp.size(); i++)
-    {
+    for (size_t i = 0; i < this->tp.size(); i++) {
         window->draw(this->tp[i]);
     }
-    
+
     for (size_t i = 0; i < this->interact.size(); i++)
     {
         window->draw(this->interact[i]);
@@ -38,12 +32,12 @@ void Game::drawtile() {
     for (size_t i = 0; i < this->sprites.size(); i++)
     {
         window->draw(this->sprites[i]);
+
     }
 };
 
 bool Game::CreateCollision(Eevee* player) {
-    for (size_t i = 0; i < this->walls.size(); i++)
-    {
+    for (size_t i = 0; i < this->walls.size(); i++) {
         Collision col(walls[i]);
         if (col.getcollision(player)) {
             std::cout << "wall";
@@ -119,10 +113,8 @@ int Game::update(int orientation) {
     int newOrientation = orientation;
     sf::Event event;
 
-    while (window->pollEvent(event))
-    {
-        switch (event.type)
-        {
+    while (window->pollEvent(event)) {
+        switch (event.type) {
         case sf::Event::Closed:
             window->close();
             break;
@@ -169,9 +161,7 @@ int Game::update(int orientation) {
 //Setters
 
 void Game::setPause(bool pause) { this->pause = pause; }
-
 void Game::setBattle(bool battle) { this->battle = battle; }
-
 void Game::randomBattle(bool grass) {
     int random = rand() % 100;  
     if (random < 2 && grass) {
@@ -290,7 +280,7 @@ void Game::CreateShapes(int mapId) {
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
 
-            
+
             sf::Texture *itemTexture = new sf::Texture();
             itemTexture->loadFromFile("./img/item.png");
             SpriteMap *item = new SpriteMap(itemTexture);
@@ -302,10 +292,11 @@ void Game::CreateShapes(int mapId) {
                 this->map1.push_back(&this->tp);
                 this->map1.push_back(&this->interact);
             }
+
             if (this->sprites1.size() < 1) {
                 this->sprites1.push_back(&this->sprites);
             }
-           
+
         }
 
     }
@@ -445,8 +436,6 @@ void Game::CreateShapes(int mapId) {
             xrass4.setPosition(428, 120);
             xrass4.setFillColor(sf::Color::Transparent);
             this->grass.push_back(xrass4);
-
-
 
             sf::RectangleShape tp(sf::Vector2f(5, 64));
             tp.setPosition(-25, 510);

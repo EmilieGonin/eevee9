@@ -15,19 +15,20 @@ Eevee::Eevee(sf::Texture &texture, sqlite3* db) : AnimatedEntity(texture, db) {
 Eevee::~Eevee() {};
 
 void Eevee::set(int id) {
+	std::cout << "setting eevee's datas..." << std::endl;
+	//Fetch player datas
+	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
+	//5[Frames int], 6[Type int], 7[x], 8[y]
+	std::vector<std::string> playerDatas = getPlayer(this->db, id);
+
 	if (!id) {
 		this->evolved = false;
 		this->eeveelution = 0;
 	}
 	else {
 		this->eeveelution = id;
+		this->spritePosition(std::stof(playerDatas[7]), std::stof(playerDatas[8]));
 	}
-
-	std::cout << "setting eevee's datas..." << std::endl;
-	//Fetch player datas
-	//1[Name(100)], 2[HP int], 3[Attack int], 4[Speed int]
-	//5[Frames int], 6[Type int]
-	std::vector<std::string> playerDatas = getPlayer(this->db, id);
 
 	//Stats
 	this->name = playerDatas[1]; // le joueur peut modifier ?
@@ -41,7 +42,7 @@ void Eevee::set(int id) {
 
 	//Fetch save datas
 	//1[HP int], 2[Waterstone], 3[Thunderstone], 4[Firestone], 5[Map],
-	//6[x], 7[y], 8[Orientation]
+	//6[x], 7[y], 8[Orientation], 9[Money], 10[Step]
 	std::vector<std::string> datas = getSave(this->db);
 
 	if (!this->evolved) {
@@ -51,10 +52,12 @@ void Eevee::set(int id) {
 		this->hp = stoi(playerDatas[2]);
 	}
 
-	//Stones
+	//Inventory
 	this->waterstone = stoi(datas[2]);
 	this->thunderstone = stoi(datas[3]);
 	this->firestone = stoi(datas[4]);
+	this->money = stoi(datas[9]);
+	this->step = stoi(datas[10]);
 
 	//Position
 	this->map = stoi(datas[5]);
@@ -123,6 +126,13 @@ void Eevee::collisionNotMoving(bool collision) {
 void Eevee::move(bool collision) {
 	int changeX = 0;
 	int changeY = 0;
+	this->step++;
+
+	if (this->step == 1000) {
+		std::cout << "After walking so much, you found a shard !" << std::endl;
+		this->addLoot(random(3) + 1, 0);
+		this->step = 0;
+	}
 
 	if (this->orientation == DOWN) {
 		changeY = 2; 
@@ -141,8 +151,7 @@ void Eevee::move(bool collision) {
 	if (!collision) {
 		this->sprite.move(changeX * PAS, changeY * PAS);
 	}
-	
-	
+
 }
 
 int Eevee::catchrate() {
@@ -162,8 +171,7 @@ void Eevee::setMapPosition(sf::Vector2f position){
 
 int Eevee::getMap() { return this->map; }
 int Eevee::getEeveelution() { return this->eeveelution; }
-int Eevee::getMoney() {
-	return this->money;
-}
 bool Eevee::isEvolved() { return this->evolved; }
+int Eevee::getMoney() { return this->money; }
+int Eevee::getStep() { return this->step; }
 sf::Vector2f Eevee::getMapPosition() { return this->mapPosition;  }
