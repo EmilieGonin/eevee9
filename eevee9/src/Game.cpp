@@ -347,12 +347,12 @@ void Game::CreateShapes(int mapId) {
             xall2.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall2);
 
-            sf::RectangleShape xall3(sf::Vector2f(350, 5));
-            xall3.setPosition(610, 650);
+            sf::RectangleShape xall3(sf::Vector2f(220, 5));
+            xall3.setPosition(710, 650);
             xall3.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall3);
 
-            sf::RectangleShape xall4(sf::Vector2f(200, 5));
+            sf::RectangleShape xall4(sf::Vector2f(240, 5));
             xall4.setPosition(215, 650);
             xall4.setFillColor(sf::Color::Transparent);
             this->walls.push_back(xall4);
@@ -442,8 +442,8 @@ void Game::CreateShapes(int mapId) {
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);
 
-            sf::RectangleShape tp2(sf::Vector2f(120, 5));
-            tp2.setPosition(450, 670);
+            sf::RectangleShape tp2(sf::Vector2f(150, 5));
+            tp2.setPosition(512, 670);
             tp2.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp2);
         }
@@ -511,13 +511,18 @@ void Game::CreateShapes(int mapId) {
             zall8.setFillColor(sf::Color::Transparent);
             this->walls.push_back(zall8);
 
+            sf::RectangleShape zall10(sf::Vector2f(50, 2));
+            zall10.setPosition(715, 0);
+            zall10.setFillColor(sf::Color::Transparent);
+            this->walls.push_back(zall10);
+
             sf::RectangleShape zall9(sf::Vector2f(2, 170)); //this is a wall but is placed where a TP to potential 4th map would be
             zall9.setPosition(990, 415);
             zall9.setFillColor(sf::Color::Transparent);
             this->walls.push_back(zall9);
 
 
-            sf::RectangleShape tp(sf::Vector2f(250, 5));
+            sf::RectangleShape tp(sf::Vector2f(175, 5));
             tp.setPosition(480, 5);
             tp.setFillColor(sf::Color::Transparent);
             this->tp.push_back(tp);

@@ -442,6 +442,7 @@ void Interface::beginningOptions() {
 void Interface::displayComment(std::string comment, bool win) {
     this->display = true;
     this->image->loadFromFile("./img/battle.png");
+    this->image->loadFromFile("./img/battle.png");
     this->bg->setTexture(*image);
     this->options = { "" };
     this->coords = { {0,0} };
@@ -559,7 +560,7 @@ void Interface::changeMap(bool colTp) {
         }
         if (this->mapId == 1 && this->eevee->getOrientation() == DOWN) {
             setMap(2);
-            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 50);
+            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 25);
         }
         if (this->mapId == 2 && this->eevee->getOrientation() == UP) {
             setMap(1);
