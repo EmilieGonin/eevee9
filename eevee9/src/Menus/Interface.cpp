@@ -159,6 +159,50 @@ void Interface::draw_all() {
 
     this->window->display(); //On affiche tout
 }
+
+void Interface::drawShopInfo() {
+    this->window->draw(*bg); //Background
+
+      sf::Text money;
+        money.setFont(*font2);
+        money.setString(std::string(std::to_string(this->eevee->getMoney()) + " $"));
+        money.setFillColor(sf::Color::Black);
+        money.setCharacterSize(26);
+        money.setPosition(661, 180);
+        this->window->draw(money);
+
+        sf::Text fire;
+        fire.setFont(*font);
+        fire.setString(std::to_string(this->eevee->getFire()));
+        fire.setFillColor(sf::Color::Black);
+        fire.setCharacterSize(26);
+        fire.setPosition(231, 142);
+        this->window->draw(fire);
+
+        sf::Text water;
+        water.setFont(*font);
+        water.setString(std::to_string(this->eevee->getWater()));
+        water.setFillColor(sf::Color::Black);
+        water.setCharacterSize(26);
+        water.setPosition(231, 187);
+        this->window->draw(water);
+
+        sf::Text thunder;
+        thunder.setFont(*font);
+        thunder.setString(std::to_string(this->eevee->getThunder()));
+        thunder.setFillColor(sf::Color::Black);
+        thunder.setCharacterSize(26);
+        thunder.setPosition(225, 224);
+        this->window->draw(thunder);
+
+
+        for (auto t : texts) {
+            this->window->draw(t);
+        }
+
+        this->window->display(); //On affiche tout
+
+}
 void Interface::drawEevee() {
     //Définis la texture et les frames de Eevee (évolué ou non)
     if (this->eevee->isEvolved()) {
@@ -247,6 +291,7 @@ void Interface::pause() {
 
     while (this->pauseMenu == true) {
         loop_events();
+        
         draw_all();
     }
 }
@@ -258,30 +303,37 @@ void Interface::shop() {
     this->image->loadFromFile("./img/shop.png");
     this->bg->setTexture(*image);
 
+   
     //Texts
-    this->options = { "Buy", "Buy", "Buy" };
-    this->coords = { {830,190},{830,300},{830,415} };
+    this->options = {  "Buy", "Buy", "Buy" };
+    this->coords = { {537,279},{537,369},{537,459}};
     setTexts(options.size());
-
+    std::cout << options.size();
     while (this->shopMenu == true) {
         loop_events();
-        draw_all();
+
+        drawShopInfo();
+
     }
 }
 
 void Interface::shopOptions() {
     if (this->pos == 0) {
-        this->shopMenu == false;
+        if (this->eevee->getMoney() >= 2000) {
+            this->eevee->addLoot(1, -2000);
+        }
     }
     if (this->pos == 1) {
-        //
+        if (this->eevee->getMoney() >= 1500) {
+            this->eevee->addLoot(2, -1500);
+        }
     }
     if (this->pos == 2) {
-        //
+        if (this->eevee->getMoney() >= 1000) {
+            this->eevee->addLoot(3, -1000);
+        }
     }
-    if (this->pos == 3) {
-        //
-    }
+
 }
 
 void Interface::pauseOptions() {
@@ -489,6 +541,12 @@ void Interface::map() {
     this->bg->setTexture(*image);
     this->window->draw(*bg);
 }
+
+void Interface::setMap(int nb) {
+    this->mapId = nb;
+}
+
+
 void Interface::changeMap(bool colTp) {
     if (colTp) {
         if (this->mapId == 0) {
@@ -531,30 +589,6 @@ void Interface::setTexts(int size) {
         this->texts[i].setCharacterSize(this->sizes[i]);
         this->texts[i].setOutlineColor(sf::Color(186, 84, 0));
         this->texts[i].setPosition(this->coords[i]);
-    }
-}
-void Interface::setMap(int nb) {
-    this->mapId = nb;
-}
-
-void Interface::changeMap(bool colTp) {
-    if (colTp) {
-        if (this->mapId == 0) {
-            setMap(1);
-            this->eevee->spritePosition(50, this->eevee->getSprite(2,2).getPosition().y);
-        }
-        if (this->mapId == 1 && this->eevee->getOrientation() == LEFT ) {
-            setMap(0);
-            this->eevee->spritePosition(880, this->eevee->getSprite(2, 2).getPosition().y);
-        }
-        if (this->mapId == 1 && this->eevee->getOrientation() == DOWN) {
-            setMap(2);
-            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 50);
-        }
-        if (this->mapId == 2 && this->eevee->getOrientation() == UP) {
-            setMap(1);
-            this->eevee->spritePosition(this->eevee->getSprite(2, 2).getPosition().x, 620);
-        }
     }
 }
 

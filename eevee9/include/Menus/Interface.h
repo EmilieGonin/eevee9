@@ -61,6 +61,7 @@ public:
     void beginningOptions();
     void displayComment(std::string, bool);
     void displayInfo(std::string);
+    void drawShopInfo();
 
     void shop();
     void shopOptions();

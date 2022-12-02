@@ -47,7 +47,6 @@ int main()
                 else {
                     player.resetAnimation();
                 }
-
                 if (game.isMoving()) { //On vérifie si le sprite doit bouger
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
@@ -66,7 +65,7 @@ int main()
                 interface.shop();
                 
             }
-            
+          
             game.clear();
             interface.map(); //Création de la map et des collisions
             game.drawtile(); //Debug only - voir où sont placées nos collisions
