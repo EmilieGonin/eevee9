@@ -8,6 +8,8 @@
 int callback(void*, int, char**, char**);
 std::vector<std::vector<std::string>> dataSQL(sqlite3*, const char*);
 void SQL(sqlite3*, const char*);
+std::vector<std::string> getItem(sqlite3*, int, int);
+void removeItem(sqlite3*, int, int);
 
 //1: Normal - 2: Water - 3: Thunder - 4: Fire - 5: Bug
 //6: Fly
