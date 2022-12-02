@@ -13,13 +13,11 @@ void AnimatedEntity::update(void) {
     }
     this->count++;
 }
-
 void AnimatedEntity::resetAnimation(void) {
     this->frame = 0;
     this->sprite.setTextureRect(sf::IntRect(this->frame * this->xSize, this->y + this->ySize * this->orientation, this->xSize, this->ySize));
     this->count = 0;
 }
-
 void AnimatedEntity::idle(void) {
     if (this->count % 200 == 0) {
         this->frame = (this->frame + 1) % this->spriteFrames;

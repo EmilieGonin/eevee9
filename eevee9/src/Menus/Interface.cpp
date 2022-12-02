@@ -128,7 +128,7 @@ void Interface::loop_events() {
 void Interface::draw_all() {
     this->window->draw(*bg); //Background
 
-    if (this->battleMenu == true ||this->evolveMenu) {
+    if (this->battleMenu == true || this->evolveMenu) {
         for (auto t : texts) { //Draw tous les textes
             t.setCharacterSize(24);
             t.setFillColor(sf::Color::Black);
@@ -144,23 +144,18 @@ void Interface::draw_all() {
         }
 
         displayInfo("");
-
-
-
         this->drawEevee();
         this->enemy->idle();
         this->window->draw(this->enemy->getSprite(4, 4));
     }
-    
+
     else {
-        for (auto t : texts) { 
+        for (auto t : texts) {
             this->window->draw(t);
         }
     }
-
     this->window->display(); //On affiche tout
 }
-
 
 void Interface::drawShopInfo() {
     this->window->draw(*bg); //Background
@@ -197,13 +192,11 @@ void Interface::drawShopInfo() {
         thunder.setPosition(225, 224);
         this->window->draw(thunder);
 
-
         for (auto t : texts) {
             this->window->draw(t);
         }
 
         this->window->display(); //On affiche tout
-
 }
 void Interface::drawEevee() {
     //Définis la texture et les frames de Eevee (évolué ou non)
@@ -232,7 +225,6 @@ void Interface::drawComment(std::string comment, bool win) {
     this->window->draw(*bg);
  
     displayInfo(comment);
-
     this->drawEevee();
 
     if (!win)
@@ -304,7 +296,6 @@ void Interface::shop() {
     this->shopMenu = true;
     this->image->loadFromFile("./img/shop.png");
     this->bg->setTexture(*image);
-
    
     //Texts
     this->options = {  "Buy", "Buy", "Buy" };
@@ -313,9 +304,7 @@ void Interface::shop() {
     std::cout << options.size();
     while (this->shopMenu == true) {
         loop_events();
-
         drawShopInfo();
-
     }
 }
 
@@ -336,7 +325,6 @@ void Interface::shopOptions() {
             this->eevee->addLoot(3, -1000);
         }
     }
-
 }
 
 void Interface::pauseOptions() {
@@ -377,12 +365,10 @@ int Interface::battle() {
         loop_events();
         draw_all();
 
-        if (this->evolveMenu == true)
-        {
+        if (this->evolveMenu == true) {
             std::cout << "je suis en train d'evolve";
             evolve();
         }
-
     }
     std::cout << this->choice << std::endl;
     return this->choice;
@@ -425,7 +411,6 @@ void Interface::evolve() {
         loop_events();
         draw_all();
     }
-
 }
 void Interface::evolveOptions() {
     if (options[pos] == "Fire") {
@@ -473,7 +458,6 @@ void Interface::displayInfo(std::string comment) {
 
         myHp.setSize(sf::Vector2f(this->hpBarLength, 11));
         this->hpBarLength += 100;
-        
     }
 
     this->hpBarLength = this->hpBarLength / 100;
@@ -554,7 +538,6 @@ void Interface::setMap(int nb) {
     this->mapId = nb;
 }
 
-
 void Interface::changeMap(bool colTp) {
     if (colTp) {
         if (this->mapId == 0) {
@@ -575,8 +558,6 @@ void Interface::changeMap(bool colTp) {
         }
     }
 }
-
-
 
 //Setters
 
@@ -604,7 +585,6 @@ void Interface::openShop(bool shop) {
     if (shop && sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         std::cout << " j'ouvre le shop";
         this->shopMenu = true;
-
     }
 }
 void Interface::getItem(bool shop) {
@@ -620,4 +600,3 @@ bool Interface::getPauseMenu() { return this->pauseMenu; }
 bool Interface::getBattleMenu() { return this->battleMenu; }
 bool Interface::getMapId() { return this->mapId; }
 bool Interface::getShop() { return this->shopMenu; }
-//bool Interface::getMess() { return this->myMessage; }

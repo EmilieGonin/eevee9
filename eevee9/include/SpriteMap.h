@@ -1,4 +1,5 @@
 #pragma once
+
 #include "AnimatedEntity.h"
 #include "Eevee.h"
 

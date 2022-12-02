@@ -1,9 +1,6 @@
 #include "CollisionNPC.h"
 
-CollisionNPC::CollisionNPC(sf::Sprite& sprite) : sprite(sprite) {
-	
-};
-
+CollisionNPC::CollisionNPC(sf::Sprite& sprite) : sprite(sprite) {};
 
 bool CollisionNPC::getcollision(Eevee* player) {
 	sf::FloatRect NPCbounds = this->sprite.getGlobalBounds();

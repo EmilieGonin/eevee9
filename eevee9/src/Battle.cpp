@@ -32,7 +32,6 @@ void Battle::end() {
 	}
 
 	if (this->_win) {
-		
 		this->lowMusic.stop();
 
 		if(this->music.getVolume() == 0)

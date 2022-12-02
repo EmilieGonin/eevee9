@@ -175,8 +175,6 @@ int Game::update(int orientation) {
     return newOrientation;
 }
 
-
-
 //Setters
 
 void Game::setPause(bool pause) { this->pause = pause; }
@@ -314,8 +312,6 @@ void Game::CreateShapes(int mapId) {
             point->setPosition(835, 130);
             this->interactitem.push_back(mySprite);
 
-
-
             if (this->map1.size() < 5) {
                 this->map1.push_back(&this->walls);
                 this->map1.push_back(&this->grass);
@@ -328,12 +324,9 @@ void Game::CreateShapes(int mapId) {
                 this->sprites1.push_back(&this->sprites);
                 this->sprites1.push_back(&this->interactitem);
             }
-
         }
-
     }
     if (mapId == 1) {
-
         sf::Texture* itemTexture = new sf::Texture();
         itemTexture->loadFromFile("./img/item.png");
 
@@ -353,7 +346,6 @@ void Game::CreateShapes(int mapId) {
             }
             this->sprites1.pop_back();
         }
-
         while (this->map3.size() != 0) {
             for (size_t i = 0; i < this->map3.size(); i++) {
                 while (this->map3[i]->size() != 0) {
@@ -488,19 +480,6 @@ void Game::CreateShapes(int mapId) {
             sf::Sprite* point = &mySprite;
             point->setPosition(65, 225);
             this->interactitem.push_back(mySprite);
-
-    
-
-            /*SpriteMap* pnjItem2 = new SpriteMap(itemTexture);
-            sf::Sprite mySprite2 = pnjItem2->getSprite(1.1, 1.1);
-            sf::Sprite* point2 = &mySprite2;
-            point->setPosition(65, 225);
-            this->sprites.push_back(mySprite2);*/
-
-            /*sf::RectangleShape getitem2(sf::Vector2f(5, 5));
-            getitem2.setPosition(835, 130);
-            getitem2.setFillColor(sf::Color::Red);
-            this->interactitem.push_back(getitem2);*/
         }
 
         if (this->map2.size() < 5) {
@@ -508,22 +487,13 @@ void Game::CreateShapes(int mapId) {
             this->map2.push_back(&this->grass);
             this->map2.push_back(&this->tp);
             this->map2.push_back(&this->interact);
-           
         }
-        if (this->sprites2.size() < 1)
-        {
+        if (this->sprites2.size() < 1) {
             this->sprites2.push_back(&this->interactitem);
         }
     }
     if (mapId == 2) {
-
-
-        
-
-
-
         if (this->map3.size() == 0) {
-
             std::cout << "map3 created" << std::endl;
             while (this->map2.size() != 0) {
                 for (size_t i = 0; i < this->map2.size(); i++) {
@@ -535,7 +505,6 @@ void Game::CreateShapes(int mapId) {
                 this->map2.pop_back();
             }
 
-
             while (this->sprites2.size() != 0) {
                 for (size_t i = 0; i < this->sprites2.size(); i++) {
                     while (this->sprites2[i]->size() != 0) {
@@ -544,7 +513,6 @@ void Game::CreateShapes(int mapId) {
                 }
                 this->sprites2.pop_back();
             }
-
 
             sf::RectangleShape zall(sf::Vector2f(1, 672));
             zall.setPosition(0, 0);
@@ -596,7 +564,6 @@ void Game::CreateShapes(int mapId) {
             zall9.setFillColor(sf::Color::Transparent);
             this->walls.push_back(zall9);
 
-
             sf::RectangleShape tp(sf::Vector2f(175, 5));
             tp.setPosition(480, 5);
             tp.setFillColor(sf::Color::Transparent);
@@ -614,7 +581,6 @@ void Game::CreateShapes(int mapId) {
             shop.setPosition(764, 442);
             shop.setFillColor(sf::Color::Red);
             this->interact.push_back(shop);
-
         }
 
         if (this->map3.size() < 4) {
@@ -622,11 +588,9 @@ void Game::CreateShapes(int mapId) {
             this->map3.push_back(&this->grass);
             this->map3.push_back(&this->tp);
             this->map3.push_back(&this->interact);
-
         }
         if (this->sprites3.size() < 1) {
             this->sprites3.push_back(&this->sprites);
-
         }
     }
     

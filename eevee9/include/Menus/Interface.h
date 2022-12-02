@@ -8,10 +8,8 @@
 class Interface
 {
 protected:
-
     int pos, choice, count, mapId;
     bool pressed, startMenu, pauseMenu, battleMenu, display, evolveMenu, shopMenu, myMessage;
-
     int hpBarLength, ennemyHpBarLength;
 
     Game* _game;
@@ -51,9 +49,7 @@ public:
     void startOptions();
     void pause();
     void pauseOptions();
-    /*void message(std::string);
-    void drawMessage(std::string);
-    void openMessage(bool);*/
+
     //Battle menus
 
     int battle();
@@ -91,5 +87,4 @@ public:
     bool getBattleMenu();
     bool getMapId();
     bool getShop();
-    //bool getMess();
 };
