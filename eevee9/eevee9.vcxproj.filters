@@ -51,7 +51,10 @@
     <ClCompile Include="src\collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Items.cpp">
+    <ClCompile Include="src\CollisionNPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,7 +89,10 @@
     <ClInclude Include="include\collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Items.h">
+    <ClInclude Include="include\CollisionNPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SpriteMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,14 +2,14 @@
 #include "AnimatedEntity.h"
 #include "Eevee.h"
 
-class Items : public AnimatedEntity
+class SpriteMap: public AnimatedEntity
 {
 protected:
-	sf::Sprite item;
 
+	
 public:
-	Items(sf::Texture&, sqlite3*);
-	~Items();
+	SpriteMap(sf::Texture*);
+	~SpriteMap();
 
 	bool getItem(Eevee*);
 };

@@ -2,7 +2,8 @@
 
 #include "Entity.h"
 #include "Collision.h"
-#include "Items.h"
+#include "CollisionNPC.h"
+#include "SpriteMap.h"
 
 class Game
 {
@@ -24,13 +25,18 @@ public:
 	bool isMoving();
 	int update(int);
 	std::vector<std::vector<sf::RectangleShape>*> map1;
-	std::vector < Items*> itemmap1;
 	std::vector<std::vector<sf::RectangleShape>*> map2;
-	std::vector <Items*> itemmap2;
 	std::vector<std::vector<sf::RectangleShape>*> map3;
+
+	std::vector<std::vector<sf::Sprite>*> sprites1;
+	std::vector<std::vector<sf::Sprite>*> sprites2;
+	std::vector<std::vector<sf::Sprite>*> sprites3;
+	std::vector <sf::Sprite> sprites;
+
 	std::vector<sf::RectangleShape> walls;
 	std::vector<sf::RectangleShape> grass;
 	std::vector<sf::RectangleShape> tp;
+	std::vector<sf::RectangleShape> interact;
 	
 
 	void randomBattle(bool);
@@ -48,6 +54,8 @@ public:
 	bool CreateCollision(Eevee*);
 	bool sethovergrass(Eevee*);
 	bool setHoverTp(Eevee*);
+	bool setColSprites(Eevee*);
+	bool setInteractShop(Eevee*);
 
 };
 

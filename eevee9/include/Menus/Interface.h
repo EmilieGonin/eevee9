@@ -3,14 +3,14 @@
 #include "Game.h"
 #include "Eevee.h";
 #include "Enemy.h"
-#include "Items.h"
+#include "SpriteMap.h"
 
 class Interface
 {
 protected:
     int pos;
     int choice;
-    bool pressed, startMenu, pauseMenu, battleMenu, display, evolveMenu;
+    bool pressed, startMenu, pauseMenu, battleMenu, display, evolveMenu, shopMenu;
 
     int hpBarLength, ennemyHpBarLength;
     int count;
@@ -60,6 +60,10 @@ public:
     void displayComment(std::string, bool);
     void displayInfo(std::string);
 
+    void shop();
+    void shopOptions();
+    void openShop(bool);
+
     //Setters
     void stopMusic();
     void setPauseMenu(bool);
@@ -72,4 +76,5 @@ public:
     bool getPauseMenu();
     bool getBattleMenu();
     bool getMapId();
+    bool getShop();
 };

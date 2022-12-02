@@ -44,7 +44,7 @@ int main()
         else { //Sinon, on vérifie les mouvements du joueur + la pause
             player.setOrientation(game.update(player.getOrientation()));
 
-            if (game.getPause() != true) { //Si le jeu n'est pas en pause
+            if (game.getPause() != true && interface.getShop() != true) { //Si le jeu n'est pas en pause
                 if (game.getKeyPressed()) { //On vérifie les touches pressées
                     player.update();
                 }
@@ -55,12 +55,20 @@ int main()
                 if (game.isMoving()) { //On vérifie si le sprite doit bouger
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
+                    player.collisionNotMoving(game.setColSprites(&player));
                     game.randomBattle(game.sethovergrass(&player));
                     interface.changeMap(game.setHoverTp(&player));
+                   
+                    
                 }
+                interface.openShop(game.setInteractShop(&player));
             }
-            else {
+            else if(game.getPause()) {
                 interface.pause();
+            }
+            else if (interface.getShop()) {
+                interface.shop();
+                
             }
             
             game.clear();
