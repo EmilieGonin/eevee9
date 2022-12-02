@@ -51,9 +51,10 @@ int main()
                     player.move(game.CreateCollision(&player));
                     player.collisionNotMoving(game.CreateCollision(&player));
                     player.collisionNotMoving(game.setColSprites(&player));
+                    /*player.collisionNotMoving(game.setColSprites(&player));*/ // fonction de collision avec get item pour items
                     game.randomBattle(game.sethovergrass(&player));
                     interface.changeMap(game.setHoverTp(&player));
-                   
+                    
                     
                 }
                 interface.openShop(game.setInteractShop(&player));
@@ -63,9 +64,9 @@ int main()
             }
             else if (interface.getShop()) {
                 interface.shop();
-                
-            }
           
+            }
+
             game.clear();
             interface.map(); //Création de la map et des collisions
             game.drawtile(); //Debug only - voir où sont placées nos collisions

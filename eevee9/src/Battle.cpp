@@ -76,8 +76,9 @@ void Battle::loot() {
 		this->_eevee->addLoot(loot - 3, 0);
 		this->interface->displayComment("You got a shard !", this->_win);
 	}
-	this->_eevee->addLoot(0,100);
-	this->interface->displayComment("You won 100$", this->_win);
+	int moneyLoot = this->random(400) + 50;
+	this->_eevee->addLoot(0, moneyLoot);
+	this->interface->displayComment("You won " + std::to_string(moneyLoot) + " $", this->_win);
 }
 
 bool Battle::battle() {
