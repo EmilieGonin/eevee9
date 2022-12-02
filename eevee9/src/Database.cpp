@@ -88,7 +88,7 @@ std::vector<std::string> getSave(sqlite3* db) {
 		//6[x], 7[y], 8[Orientation int], 9[Money int]
 		std::string sql2 = std::string(
 			"INSERT INTO SAVE(HP, WATERSTONE, THUNDERSTONE, FIRESTONE, MAP, X, Y, ORIENTATION, MONEY)"\
-			"VALUES(\"55\", \"0\", \"0\", \"0\", \"1\", \"850\", \"510\", \"0\",\"500\");");
+			"VALUES(\"55\", \"0\", \"0\", \"0\", \"1\", \"317\", \"450\", \"0\",\"500\");");
 		SQL(db, sql2.c_str());
 
 		datas = dataSQL(db, sql.c_str());
